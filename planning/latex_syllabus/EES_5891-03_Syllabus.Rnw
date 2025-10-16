@@ -548,7 +548,11 @@ find there.
 \medskip
 \clearpage
 \section[Description]{Course Description}
+\iffalse
 \subsection{Catalog Description}
+\else
+\subsection{Concise Description}
+\fi
 The class will begin with an introduction to Bayesian statistics and then focus
 on practical application of regression methods to data. We will use R together
 with the
@@ -766,8 +770,7 @@ assert_that(sum(grade_weights) == 100)
 	\begin{tabular}[t]{cr}
 		Class participation & \Sexpr{grade_weights["participation"]}\%\\
 		Homework & \Sexpr{grade_weights["homework"]}\%\\
-		Laboratory \& Homework & \Sexpr{grade_weights["lab"]}\%\\
-		Final exam   & \Sexpr{grade_weights["final"]}\%\\
+		Project & \Sexpr{grade_weights["project"]}\%
 	\end{tabular}
 \end{center}
 %
