@@ -522,12 +522,12 @@ homework and lab grades to \TaAccusative.
 \fi
 
 \subsection{Email}
-If you want to communicate with Professor Gilligan
+If you want to communicate with me
 % or \TaTitle\
 be sure to
 begin the subject line of your email with ``{\scshape EES~5891}''
 This helps assure
-that we will see your message quickly and respond to it.
+that \iffalse we \else I \fi will see your message quickly and respond to it.
 
 I have set my email reader to flag all messages like this as important, so I
 will read them first.
@@ -586,33 +586,48 @@ solve. In the last 30 years, as computers have become much faster and more
 powerful, new computational methods have emerged that make Bayesian statistics
 practical for research and applications.
 
-Bayesian analysis is widely used across a wide variety of research as well as
-practical applications. It is used to analyze results from high-energy
-particle physics experiments to discover new subatomic particles.
-There are many other applications in a wide variety of domains.
-It's used by geologists to improve estimates of mineral distributions and
+Bayesian statistical methods are valuable because they provide a systematic
+way to combine what you already know about a problem with new data from
+experiments or observations, and the results of Bayesian analyses are more
+straightforward to interpret than conventional statistics.
+These methods are widely used across a wide variety of research as well as
+practical applications.
+
+Bayesian analysis is
+used by geologists to improve estimates of mineral distributions and
 radon hazards.
+It is widely used in meteorology to make weather forecasts and in
+climate science to combine data from many different sources and come up with
+quantitative predictions and detailed understanding of their associated
+uncertainties.
+One powerful application in climate science was to integrate model output
+with empirical paleoclimate data to put constraints on the earth's climate
+sensitivity.
+It is used to analyze results from high-energy
+particle physics experiments to discover new subatomic particles.
 It's used by biologists to identify and categorize variations in the genomes of
 humans and other species.
-It's used extensively in medicine to analyze the results of clinical trials,
+
+Bayesian methods are used extensively in medicine to analyze the results
+of clinical trials,
 to determine the pharmacokinetics of drug metabolism, and to assess the
 predictive value of tests for diseases such as cancer or COVID infection.
 It's used in political science and sociology to improve the
 accuracy of public opinion surveys and to understand patterns of voting.
-It's widely used in marketing to identify consumer preferences and
+It has been applied to public health to estimate the prevalence of diseases
+and to make more effective treatment decisions when medical tests are uncertain.
+
+Bayesian analysis is widely used in business and
+marketing to identify consumer preferences and
 improve the effectiveness of advertising.
 If you use Google, Amazon,
 Netflix, Stitchfix, or practically any large online platform for shopping or
 entertainment, advanced Bayesian methods form the basis of their
 recommendations.
+
 Bayesian analysis has also been applied effectively to law and criminology to
 assess the value of evidence in proving guilt or innocence.
-It has been applied to public health to estimate the prevalence of dieseases
-and tomake more effective treatment decisions when medical tests are uncertain.
-It is widely used in meteorology to make weather forecasts and in
-climate science to combine data from many different sources and come up with
-quantitative predictions and detailed understanding of their associated
-uncertainties.
+
 Bayesian methods are also widely used in computational applications, such as
 image analysis and reconstruction, computational text analysis, and natural
 language processing.
@@ -621,18 +636,13 @@ in 1964, identified the anonymous authors of the Federalist Papers.
 More recent applications of Bayesian textual analysis are used to separate
 desired email from spam.
 
-Bayesian statistical methods are valuable because they provide a systematic
-way to combine what you already know about a problem with new data from
-experiments or observations, and the results of Bayesian analyses are more
-straightforward to interpret than conventional statistics.
-
 This course will provide a general introduction to Bayesian statistics and
 will combine practical instruction in how to do Bayesian data analysis and
 philosophical discussions about how to think about the assumptions that go into
 a Bayesian analysis and how to interpret the results that it produces.
 
-You do not need to have any prior knowledge of computer programming, but I do
-expect that you are familiar with basic statistics and calculus
+You do not need to have any prior knowledge of computer programming,
+but I do expect that you are familiar with basic statistics and calculus
 (both derivatives and integrals).
 
 \section[Goals]{Goals for the Course}
@@ -855,7 +865,7 @@ This course, like all courses at Vanderbilt, is conducted under the Honor Code.
     or from other classmates or friends.
 %
   \item[Homework:] I encourage working together.
-    In most lab assignments you will be explicitly told to work with a partner.
+    % In most lab assignments you will be explicitly told to work with a partner.
     I also encourage you to talk with other classmates, as well as friends and
     acquaintances outside of class. You may discuss assignments, compare notes
     on how you are working a problem, and you may look at your
@@ -891,81 +901,6 @@ in this course, please ask me%
 \fi
 .
 \textbf{Uncertainty about the Honor Code does not excuse a violation.}
-
-\iffalse
-\subsection{Research Integrity}
-
-Beyond the University Honor Code, this course also emphasizes the scientific
-ethical principles of research integrity.
-Honesty is a very important part of research integrity, but it is only one part.
-Clearly, science cannot work if scientists are not scrupulously honest about
-the results of their research and there is no tolerance for scientists who
-lie. But research integrity goes much farther. Real science happens in the
-context of a scientific community and the integrity of this community is
-critical. The ethical principles of research
-integrity have grown over the centuries to protect the integrity of the
-scientific community. Indeed, the mathematician and poet Jacob Bronowski wrote,
-in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what
-makes science work and makes it great is much less about the intellectual
-brilliance and skills of individual scientists than about the ethical commitment
-to truth and human dignity by the community of scientists.
-
-Science does not proceed only by making leaps of discovery
-but also by making useful mistakes and then discovering and correcting the
-errors in those mistakes. Because of this, scientific integrity requires
-scientists to be extremely transparent and forthcoming about all the details of
-their research. It is not enough to sincerely report a discovery or an idea in
-good faith, but one must also provide others with the tools to critically
-examine that discovery and idea, and if a scientist learns, even many years
-later, that a report or discovery contained an error, they must
-correct the error and actively inform other scientists about it.
-
-When a scientist discovers an error in their past work and does not promptly
-and actively correct it, other scientists may continue to rely on the truth of
-that result and thus waste time, effort, and money.
-Thus, both making one's own work available to others so they can have the %'
-opportunity to find errors, and also to promptly and publicly report any
-errors that one finds in one's own work are two critical pieces of research %'
-integrity.
-
-Another aspect also involves the communal nature of science: None of us works
-in isolation, and every scientist's work builds on work by others. %'
-There are two reasons why it is critical to acknowledge the role of others' %'
-work in our own research reports: First, it is important to give others the
-credit for their contributions to our shared body of scientific knowledge.
-Secondly, it is important for others to know where the data and methods we use
-come from.
-If I use someone else's data or methods for an analysis and it later turns %'
-out that there were problems with their data or methods, then it is important
-for people reading my work to be able to examine my work and evaluate how those
-errors might affect my own results.
-
-I want to emphasize that these considerations about research integrity are not
-just negative things. They are very positive, which is why so many researchers
-are embracing them.
-\textbf{By being transparent and forthcoming, and by encouraging
-others to reproduce your research results, you can enhance your reputation},
-both for honesty (you show that you have nothing to hide) and for being a
-good citizen of the scientific community by making it easy for other researchers
-to learn from your work and build on it to make new discoveries and build
-new and more powerful tools for analyzing data.
-
-Where this is relevant to this course on Global Climate Change is in our
-practice of reproducible research in the laboratory portion of the course.
-Making our work, however humble, fully open and transparent so that others
-may examine it, criticize it, or build on it to develop new tools and make
-new discoveries is an essential part of research integrity.
-
-In your lab reports it will be important for you to document where the data you
-worked with comes from (this will mostly be clearly spelled out in the
-assignments) and what methods you used to analyze it. Using the tools of R and
-RMarkdown will make it easy to almost automatically include this kind of
-transparency in your reports. As you do this throughout this course, you will
-learn the best practices adopted by the scientific community and develop habits
-of openness, transparency, and reproducibility for any research you do in the
-future in any area of society, whether in science, journalism, business, or
-other endeavors.
-\fi
 
 \section{Final Note:}
 I have made every effort to plan a busy, exciting, and instructive semester.
