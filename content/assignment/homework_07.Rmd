@@ -1,20 +1,25 @@
 ---
 title: Monte-Carlo sampling
-due_date: '2022-11-01'
+subtitle: '`r params$par_subtitle`'
+due_date: '`r params$par_date`'
 assignment_type: Homework
 short_assignment_type: HW
+med_assignment_type: Homework
 assignment_number: 7
 weight: 7
 slug: homework_07
-pubdate: '2022-07-31'
-date: '2022-11-01'
+pubdate: '2025-12-31'
+date: '`r params$par_date`'
+params:
+  par_date: '2026-03-17'
+  par_subtitle: ~
+pdf_url: /files/homework_asgts/homework_07.pdf
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
   pdf_document:
     toc: yes
     toc_depth: 3
-pdf_url: /files/homework_asgts/homework_07.pdf
 ---
 ## Homework
 
@@ -28,7 +33,7 @@ Here are the [homework exercises from the book](/files/homework_docs/McElreath-C
 
 **Self-study:** Work these exercises, but do not turn them in.
 
-* Exerccises 9E3--9E6
+* Exercises 9E3--9E6
 * Exercises 11E1--11E3
 
 **Turn in:** Work these exercises and turn them in.
@@ -57,7 +62,16 @@ exercises are `ex9m1` and `ex9m2`).
 
 This is equivalent to the code from the textbook for `m9.1`:
   
+```{r ex9m1_pre, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(cmdstanr)
+if (!dir.exists(Sys.getenv("CMDSTAN"))) {
+  set_cmdstan_path()
+}
+
+rethinking::set_ulam_cmdstan(TRUE)
+```
 ```{r ex9m1, echo = TRUE, eval=TRUE, message=FALSE, warning=FALSE, results="hide"}
+library(cmdstanr)
 library(rethinking)
 library(tidyverse)
 
@@ -81,7 +95,7 @@ m9.1 <- ulam(
     a[cid] ~ dnorm(1, 0.1),
     b[cid] ~ dnorm(0, 0.3),
     sigma ~ dexp(1)
-  ), data=dat_slim, chains = 4, cores = 4)
+  ), data=dat_slim, chains = 4, cores = 4, cmdstan = TRUE)
 ```
 
 This code will plot the posterior probability densities:
@@ -91,7 +105,8 @@ library(tidybayes)
 library(tidybayes.rethinking)
 library(bayesplot)
 
-mcmc_dens(m9.1@stanfit)
+draws <- tidy_draws(m9.1)
+mcmc_dens(draws)
 ```
 
 If you have two models, `foo` and `bar`, you can compare the 

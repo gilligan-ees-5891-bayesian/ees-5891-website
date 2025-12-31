@@ -1,15 +1,19 @@
 ---
 title: Discrete statistical models
-class_date: '2022-10-25'
+subtitle: '`r params$par_subtitle`'
+class_date: '`r params$par_date`'
 class_number: 16
 weight: 16
 slug: reading_16
-pubdate: '2022-07-31'
-date: '2022-10-25'
+pubdate: '2025-12-31'
+date: '`r params$par_date`'
+params:
+  par_date: '2026-03-02'
+  par_subtitle: ~
+pdf_url: /files/reading_asgts/reading_16.pdf
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
-pdf_url: /files/reading_asgts/reading_16.pdf
 ---
 ## Reading:
 

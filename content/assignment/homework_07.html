@@ -1,20 +1,25 @@
 ---
 title: Monte-Carlo sampling
-due_date: '2022-11-01'
+subtitle: ''
+due_date: '2026-03-17'
 assignment_type: Homework
 short_assignment_type: HW
+med_assignment_type: Homework
 assignment_number: 7
 weight: 7
 slug: homework_07
-pubdate: '2022-07-31'
-date: '2022-11-01'
+pubdate: '2025-12-31'
+date: '2026-03-17'
+params:
+  par_date: '2026-03-17'
+  par_subtitle: ~
+pdf_url: /files/homework_asgts/homework_07.pdf
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
   pdf_document:
     toc: yes
     toc_depth: 3
-pdf_url: /files/homework_asgts/homework_07.pdf
 ---
 
 
@@ -29,7 +34,7 @@ pdf_url: /files/homework_asgts/homework_07.pdf
 <h3>Homework Exercises:</h3>
 <p><strong>Self-study:</strong> Work these exercises, but do not turn them in.</p>
 <ul>
-<li>Exerccises 9E3–9E6</li>
+<li>Exercises 9E3–9E6</li>
 <li>Exercises 11E1–11E3</li>
 </ul>
 <p><strong>Turn in:</strong> Work these exercises and turn them in.</p>
@@ -55,7 +60,8 @@ and also plot the densities of the posteriors.</p>
 following (assume the model from the book is <code>m9.1</code>, and the models from the
 exercises are <code>ex9m1</code> and <code>ex9m2</code>).</p>
 <p>This is equivalent to the code from the textbook for <code>m9.1</code>:</p>
-<pre class="r"><code>library(rethinking)
+<pre class="r"><code>library(cmdstanr)
+library(rethinking)
 library(tidyverse)
 
 data(rugged)
@@ -78,14 +84,15 @@ m9.1 &lt;- ulam(
     a[cid] ~ dnorm(1, 0.1),
     b[cid] ~ dnorm(0, 0.3),
     sigma ~ dexp(1)
-  ), data=dat_slim, chains = 4, cores = 4)</code></pre>
+  ), data=dat_slim, chains = 4, cores = 4, cmdstan = TRUE)</code></pre>
 <p>This code will plot the posterior probability densities:</p>
 <pre class="r"><code>library(tidybayes)
 library(tidybayes.rethinking)
 library(bayesplot)
 
-mcmc_dens(m9.1@stanfit)</code></pre>
-<p><img src="/assignment/homework_07_files/figure-html/m9.1-dens-1.png" width="576" /></p>
+draws &lt;- tidy_draws(m9.1)
+mcmc_dens(draws)</code></pre>
+<p><img src="/assignment/homework_07_files/figure-html/m9.1-dens-1.png" alt="" width="576" /></p>
 <p>If you have two models, <code>foo</code> and <code>bar</code>, you can compare the
 posteriors of a parameter like <code>sigma</code> using code like this, from the
 textbook:</p>

@@ -1,20 +1,25 @@
 ---
 title: Progress report
-due_date: '2022-11-17'
+subtitle: '`r params$par_subtitle`'
+due_date: '`r params$par_date`'
 assignment_type: Semester Project Assignment
 short_assignment_type: Report
+med_assignment_type: Report
 assignment_number: 10
 weight: 102
 slug: project_draft
-pubdate: '2022-07-31'
-date: '2022-11-17'
+pubdate: '2025-12-31'
+date: '`r params$par_date`'
+params:
+  par_date: '2026-04-09'
+  par_subtitle: ~
+pdf_url: /files/homework_asgts/project_draft.pdf
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
   pdf_document:
     toc: yes
     toc_depth: 3
-pdf_url: /files/homework_asgts/project_draft.pdf
 ---
 ## Homework
 
