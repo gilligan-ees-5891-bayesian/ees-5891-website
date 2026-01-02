@@ -3,6 +3,8 @@ library(tidyverse)
 pacman::p_load_gh("jonathan-g/blogdownDigest")
 # pacman::p_load_gh("jonathan-g/semestr")
 library(semestr)
+library(gert)
+library(credentials)
 
 regenerate_site <- function(root = NULL, force = FALSE) {
   if (is.null(root)) {
@@ -50,6 +52,7 @@ init_git_tokens <- function(keyring = "git_access") {
 }
 
 config_cred <- function(val, lbl, repo) {
+  retval <- NULL
   if(val) {
     if (.Platform$OS.type == "windows") {
       home_dir <- Sys.getenv("USERPROFILE")
@@ -57,40 +60,51 @@ config_cred <- function(val, lbl, repo) {
       home_dir <- path.expand("~")
     }
     url <- gert::git_remote_info(lbl, repo)$url
-    key_path <- NULL
+    is_ssh <- !str_starts(url, "https?://")
     # message("url = ", url)
-    if (str_starts(url, fixed("git@github.com"))) {
-      key_path <- file.path(home_dir, ".ssh", "github.com",
-                            "id_ed25519_gh")
-    } else if (str_starts(url, fixed("git@gitlab.com"))) {
-      key_path <- file.path(home_dir, ".ssh", "gitlab.com",
-                            "id_ed25519_gl_com")
-    } else if (str_starts(url, fixed("git@gitlab.jgilligan.org"))) {
-      key_path <- file.path(home_dir, ".ssh", "jg_gitlab", "id_ed25519")
-    }
-    if (! is.null(key_path)) {
-      # message("key_path = ", key_path)
-      structure(list(
-        publickey = normalizePath(str_c(key_path, ".pub"),
-                                  mustWork = TRUE),
-        privatekey = normalizePath(key_path, mustWork = TRUE),
-        passphrase = keyring::key_get("SSH_KEY_PASSWORD",
-                                      keyring = "git_access",
-                                      username = "jonathan"),
-        class = "cred_ssh_key")
-      )
-    } else {
-      NULL
+    key_path <- NULL
+    if (is_ssh) {
+      ssh_url <- str_replace_all(url, ":.*$", "")
+      try(key_path <- ssh_key_info(ssh_url)$key)
+      if (is.null(key_path) || is.na(key_path)) {
+        if (str_starts(url, fixed("git@github.com"))) {
+          key_path <- file.path(home_dir, ".ssh", "github.com",
+                                "id_ed25519_gh")
+        } else if (str_starts(url, fixed("git@gitlab.com"))) {
+          key_path <- file.path(home_dir, ".ssh", "gitlab.com",
+                                "id_ed25519_gl_com")
+        } else if (str_starts(url,
+                              fixed("git@gitlab.jgilligan.org"))) {
+          key_path <- file.path(home_dir, ".ssh", "jg_gitlab",
+                                "id_ed25519")
+        }
+      }
+      if (! is.null(key_path)) {
+        # message("key_path = ", key_path)
+        retval <- structure(list(
+          publickey = normalizePath(str_c(key_path, ".pub"),
+                                    mustWork = TRUE),
+          privatekey = normalizePath(key_path, mustWork = TRUE),
+          passphrase = keyring::key_get("SSH_KEY_PASSWORD",
+                                        keyring = "git_access",
+                                        username = "jonathan"),
+          class = "cred_ssh_key")
+        )
+      } else {
+        retval <- NULL
+      }
     }
   } else {
     if (str_starts(url, fixed("https://github.com"))) {
       token = "GITHUB_PAT"
-    } else if (str_starts(url, fixed("https://gitlab.jgilligan.org"))) {
+    } else if (str_starts(url,
+                          fixed("https://gitlab.jgilligan.org"))) {
       token = "GITLAB_PAT"
     }
-    structure(list(token = Sys.getenv(token)),
-              class = "cred_token")
+    retval <- structure(list(token = Sys.getenv(token)),
+                        class = "cred_token")
   }
+  retval
 }
 
 process_cred <- function(cred) {
@@ -111,7 +125,7 @@ publish <- function(ssh = NULL, repo = ".") {
 
   if (is.null(ssh)) {
     remotes <- c("origin", "publish")
-    pattern <- "^git@([a-zA-Z][a-zA-Z0-9_\\-.]+):"
+    pattern <- "^(git@)?([a-zA-Z][a-zA-Z0-9_\\-.]+):"
     ssh <- map_lgl(remotes,
                    ~str_detect(gert::git_remote_info(.x, repo)$url,
                                pattern)) %>%
@@ -125,12 +139,12 @@ publish <- function(ssh = NULL, repo = ".") {
   cred <- imap(ssh, get_cred, repo = repo)
   message("Pushing publish main ...")
   gert::git_push(remote = "publish", refspec = "refs/heads/main",
-             password = cred$publish$passphrase,
-             ssh_key = cred$publish$privatekey)
+                 password = cred$publish$passphrase,
+                 ssh_key = cred$publish$privatekey)
   message("Done.")
   message("Pushing origin main")
   gert::git_push(remote = "origin", refspec = "refs/heads/main",
-             password = cred$origin$passphrase,
-             ssh_key = cred$origin$privatekey)
+                 password = cred$origin$passphrase,
+                 ssh_key = cred$origin$privatekey)
   message("Done.")
 }

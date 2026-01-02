@@ -1,12 +1,12 @@
 baseurl = "https://ees5891.jgilligan.org"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "EES 5891-01"
+title = "EES 4891-06/5891-01"
 theme = "hugo-syllabus"
 # disqusShortname = ""
 enableRobotsTXT = true
 # googleAnalytics = "UA-101117636-3"
-paginate = 10
+pagination.pagerSize = 10
 relativeurls = true
 publishDir = "public"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_data$", "\\.gitkeep"]
@@ -74,13 +74,13 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
 [author]
   name = "Jonathan Gilligan"
   bio = ""
-  job = "Associate Professor"
+  job = "Professor"
   location = "Vanderbilt University"
-  gravatarEmail = "jonathan.gilligan@gmail.com"
+  gravatarEmail = "jonathan.gilligan@pm.me"
   # Your profile picture
 #  picture = ""
   homepage = "https://www.jonathangilligan.org"
-  twitter = "jg_environ"
+  bluesky = "jgilligan.org"
   youtube = "UCh3zZ5uI7oZBtpO6kflg_dg"
 
 # Menu Configuration
@@ -151,10 +151,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
   backgroundSize = "cover"
   backgroundBlendMode = "multiply"
   backgroundRepeat = "repeat-y"
-  shortCourseName = "EES 5891-01"
-  fullCourseName = "EES 5891-01: Bayesian Statistical Methods"
+  shortCourseName = "EES 4891-06/5891-01"
+  fullCourseName = "EES 4891-06/5891-01: Bayesian Statistical Methods"
   semester = "Spring 2026"
-  courseCatalogEntry = "An introduction to Bayesian statistics, with a focus on both practical application of Bayesian regression methods to data as well as philosophical background on statistical inference and interpretation of statistical analyses. Bayes's theorem and tools for applying it, including quadratic approximations, and Hamiltonian Monte Carlo sampling. Advanced methods, including multilevel regression methods and geospatial analysis."
+  courseCatalogEntry = "An introduction to Bayesian statistics, with a focus on both practical application of Bayesian regression methods to data as well as philosophical background on statistical inference and interpretation of statistical analyses. Bayes's theorem and tools for applying it, including quadratic approximations, and Hamiltonian Monte Carlo sampling. Advanced methods, including multilevel regression methods."
   siteGitHub = "https://github.com/gilligan-ees-5891-bayesian/ees-5891-website.git"
 
   [params.fontAwesomePro]

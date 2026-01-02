@@ -31,17 +31,19 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
 
 
 
-* If you don't have R installed on your computer, download and install R.
-  If you have a version of R older than 4.2,
-  you should update it to 4.2 or higher.
+* #### **Install R**
 
-  To install or upgrade R, download R version 4.2.1
+  If you don't have R installed on your computer, download and install R.
+  If you have a version of R older than 4.5,
+  you should update it to 4.5 or higher.
+
+  To install or upgrade R, download R version 4.5.2
   from [The Comprehensive R Archive Network](https://cran.rstudio.org)
   * **Windows:**
     * Download and install the
-      ["base distribution" of R 4.2.1](https://cran.rstudio.org/bin/windows/).
+      ["base distribution" of R 4.5.2](https://cran.rstudio.org/bin/windows/).
   * **MacOS:**
-    * Download and install [R version 4.2.1](https://cran.rstudio.org/bin/macosx/)
+    * Download and install [R version 4.5.2](https://cran.rstudio.org/bin/macosx/)
   * **Linux:**
     * You should be able to install R from your Linux distribution's package
       manager:
@@ -54,9 +56,11 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
         versions of R and its associated packages at
         <https://cran.rstudio.org/bin/linux/ubuntu/fullREADME.html>.
         This is optional and the default version of R should be fine for this
-        class, as long as it is version 4.2 or higher.
+        class, as long as it is version 4.5 or higher.
 
-* RStudio is a free editing and software development environment that makes it
+* #### **Install RStudio**
+
+  RStudio is a free editing and software development environment that makes it
   much easier to work with R. I strongly recommend that you install RStudio
   for this course.
 
@@ -68,21 +72,23 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
     There are other versions of RStudio (an expensive professional
     edition and a server edition).
     You want the **free desktop edition**.
-    As of August 2022, the latest version is RStudio Desktop version
-    2022.07.1+554.
+    As of January 2026, the latest version is RStudio Desktop version
+   2025.09.2+418 (Cucumberleaf Sunflower)
   * Run the installer.
   * After the installer finishes running, run RStudio.
     * When RStudio starts up, the lower left part of the screen should have
       a window that displays the R version, saying something like this:
 
       ```
-      R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
-      Copyright (C) 2022 The R Foundation for Statistical Computing
-      Platform: x86_64-w64-mingw32/x64 (64-bit)
+      `r R.version$version.string` -- "`r R.version$nickname`"
+      Copyright (C) `r R.version$year` The R Foundation for Statistical Computing
+      Platform: `r R.version$platform`
 
       R is free software and comes with ABSOLUTELY NO WARRANTY.
       You are welcome to redistribute it under certain conditions.
       Type 'license()' or 'licence()' for distribution details.
+
+          Natural language support but running in an English locale
 
       R is a collaborative project with many contributors.
       Type 'contributors()' for more information and
@@ -101,7 +107,7 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
 
       If have installed the Git revision control system or the LaTeX
       typesetting software, you should configure RStudio to use them:
-    * If will use Git for software revision control with R, you should
+    * If you will use Git for software revision control with R, you should
       open the "Tools" menu, and click on the "Global Options" choice.
       * Go to the "Git/SVN" tab and click "enable version control interface
         for RStudio projects".
@@ -114,32 +120,78 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
       `.Rnw` files, and choose `pdfLaTeX` for typesetting LaTeX
       files into PDF.
 
-* After you have installed R and RStudio, you will need to install
+* #### **Install the `cmdstanr` package for R**
+
+
+  After you have installed R and RStudio, you will need to install
   a number of software packges that extend R for Bayesian data analysis.
 
-  The trickiest package to install is rstan. I recommend that you follow the
-  [detailed installation instructions](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
-  on the RStan web site. There are instructions for Mac, Windows, and Linux.
+  The trickiest package to install is `cmdstanr`. I recommend that you
+  follow the
+  [detailed installation instructions](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
+  on the RStan web site.
 
-  Before you can install RStan, you will need to install a C++ compiler
-  and related tools before you can use RStan.
+  After you install `cmdstanr`, you will need to use it to install the
+  `cmdstan` software.
+  For this, you will need to install a C++ compiler
+  and related tools before you can install `cmdstan`.
+
   (Don't worry, you won't need to do any programming in C++.
-  Stan writes the C++ code for you, based on your description of the statistical
-  problem.)
-  Follow the instructions at the rstan web page for
-  [Mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)
-  or
-  [Windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)
-  or
-  [Linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)
+  Stan writes the C++ code for you, based on your description of the
+  statistical problem.)
+
+  Follow the instructions at the `cmdstan` web page,
+  <https://mc-stan.org/docs/cmdstan-guide/installation.html>.
+  There are instructions for installing the C++ toolchain for
+  Windows, MacOS, and Linux. If you are using Windows, the simplest thing
+  to do is install the Rtools4.5 software from the same
+  place you installed R, or from
+  <https://cran.rstudio.org/bin/windows/Rtools/rtools45/rtools.html>
 
   After you've done this, you can go to the
-  [main RStan installation instructions](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
+  [main `cmdstanr` installation instructions](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
   and continue from there.
+
+  The basic steps are to do the following at the R console in RStudio:
+
+  #. First, check whether the C++ toolchain is set up correctly:
+
+     ```{r check-cmdstan-toolchain, echo=TRUE, eval=FALSE}
+     library(cmdstanr)
+
+     check_cmdstan_toolchain()
+     ```
+
+  #. If you get an error message, then run
+
+     ```{r fix-cmdstan-toolchain, echo=TRUE, eval=FALSE}
+     check_cmdstan_toolchain(fix = TRUE)
+     ```
+
+     to fix the toolchain configuration
+
+  #. Next, install `cmdstan`
+
+     ```{r install-cmdstan, echo=TRUE, eval=FALSE}
+     options(mc.cores = parallel::detectCores() / 2 - 1)
+     install_cmdstan()
+     ```
+
+     The line beginning `options(...` is optional. It tells R to use
+     multiple processor cores to install `cmdstan`, which can speed up the
+     installation considerably if you have a powerful processor in your
+     computer.
 
   If you run into difficulty, let me know and I will help you.
 
-* This will be a lot easier. Open RStudio, go to the "Console" window in
+  If you are having trouble installing `cmdstan`, don't worry. We won't
+  use `cmdstan` until late in the semester, so go ahead and install the
+  other things, and there will be plenty of time for me to help you get
+  `cmdstan` installed and working on your computer.
+
+* #### **Install other R packages**
+
+  This will be a lot easier. Open RStudio, go to the "Console" window in
   RStudio, and type
   ```r
   install.packages(c("devtools", "pacman"))
@@ -159,6 +211,7 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
   remotes::install_github("mjskay/tidybayes.rethinking")
   ```
   This may take some time to run, but when it is done, you should be good to go.
+
 * You will also need to install the `cmdstanr` package to run the `rethinking`
   package.
 

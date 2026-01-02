@@ -2,7 +2,7 @@
 title: "Course Description"
 date: "2021-08-26T00:00:00"
 ---
-#### <a href="/files/EES_5891-03_Syllabus.pdf" target="_blank"><i class="fa fa-file-pdf-o" style="margin-right:0.25em;"></i> **Printable syllabus**</a>
+#### <a href="/files/EES_5891-01_Syllabus.pdf" target="_blank"><i class="fa fa-file-pdf-o" style="margin-right:0.25em;"></i> **Printable syllabus**</a>
 
 # Contents
 
@@ -43,10 +43,7 @@ date: "2021-08-26T00:00:00"
 The class will begin with an introduction to Bayesian statistics and then focus 
 on practical application of regression methods to data. We will use R together 
 with the 
-[Stan software package](https://mc-stan.org) for Hamiltonian Monte Carlo methods
-and the [R-INLA software package](https://www.r-inla.org/) 
-for Integrated Nested Laplace Approximation (INLA) analysis 
-(https://www.r-inla.org/). 
+[Stan software package](https://mc-stan.org) for Hamiltonian Monte Carlo methods.
 The course will combine practical applications of Bayesian methods to real 
 (often messy) data with more philosophical discussions of Bayesian approaches 
 to statistics and how to interpret results of statistical analyses. 
@@ -149,12 +146,6 @@ By the end of the semester, you will:
   models of discrete (categorical and count) data.
 * Understand what multilevel or hierarchical models are, when to use them,
   and how to interpret the results of a multilevel analysis.
-* Understand the Integrated Nested Laplace Approximation (INLA),
-  why you might use INLA instead of MCMC analysis, and what the limits of INLA
-  analysis are.
-* Understand several types of Bayesian geospatial analysis, including
-  Matern covariance models and conditional autoregressive (CAR) models.
-
 
 
 # **Structure of the Course:** {#structure}
@@ -169,21 +160,16 @@ I divide the semester into three parts:
 * **Monte Carlo Methods:** 
   Next, we study Monte Carlo methods, which help us solve more difficult 
   problems that our earlier approximations are not powerful enough for.
+
+* **Advanced Applications of Bayesian Methods:**
   This section will introduce statistical models of discrete data
-  (counts, categories, etc.), and generalized linear models. It will conclude
-  with multilevel statistical models, which can be very powerful methods for
-  working with large and complex data sets.
-
-* **Geospatial Modeling:**
-  Finally, we will learn a different approach, called the Integrated 
-  Nested Laplace Approximation (INLA), which is very well suited for 
-  analyzing geospatial data that may be too difficult to analyze uding 
-  Monte Carlo methods. 
-
+  (counts, categories, etc.), and generalized linear models. 
+  It will conclude with multilevel statistical models, which can be 
+  very powerful methods for working with large and complex data sets.
 
 ## Reading Material {#reading}
 
-There are two required textbooks and two optional textbooks:
+There is one required textbooks and two optional textbooks:
 
 ### Textbooks
 
@@ -196,57 +182,51 @@ There are two required textbooks and two optional textbooks:
    [videos of his lectures]({{% RETHINKING_LECTURES %}})
    on YouTube.
   
-   McElreath uses basic R, which is fine, but many people have learned to use
-   a more modern dialect of R called the "tidyverse," which is described
-   at length in our companion book, [{{% MEDIUM_WICKHAM %}}]({{% WICKHAM_URL %}}).
-   For people who are used to the Tidyverse, there is an online e-book
-   * {{% LONG_TIDY_RETHINKING %}},
+   McElreath uses basic R, which is fine, but many people have learned 
+   to use a more modern dialect of R called the "tidyverse," which is 
+   described at length in our companion book, 
+   [{{% MEDIUM_WICKHAM %}}]({{% WICKHAM_URL %}}).
+   
+   * For people who are used to the Tidyverse, there is an online e-book
+   
+     * {{% LONG_TIDY_RETHINKING %}}, that translates McElreath's R code 
+       into the _tidyverse_, dialect.
+     
+     If you want to use this, you will read the text in McElreath's 
+     book, but use the code from Kurz's e-book.
 
-
-   that translates McElreath's R code into the _tidyverse_, dialect.
-   If you want to use this, you will read the text in McElreath's book, 
-   but use the code from Kurz's e-book.
-
-2. {{% LONG_INLA %}}
-
-   We will only use this book for a few weeks in the third part of the semester,
-   when we are studying geospatial methods.
-
-   The book is fairly expensive, but there is a free 
-   [online e-book version]({{% INLA_URL %}})
-   of this book that you can use, if you don't want to buy it.
-  
-   We will use this book in the third part of the semester, when we study 
-   Bayesian geospatial methods. This book covers a method called the 
-   Integrated Nested Laplace Approximation, which is very powerful for 
-   statistical models that are too computationally intensive for Monte Carlo
-   methods.
-  
 #### Optional Textbooks
   
-There are two optional textbooks that you don't need to buy, but which may 
-be very useful as companions to the assigned textbooks. 
+There are two optional textbooks that you don't need to buy, but which
+may be very useful as companions to the assigned textbooks. 
   
 3. {{% LONG_DBDA %}}
 
-   This is an excellent introduction to Bayesian data analysis for beginners.
-   It is gentler than {{% MEDIUM_RETHINKING %}}, and would be better suited for
-   an undergraduate course, but I decided not to use it as the main textbook 
-   for this class because it focuses more on the statistical methods and does 
-   not give as much application of them to real scientific problems.
+   This is an excellent introduction to Bayesian data analysis for
+   beginners.
+   It is gentler than {{% MEDIUM_RETHINKING %}}, and would be better
+   suited for an undergraduate course, but I decided not to use it as
+   the main textbook for this class because it focuses more on the
+   statistical methods and does not give as much application of them to
+   real scientific problems.
   
-   The author writes very clearly and this book may be helpful if you find
-   some of the material in {{% MEDIUM_RETHINKING %}} confusing.
-   I have asked the Science and Engineering Library to put a copy on reserve so
-   you will be able to access it without buying a copy.
+   The author writes very clearly and this book may be helpful if you 
+   find some of the material in {{% MEDIUM_RETHINKING %}} confusing.
+   I have asked the Science and Engineering Library to put a copy on 
+   reserve so you will be able to access it without buying a copy, and
+   the library also has access to online editions of the book.
 
 4. {{% LONG_WICKHAM %}}
 
-   This book is the best practical introduction I have found for getting started
-   in R and getting things done in data analysis. The author is the chief data
-   scientist as the RStudio company and wrote a huge number of widely used free
-   packages to extend and enrich R. This book follows his philosophy of how to 
-   organize data sensibly for analyzing and presenting it.
+   This book is the best practical introduction I have found for getting
+   started in R and getting things done in data analysis. The author is 
+   the chief data scientist at Posit (the makers of RStudio) and wrote a
+   huge number of widely used free packages to extend and enrich R. 
+   This book follows his philosophy of how to organize data sensibly 
+   for analyzing and presenting it.
+   
+   This book is freely available online at 
+   <{{% WICKHAM_URL %}}>, so you won't need to buy it.
 
 ## Additional Resources
 
@@ -256,54 +236,55 @@ for reading about these powerful methods and how to use them.
 
 ## Class Web Site
 
-In addition to {{% BRIGHTSPACE %}}, I have set up a companion web site for this
-course at
+In addition to {{% BRIGHTSPACE %}}, I have set up a companion web site 
+for this course at
 <https://ees5891.jgilligan.org>,
-where I post the reading and homework assignments,
-my slides from class, and other useful material. That web site will be the
-central place to keep up with material for the course during the semester.
-This web site will direct you to Brightspace if there is anything you need to
-find there.
-
+where I post the reading and homework assignments, my slides from class,
+and other useful material. That web site will be the central place to 
+keep up with material for the course during the semester.
+This web site will direct you to Brightspace if there is anything you 
+need to find there.
 
 ## Computer Software {#software}
 
-For this class, we will work in R, and I strongly recommend that you install
-the free version of RStudio Desktop for working with R. All the software we will
-use this semester is free and can be downloaded and installed on Windows,
-Mac, and Linux systems. You can find details at the 
-[tools page]({{% TOOLS_PAGE_URL %}}) of the 
+For this class, we will work in R, and I strongly recommend that you 
+install the free version of RStudio Desktop for working with R. 
+All the software we will use this semester is free and open-source, and
+can be downloaded and installed on Windows, Mac, and Linux systems. 
+You can find details at the [tools page]({{% TOOLS_PAGE_URL %}}) of the 
 {{% CLASS_WEB_SITE %}}
 
 # **Assignments** {#assignments}
  
 ### Overview of reading assignments {#reading-asgts}
 
-I will give out detailed reading that give specific pages to read for each class 
-and notes on important things you should understand.
-**I expect you to complete the reading before you come to class on the day 
-for which the reading is assigned**, 
-so you can participate in discussions of the 
-assigned material and ask questions if there are things you don't understand.
+I will give out detailed reading that give specific pages to read for
+each class and notes on important things you should understand.
+**I expect you to complete the reading before you come to class on the 
+day for which the reading is assigned**, so you can participate in 
+discussions of the assigned material and ask questions if there are 
+things you don't understand.
 
 ## **Graded Work** {#graded-work}
 
 ### Homework {#homework}
 
-Homework must be turned in at the beginning of class on the day it's due.
+Unless specified differently in the assignment, all homework must be 
+turned in on the day it is due (before midnight at the end of the day).
 
 ### Project {#project}
 
-In the second half of the semester, you will do a research project, in which you
-will choose a data set that's interesting to you and apply Bayesian methods to 
-analyze it. You will present the results of your project in class during the
-last week of the semester and turn in a written report about your project.
+In the second half of the semester, you will do a research project, 
+in which you will choose a data set that's interesting to you and apply 
+Bayesian methods to analyze it. You will present the results of your 
+project in class during the last week of the semester and turn in a 
+written report about your project.
 
 ### Tests and Examinations {#tests}
 
-There will not be any tests or examinations in this course. Your grade will be 
-based on class participation, homework, modeling projects, and in-class 
-presentations.
+There will not be any tests or examinations in this course. Your grade
+will be based on class participation, homework, modeling projects, and 
+in-class presentations.
 
 ## **Basis for Grading** {#grades}
 
@@ -316,9 +297,9 @@ presentations.
 
 # **Final Note:**
 
-I have made every effort to plan a busy, exciting, and instructive semester.
-I may find during the term that I need to revise the syllabus to give more time
-to some subjects or to pass more quickly over others rather than covering them
-in depth.
+I have made every effort to plan a busy, exciting, and instructive 
+semester. I may find during the term that I need to revise the syllabus 
+to give more time to some subjects or to pass more quickly over others 
+rather than covering them in depth.
 Thus, while I will attempt to follow this syllabus as closely as I can,
 you should realize that it is subject to change during the semester.

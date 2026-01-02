@@ -25,7 +25,7 @@ output:
 
 ### Preliminary Information
 
-This homework set introduces you to Bayeian statistics and the basic concepts we use in the Bayesian approach to thinking about statistics and statistical analysis.
+This homework set introduces you to Bayesian statistics and the basic concepts we use in the Bayesian approach to thinking about statistics and statistical analysis.
 
 ### Homework Exercises:
 
