@@ -55,7 +55,7 @@ university Honor Code.
   principles that apply to publishing papers in scientific journals. 
   The work you present must be your own, but you may consult with 
   others and seek help. If anyone else makes a significant contribution 
-  to your project, you whould list them and their contribution in an 
+  to your project, you would list them and their contribution in an 
   Acknowledgements section.
 
 If you ever have questions about how the Honor Code applies to your work

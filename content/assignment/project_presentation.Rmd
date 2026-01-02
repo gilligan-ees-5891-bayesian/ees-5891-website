@@ -38,6 +38,6 @@ You will not have time to talk about everything you did, so you should make sure
 
 1. Introduction: A short introduction describing your research problem and why it's interesting to you.
 2. Data: Describe your data: what variables does it contain? Where did it come from? Did you have any particular challenges getting the data, or cleaning and preparing it to get it into R in a useful form for your analysis?
-3. Model: Describe your statistical model. Focus on the main structure of your model. You won't have time to get into details about how you chose your proors, etc. 
+3. Model: Describe your statistical model. Focus on the main structure of your model. You won't have time to get into details about how you chose your priors, etc. 
 4. Results: Describe the results of your analysis. Show graphs of your most interesting results
 5. Conclusions: What did you learn from your analysis? How does this help you understand your research question or problem?

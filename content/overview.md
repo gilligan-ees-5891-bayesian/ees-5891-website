@@ -92,8 +92,8 @@ entertainment, advanced Bayesian methods form the basis of their
 recommendations. 
 Bayesian analysis has also been applied effectively to law and criminology to 
 assess the value of evidence in proving guilt or innocence. 
-It has been applied to public health to estimate the prevalence of dieseases 
-and tomake more effective treatment decisions when medical tests are uncertain. 
+It has been applied to public health to estimate the prevalence of diseases 
+and to make more effective treatment decisions when medical tests are uncertain. 
 It is widely used in meteorology to make weather forecasts and in 
 climate science to combine data from many different sources and come up with 
 quantitative predictions and detailed understanding of their associated 
@@ -127,7 +127,7 @@ By the end of the semester, you will:
 * Understand Bayes's theorem and how to apply it.
 * Understand problems with the traditional statistical emphasis on
   null-hypothesis significance testing (NHST), why Bayesian approaches to
-  NHST don't solve these problems, and how Bayeian statistics offers
+  NHST don't solve these problems, and how Bayesian statistics offers
   superior alternatives to NHST.
 * Understand how think about statistical models, how to choose an
   appropriate model for your problems, and understand the tradeoffs between

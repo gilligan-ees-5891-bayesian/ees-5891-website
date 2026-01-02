@@ -39,7 +39,7 @@ This homework set introduces you to Bayesian statistics and the basic concepts w
 **Turn in:** Work these exercises and turn them in.
 
 * Exercises 2M1--2M3, 2H1--2H2
-* Esercises 3M1--3M3, and 3M5
+* Exercises 3M1--3M3, and 3M5
 
 **Optional:** The following exercises are optional. You can turn them in for extra credit.
 

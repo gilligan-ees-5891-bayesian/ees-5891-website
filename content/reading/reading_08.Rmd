@@ -35,7 +35,7 @@ There are several layers to this chapter:
    
    It then generalizes from these, in the "Confronting Confounding" section,
    to give us a general way to think about
-   potential problems that arise from diffrent kinds of causal relationships 
+   potential problems that arise from different kinds of causal relationships 
    among predictor variables and the dependent variable.
    
 2. Simultaneously to developing this content about different kinds of 

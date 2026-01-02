@@ -124,12 +124,12 @@ Set up software: R, RStudio, R development environment, and R packages for Bayes
 
 
   After you have installed R and RStudio, you will need to install
-  a number of software packges that extend R for Bayesian data analysis.
+  a number of software packages that extend R for Bayesian data analysis.
 
   The trickiest package to install is `cmdstanr`. I recommend that you
   follow the
   [detailed installation instructions](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
-  on the RStan web site.
+  on the `cmdstanr` web site.
 
   After you install `cmdstanr`, you will need to use it to install the
   `cmdstan` software.

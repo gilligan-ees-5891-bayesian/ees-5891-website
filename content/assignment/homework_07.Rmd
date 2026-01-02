@@ -139,7 +139,7 @@ where the color of the line and the fill inside the density plot indicate which
 model is which.
 
 The argument `size = 1` tells R how thick to make the line, and `alpha = 0.3`
-sets the transparency of the fills (1 = completely opague and 
+sets the transparency of the fills (1 = completely opaque and 
                                     0 = completely transparent)
 
 If you want to make a single plot that shows comparisons of all the parameters 
