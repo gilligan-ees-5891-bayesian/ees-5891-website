@@ -206,17 +206,6 @@ body {
 /*********************************************
  * CONTROLS
  *********************************************/
-@-webkit-keyframes bounce-right {
-  0%, 10%, 25%, 40%, 50% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(10px);
-  }
-  30% {
-    transform: translateX(-5px);
-  }
-}
 @keyframes bounce-right {
   0%, 10%, 25%, 40%, 50% {
     transform: translateX(0);
@@ -226,17 +215,6 @@ body {
   }
   30% {
     transform: translateX(-5px);
-  }
-}
-@-webkit-keyframes bounce-down {
-  0%, 10%, 25%, 40%, 50% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(10px);
-  }
-  30% {
-    transform: translateY(-5px);
   }
 }
 @keyframes bounce-down {
@@ -331,8 +309,7 @@ body {
   transform: rotate(180deg);
 }
 .reveal .controls .navigate-right.highlight {
-  -webkit-animation: bounce-right 2s 50 both ease-out;
-          animation: bounce-right 2s 50 both ease-out;
+  animation: bounce-right 2s 50 both ease-out;
 }
 .reveal .controls .navigate-up {
   right: 3.2em;
@@ -351,8 +328,7 @@ body {
   transform: rotate(-90deg);
 }
 .reveal .controls .navigate-down.highlight {
-  -webkit-animation: bounce-down 2s 50 both ease-out;
-          animation: bounce-down 2s 50 both ease-out;
+  animation: bounce-down 2s 50 both ease-out;
 }
 .reveal .controls[data-controls-back-arrows=faded] .navigate-left.enabled, .reveal .controls[data-controls-back-arrows=faded] .navigate-up.enabled {
   opacity: 0.3;
@@ -430,9 +406,9 @@ body {
     left: 0;
   }
   .reveal .controls[data-controls-layout=edges] .navigate-left,
-.reveal .controls[data-controls-layout=edges] .navigate-right,
-.reveal .controls[data-controls-layout=edges] .navigate-up,
-.reveal .controls[data-controls-layout=edges] .navigate-down {
+  .reveal .controls[data-controls-layout=edges] .navigate-right,
+  .reveal .controls[data-controls-layout=edges] .navigate-up,
+  .reveal .controls[data-controls-layout=edges] .navigate-down {
     bottom: auto;
     right: auto;
   }
@@ -631,8 +607,7 @@ body {
  * Aliased 'linear' for backwards compatibility
  *********************************************/
 .reveal.slide section {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .reveal .slides > section[data-transition=slide].past,
@@ -660,8 +635,7 @@ body {
 }
 
 .reveal.linear section {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .reveal .slides > section[data-transition=linear].past,
@@ -830,8 +804,7 @@ body {
 .reveal.cube .slides section {
   padding: 30px;
   min-height: 700px;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   box-sizing: border-box;
   transform-style: preserve-3d;
 }
@@ -1150,8 +1123,7 @@ body {
 .reveal[data-background-transition=slide] > .backgrounds .slide-background,
 .reveal > .backgrounds .slide-background[data-background-transition=slide] {
   opacity: 1;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .reveal[data-background-transition=slide] > .backgrounds .slide-background.past,
@@ -1605,8 +1577,7 @@ body {
   transition: all 400ms ease;
   transform-origin: 50% 0%;
   transform-style: preserve-3d;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .reveal .roll:hover span {
@@ -1621,8 +1592,7 @@ body {
   left: 0;
   top: 0;
   padding: 0 2px;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   transform-origin: 50% 0%;
   transform: translate3d(0px, 110%, 0px) rotateX(-90deg);
 }
@@ -1719,8 +1689,7 @@ body {
 .zoomed .reveal *,
 .zoomed .reveal *:before,
 .zoomed .reveal *:after {
-  -webkit-backface-visibility: visible !important;
-          backface-visibility: visible !important;
+  backface-visibility: visible !important;
 }
 
 .zoomed .reveal .progress,

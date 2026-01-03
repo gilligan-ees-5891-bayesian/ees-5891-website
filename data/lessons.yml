@@ -1,6 +1,7 @@
 lessons:
 - date: '2026-01-05'
   title: Introduction
+  lecture: /slides/class_01
 - date: '2026-01-07'
   title: Rethinking statistics
   reading: /reading/reading_02
