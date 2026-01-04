@@ -31,12 +31,17 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
   [markup.goldmark]
     [markup.goldmark.extensions]
       definitionList = true
-      footnote = true
       linkify = true
-      strikethrough = true
+      strikethrough = false
       table = true
       taskList = true
-      typographer = true
+      [markup.goldmark.extensions.extras]
+        [markup.goldmark.extensions.extras.superscript]
+          enable = true
+        [markup.goldmark.extensions.extras.subscript]
+          enable = true
+        [markup.goldmark.extensions.extras.delete]
+          enable = true
     [markup.goldmark.parser]
       attribute = true
       autoHeadingID = true

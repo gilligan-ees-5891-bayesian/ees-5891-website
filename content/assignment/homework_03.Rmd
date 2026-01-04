@@ -1,5 +1,5 @@
 ---
-title: Linear regression models
+title: Bayesian analysis by sampling
 subtitle: '`r params$par_subtitle`'
 due_date: '`r params$par_date`'
 assignment_type: Homework
@@ -11,7 +11,7 @@ slug: homework_03
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-01-23'
+  par_date: '2026-01-22'
   par_subtitle: ~
 pdf_url: /files/homework_asgts/homework_03.pdf
 output:
@@ -23,19 +23,28 @@ output:
 ---
 ## Homework
 
+### Preliminary Information
+
+This homework set introduces you to the use of sampling to apply Bayes's theorem and estimate Bayesian posterior probability distributions.
+
 ### Homework Exercises:
 
 
 
 **Self-study:** Work these exercises, but do not turn them in.
 
-* Exercises 4E1--4E5
+* Exercises 3E1--3E5
 
 **Turn in:** Work these exercises and turn them in.
 
-* Exercises 4M1--4M7
+* Exercises 3M1--3M3, and 3M5
 
 **Optional:** The following exercises are optional. You can turn them in for extra credit.
 
-* Exercise 4H3
+* Exercises 3H1--3H3
 
+### Notes on Homework:
+
+
+You can download a PDF copy of the exercises from chapters 2 and 3 of _Statistical Rethinking_ from
+[`https://ees5891.jgilligan.org/files/homework_docs/McElreath-Ch-2-3-homework.pdf`](/files/homework_docs/McElreath-Ch-2-3-homework.pdf "Chapter 2-3 homework")

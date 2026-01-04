@@ -136,8 +136,8 @@ By the end of the semester, you will:
   from start to finish.
 * Understand how to choose appropriate priors for your Bayesian analyses
   and how to test whether your choice of priors is sound.
-* Understand how to set up, perform, assess the validity of, and
-  interpret the results of Bayesian regression analysis.
+* Understand how to set up and perform Bayesian regression analysis,
+  assess the validity of the analysis, and interpret the results.
 * Understand why Markov Chain Monte Carlo (MCMC) sampling is used in Bayesian
   analysis, what the limits of MCMC are, and how to test your MCMC analyses
   for validity.
@@ -176,9 +176,18 @@ There is one required textbooks and two optional textbooks:
 1. {{% LONG_RETHINKING %}}
 
    This will be the main textbook for most of the semester.
+   
+   There is a PDF version of {{% MEDIUM_RETHINKING %}} on the web, which
+   many people download. It is substantially similar to the printed
+   version that we are using for our official textbook, but the page
+   numbers are different.
 
-   There is a [companion web site]({{% RETHINKING_COMPANION_URL %}}) to the book, 
-   and the author has posted 
+   To avoid confusion, I have posted PDF versions of the homework 
+   exercises from the printed book, which you can download when
+   you do the homework.
+
+   There is a [companion web site]({{% RETHINKING_COMPANION_URL %}}) 
+   to the book, and the author has posted 
    [videos of his lectures]({{% RETHINKING_LECTURES %}})
    on YouTube.
   
@@ -190,7 +199,7 @@ There is one required textbooks and two optional textbooks:
    * For people who are used to the Tidyverse, there is an online e-book
    
      * {{% LONG_TIDY_RETHINKING %}}, that translates McElreath's R code 
-       into the _tidyverse_, dialect.
+       into the _`tidyverse`_, dialect.
      
      If you want to use this, you will read the text in McElreath's 
      book, but use the code from Kurz's e-book.
@@ -226,7 +235,7 @@ may be very useful as companions to the assigned textbooks.
    for analyzing and presenting it.
    
    This book is freely available online at 
-   <{{% WICKHAM_URL %}}>, so you won't need to buy it.
+   {{% WICKHAM_URL %}}, so you won't need to buy it.
 
 ## Additional Resources
 
@@ -258,8 +267,8 @@ You can find details at the [tools page]({{% TOOLS_PAGE_URL %}}) of the
  
 ### Overview of reading assignments {#reading-asgts}
 
-I will give out detailed reading that give specific pages to read for
-each class and notes on important things you should understand.
+I have posted detailed reading assignments that give specific pages to
+read for each class and notes on important things you should understand.
 **I expect you to complete the reading before you come to class on the 
 day for which the reading is assigned**, so you can participate in 
 discussions of the assigned material and ask questions if there are 
@@ -271,6 +280,21 @@ things you don't understand.
 
 Unless specified differently in the assignment, all homework must be 
 turned in on the day it is due (before midnight at the end of the day).
+
+I will create {{% BRIGHTSPACE %}} assignments for the homework and you
+can turn the assignments in there. You can turn in your assignments
+as Word or PDF documents, or if you write them by hand, you can 
+take photos of the pages and upload those (in JPG or PNG format, 
+please).
+
+There is a PDF version of {{% MEDIUM_RETHINKING %}} on the web that 
+many people download. It is substantially similar to the printed
+version that we are using for our official textbook, but the page
+numbers are different.
+
+To avoid confusion, I have posted PDF versions of the 
+homework exercises from the printed book, which you can download when
+you do the homework.
 
 ### Project {#project}
 

@@ -192,21 +192,6 @@ for (p in c(&quot;tidyverse&quot;, &quot;ape&quot;, &quot;bayesplot&quot;, &quot
 remotes::install_github(&quot;rmcelreath/rethinking&quot;)
 remotes::install_github(&quot;mjskay/tidybayes.rethinking&quot;)</code></pre>
 <p>This may take some time to run, but when it is done, you should be good to go.</p></li>
-<li><p>You will also need to install the <code>cmdstanr</code> package to run the <code>rethinking</code>
-package.</p>
-<p>The first step is to start a fresh R session or in RStudio open the “Session”
-menu and choose “Restart R”. Then type this in the console window:</p>
-<pre><code>install.packages(&quot;cmdstanr&quot;, repos = c(&quot;https://mc-stan.org/r-packages/&quot;,
-                 getOption(&quot;repos&quot;)))</code></pre>
-<p>Next, type this:</p>
-<pre><code>library(cmdstanr)
-check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)</code></pre>
-<p>If this works without error, you should finally type this:</p>
-<pre><code>install_cmdstan(cores = 2)</code></pre>
-<p>If you are having difficulty installing <code>cmdstanr</code>, check
-<a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html">the documentation</a>
-at the
-<a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html"><code>cmdstanr</code> web site</a>.</p></li>
 </ul>
 </div>
 <div id="notes-on-homework" class="section level3">
