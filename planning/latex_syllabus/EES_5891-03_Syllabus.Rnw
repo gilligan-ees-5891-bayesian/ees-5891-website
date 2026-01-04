@@ -911,7 +911,7 @@ may warrant a detour from the schedule presented on the following pages.
 Thus, while I will attempt to follow this syllabus as closely as I can,
 you should realize that it is subject to change during the semester.
 
-\iffalse
+\iftrue
 \clearpage
 \include*{MeetYourProf}
 %

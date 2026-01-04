@@ -179,71 +179,15 @@ software system, but I do not assume that you already know R or advanced
 mathematics beyond calculus.
 
 \subsection{Narrative Description}
-Bayesian statistics is a branch of statistics that has been around for almost
-300 years, but for most of that time, it was very difficult to apply to
-practical problems because the mathematical equations were too difficult to
-solve. In the last 30 years, as computers have become much faster and more
-powerful, new computational methods have emerged that make Bayesian statistics
-practical for research and applications.
+Bayesian statistics is a branch of statistics that has been around for almost 300 years, but for most of that time, it was very difficult to apply to practical problems because the mathematical equations were too difficult to solve. In the last 30 years, as computers have become much faster and more powerful, new computational methods have emerged that make Bayesian statistics practical for research and applications.
 
-Bayesian statistical methods are valuable because they provide a systematic
-way to combine what you already know about a problem with new data from
-experiments or observations, and the results of Bayesian analyses are more
-straightforward to interpret than conventional statistics.
-These methods are widely used across a wide variety of research as well as
-practical applications.
+Bayesian analysis is widely used across a wide variety of research as well as practical applications. It is used to analyze results from high-energy particle physics experiments to discover new subatomic particles. There are many other applications in a wide variety of domains. It’s used by geologists to improve estimates of mineral distributions and radon hazards. It’s used by biologists to identify and categorize variations in the genomes of humans and other species. It’s used extensively in medicine to analyze the results of clinical trials, to determine the pharmacokinetics of drug metabolism, and to assess the predictive value of tests for diseases such as cancer or COVID infection. It’s used in political science and sociology to improve the accuracy of public opinion surveys and to understand patterns of voting. It’s widely used in marketing to identify consumer preferences and improve the effectiveness of advertising. If you use Google, Amazon, Netflix, Stitchfix, or practically any large online platform for shopping or entertainment, advanced Bayesian methods form the basis of their recommendations. Bayesian analysis has also been applied effectively to law and criminology to assess the value of evidence in proving guilt or innocence. It has been applied to public health to estimate the prevalence of diseases and to make more effective treatment decisions when medical tests are uncertain. It is widely used in meteorology to make weather forecasts and in climate science to combine data from many different sources and come up with quantitative predictions and detailed understanding of their associated uncertainties. Bayesian methods are also widely used in computational applications, such as image analysis and reconstruction, computational text analysis, and natural language processing. One of the earliest practical applications of Bayesian textual analysis, in 1964, identified the anonymous authors of the Federalist Papers. More recent applications of Bayesian textual analysis are used to separate desired email from spam.
 
-Bayesian analysis is
-used by geologists to improve estimates of mineral distributions and
-radon hazards.
-It is widely used in meteorology to make weather forecasts and in
-climate science to combine data from many different sources and come up with
-quantitative predictions and detailed understanding of their associated
-uncertainties.
-One powerful application in climate science was to integrate model output
-with empirical paleoclimate data to put constraints on the earth's climate
-sensitivity.
-It is used to analyze results from high-energy
-particle physics experiments to discover new subatomic particles.
-It's used by biologists to identify and categorize variations in the genomes of
-humans and other species.
+Bayesian statistical methods are valuable because they provide a systematic way to combine what you already know about a problem with new data from experiments or observations, and the results of Bayesian analyses are more straightforward to interpret than conventional statistics.
 
-Bayesian methods are used extensively in medicine to analyze the results
-of clinical trials,
-to determine the pharmacokinetics of drug metabolism, and to assess the
-predictive value of tests for diseases such as cancer or COVID infection.
-It's used in political science and sociology to improve the
-accuracy of public opinion surveys and to understand patterns of voting.
-It has been applied to public health to estimate the prevalence of diseases
-and to make more effective treatment decisions when medical tests are uncertain.
+This course will provide a general introduction to Bayesian statistics and will combine practical instruction in how to do Bayesian data analysis and philosophical discussions about how to think about the assumptions that go into a Bayesian analysis and how to interpret the results that it produces.
 
-Bayesian analysis is widely used in business and
-marketing to identify consumer preferences and
-improve the effectiveness of advertising.
-If you use Google, Amazon,
-Netflix, Stitchfix, or practically any large online platform for shopping or
-entertainment, advanced Bayesian methods form the basis of their
-recommendations.
-
-Bayesian analysis has also been applied effectively to law and criminology to
-assess the value of evidence in proving guilt or innocence.
-
-Bayesian methods are also widely used in computational applications, such as
-image analysis and reconstruction, computational text analysis, and natural
-language processing.
-One of the earliest practical applications of Bayesian textual analysis,
-in 1964, identified the anonymous authors of the Federalist Papers.
-More recent applications of Bayesian textual analysis are used to separate
-desired email from spam.
-
-This course will provide a general introduction to Bayesian statistics and
-will combine practical instruction in how to do Bayesian data analysis and
-philosophical discussions about how to think about the assumptions that go into
-a Bayesian analysis and how to interpret the results that it produces.
-
-You do not need to have any prior knowledge of computer programming,
-but I do expect that you are familiar with basic statistics and calculus
-(both derivatives and integrals).
+You do not need to have any prior knowledge of computer programming, but I do expect that you are familiar with basic statistics and calculus (both derivatives and integrals).
 
 \section[Goals]{Goals for the Course}
 By the end of the semester, you will:
@@ -260,8 +204,8 @@ By the end of the semester, you will:
   from start to finish.
 \item Understand how to choose appropriate priors for your Bayesian analyses
   and how to test whether your choice of priors is sound.
-\item Understand how to set up, perform, assess the validity of, and
-  interpret the results of Bayesian regression analysis.
+\item Understand how to set up and perform Bayesian regression analysis,
+  assess the validity of the analysis, and interpret the results.
 \item Understand why Markov Chain Monte Carlo (MCMC) sampling is used in Bayesian
   analysis, what the limits of MCMC are, and how to test your MCMC analyses
   for validity.
@@ -299,18 +243,8 @@ I divide the semester into three parts:
 \item \textbf{Monte Carlo Methods:}
   Next, we study Monte Carlo methods, which help us solve more difficult
   problems that our earlier approximations are not powerful enough for.
-  This section will introduce statistical models of discrete data
-  (counts, categories, etc.), and generalized linear models.
-\item \textbf{Hierarchical and Multilevel Statistical Modeling:}
-  We will conclude the semester
-  with multilevel statistical models, which can be very powerful methods for
-  working with large and complex data sets.
-  In these, we divide the data into several sets, or levels,
-  and conduct simultaneous regression analysis on each level.
-  Two famous early applications of multilevel modeling to earth \&
-  environmental sciences included estimating the risk of radon in homes
-  and siting deep tube wells to provide safe, arsenic-free drinking
-  water in Bangladesh.
+\item \textbf{Advanced Applications of Bayesian Methods:}
+ This section will introduce statistical models of discrete data (counts, categories, etc.), and generalized linear models. It will conclude with multilevel statistical models, which can be very powerful methods for working with large and complex data sets.
 \end{enumerate}
 
 %
@@ -327,30 +261,57 @@ during the term and posted on Brightspace.
 	\item \LongRethinking. This will be the principal textbook for the semester.
 	  Be sure you get the second edition because it is
 	  significantly different from the first.
-\end{itemize}
-\begin{sloppypar}
-There is a companion web site to \emph{\Rethinking\/} at \RethinkingWebSite,
-which has links a number of resources, including videos of the author's own
-lectures on the material.
-\end{sloppypar}
 
-For people who are familiar with R and like to work in the \texttt{tidyverse}
-dialect, there is a free companion e-book on the web at \TidyRethinkingBook,
-that has translated almost all the R code in the book into the \texttt{tidyverse}
-dialect of R.
+    \begin{sloppypar}
+    There is a companion web site to \emph{\Rethinking\/} at \RethinkingWebSite,
+    which has links a number of resources, and the author has posted
+    \href{\McElreathYouTubePlaylistURL}{videos of his lectures}
+    on YouTube.
+
+    McElreath uses basic R, which is fine, but many people have learned to use
+    a more modern dialect of R called the ``\texttt{tidyverse},'' which is
+    described at length in our companion book,
+    \href{https://r4ds.had.co.nz}{\emph{R for Data Science}}.
+
+    For people who are familiar with R and like to work in the
+    \texttt{tidyverse} dialect, there is a free companion e-book
+    on the web at \TidyRethinkingBook,
+    that has translated almost all the R code in the book into the
+    \texttt{tidyverse} dialect of R.
+    \end{sloppypar}
+\end{itemize}
 
 \subsubsection[Optional Books]{Optional Reading Materials}
-\begin{itemize}
-  \item \LongDBDA. This book has a more elementary introduction to Bayesian
-    statistics, at an undergraduate level. It is very clear, but it
-    focuses almost entirely on Monte Carlo sampling and doesn't go as deeply
-    into other important aspects of Bayesian statistics as we will do in this
-    course.
 
-    It is a very useful resource to check out if Monte Carlo sampling seems
-    confusing. I have asked the Science \& Engineering library to put a copy on
-    reserve so you can read it there without needing to buy it.
-  \item \LongWickham. This book is a great introduction to the R statistical
+There are two optional textbooks that you don't need to buy, but which may be
+very useful as companions to the assigned textbook.
+
+\begin{itemize}
+  \item \LongDBDA.
+  This is an excellent introduction to Bayesian data analysis for beginners. It
+  is gentler than \emph{Statistical Rethinking}, and would be better suited for
+  an undergraduate course, but I decided not to use it as the main textbook for
+  this class because it focuses more on the statistical methods and does not
+  give as much application of them to real scientific problems.
+
+  The author writes very clearly and this book may be helpful if you find some
+  of the material in \emph{Statistical Rethinking\/} confusing. I have asked the
+  Science and Engineering Library to put a copy on reserve so you will be able
+  to access it without buying a copy, and the library also has access to online
+  editions of the book.
+
+  \item \LongWickham.
+  This book is the best practical introduction I have found for getting started
+  in R and getting things done in data analysis. The author is the chief data
+  scientist at Posit (the makers of RStudio) and wrote a huge number of widely
+  used free packages to extend and enrich R. This book follows his philosophy
+  of how to organize data sensibly for analyzing and presenting it.
+
+  This book is freely available online at \url{https://r4ds.had.co.nz/},
+  so you won’t need to buy it.
+
+
+  This book is a great introduction to the R statistical
     programming language. It uses the \texttt{tidyverse} dialect of R,
     developed by Hadley Wickham.
     There is a free web-based ebook version at
@@ -358,8 +319,8 @@ dialect of R.
 \end{itemize}
 
 \subsubsection{Overview of Reading Materials}
-I will give out detailed reading that give specific pages to read for each
-class and notes on important things you should understand.
+I have posted detailed reading assignments that give specific pages to read
+for each class and notes on important things you should understand.
 \textbf{I expect you to complete the reading before you come to class
 % or watch the recorded class session
 on the day for which the reading is assigned},
@@ -399,16 +360,18 @@ in greater detail in future classes.
 %
 \iftrue
 \subsubsection{Homework}
-Homework is due at the beginning of class on the day it is assigned.
+Unless the assignment specifies differently, homework must be turned in
+on the day it is due (before midnight at the end of the day).
 % Late homework will be accepted for half-credit if I receive it before I post
 % the answer key on Brightspace (usually a week after the assignment is due).
 \fi
 \iftrue
   \subsubsection{Projects}
-  You will do an extended research project in the second half of the semester,
-  in which you will apply Bayesian methods to investigating a data set that
-  you choose. This could be data from your dissertation research or
-  another data set that interests you.
+  In the second half of the semester, you will do a research project, in which
+  you will choose a data set that’s interesting to you and apply Bayesian
+  methods to analyze it. You will present the results of your project in class
+  during the last week of the semester and turn in a written report about your
+  project.
 \fi
 
 \subsubsection{Tests and Examinations}
@@ -441,7 +404,9 @@ Homework is due at the beginning of class on the day it is assigned.
       the term.
 \end{itemize}
 \else
-  There will be no tests or exams in this course.
+  There will not be any tests or examinations in this course. Your grade will
+  be based on class participation, homework, modeling projects, and in-class
+  presentations.
 \fi
 
 %\clearpage
@@ -499,12 +464,15 @@ in this course, please ask me%
 I have made every effort to plan a busy, exciting, and instructive semester.
 I may find during the term that I need to revise the syllabus to give more time
 to some subjects or to pass more quickly over others rather than covering them
-in depth. Many topics we will cover are frequently in the news. Breaking news
+in depth.
+\iffalse
+Many topics we will cover are frequently in the news. Breaking news
 may warrant a detour from the schedule presented on the following pages.
+\fi
 Thus, while I will attempt to follow this syllabus as closely as I can,
 you should realize that it is subject to change during the semester.
 
-\iffalse
+\iftrue
 \clearpage
 \include*{MeetYourProf}
 %
@@ -538,83 +506,80 @@ site at \url{https://ees5891.jgilligan.org}.
 \setlength{\heavyrulewidth}{0.5pt}
 \setlength{\lightrulewidth}{0.05pt}
 \begin{center}
-% latex table generated in R 4.5.1 by xtable 1.8-4 package
-% Thu Oct 16 12:23:35 2025
+% latex table generated in R 4.5.2 by xtable 1.8-4 package
+% Sat Jan  3 16:36:58 2026
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
  \midrule
-Thu., & Aug. &  25 & Introduction & No reading &  \\ 
+Mon., & Jan. &   5 & Introduction & No reading &  \\
    \midrule
-Tue., & Aug. &  30 & Rethinking statistics & \emph{McElreath\/} Ch.~1--2 ("The Golem of Prague" and "Small Worlds and Large Worlds") &  \\ 
+Wed., & Jan. &   7 & Rethinking statistics & \emph{McElreath\/} Ch.~1--2 ("The Golem of Prague" and "Small Worlds and Large Worlds") &  \\
    \midrule
-Thu., & Sep. &   1 & Sampling & \emph{McElreath\/} Ch.~3 ("Sampling the Imaginary") &  \\ 
+Mon., & Jan. &  12 & Sampling & \emph{McElreath\/} Ch.~3 ("Sampling the Imaginary") &  \\
    \midrule
-Tue., & Sep. &   6 & Geocentric Models & \emph{McElreath\/} Ch.~4 ("Geocentric Models") &  \\ 
+Wed., & Jan. &  14 & Geocentric Models & \emph{McElreath\/} Ch.~4 ("Geocentric Models") &  \\
    \midrule
-Thu., & Sep. &   8 & R Review & No reading &  \\ 
+Mon., & Jan. &  19 & \textbf{\scshape{Martin Luther King, Jr. Day}} & No class &  \\
    \midrule
-Tue., & Sep. &  13 & Many variables (part 1) & \emph{McElreath\/} Ch.~5 ("The Many Variables and The Superfluous Waffles"), section 5.1 pp.~123--144 &  \\ 
-   \midrule
-Thu., & Sep. &  15 & Many variables (part 2) & \emph{McElreath\/} Ch.~5 ("The Many Variables and The Superfluous Waffles"), sections 5.2-5.4 pp.~144--158 &  \\ 
-   \midrule
-Tue., & Sep. &  20 & Designing statistical models & \emph{McElreath\/} Ch.~6 ("The Haunted DAG \& The Causal Terror") &  \\ 
-   \midrule
-Thu., & Sep. &  22 & Regularization & \emph{McElreath\/} Ch.~7 ("Ulysses' Compass") &  \\ 
-   \midrule
-Tue., & Sep. &  27 & Interactions & \emph{McElreath\/} Ch.~8 ("Conditional Manatees") &  \\ 
-   \midrule
-Thu., & Sep. &  29 & Monte Carlo sampling & \emph{McElreath\/} Ch.~9 ("Markov Chain Monte Carlo") sections 9.1--9.3 &  \\ 
-   \midrule
-Tue., & Oct. &   4 & Monte Carlo Software & \emph{McElreath\/} Ch.~9 ("Markov Chain Monte Carlo") sections 9.4--9.5 &  \\ 
-   \midrule
-Thu., & Oct. &   6 & Generalized linear models & \emph{McElreath\/} Ch.~10 ("Big Entropy and the Generalized Linear Model") sections 10.1--10.2.1 &  \\ 
-   \midrule
-Tue., & Oct. &  11 & Generalized linear models & \emph{McElreath\/} Ch.~10 ("Big Entropy and the Generalized Linear Model") sections 10.2--10.4 &  \\ 
-   \midrule
-Thu., & Oct. &  13 & Fall Break & No reading &  \\ 
-   \bottomrule
+Wed., & Jan. &  21 & R Review & No reading &  \\
+\midrule
+Mon., & Jan. &  26 & Many variables (part 1) & \emph{McElreath\/} Ch.~5 ("The Many Variables and The Superfluous Waffles"), section 5.1 pp.~123--144 &  \\
+\midrule
+Wed., & Jan. &  28 & Many variables (part 2) & \emph{McElreath\/} Ch.~5 ("The Many Variables and The Superfluous Waffles"), sections 5.2-5.4 pp.~144--158 &  \\
+\midrule
+Mon., & Feb. &   2 & Designing statistical models & \emph{McElreath\/} Ch.~6 ("The Haunted DAG \& The Causal Terror") &  \\
+\midrule
+Wed., & Feb. &   4 & Regularization & \emph{McElreath\/} Ch.~7 ("Ulysses' Compass") &  \\
+\midrule
+Mon., & Feb. &   9 & Interactions & \emph{McElreath\/} Ch.~8 ("Conditional Manatees") &  \\
+\midrule
+Wed., & Feb. &  11 & Monte Carlo sampling & \emph{McElreath\/} Ch.~9 ("Markov Chain Monte Carlo") sections 9.1--9.3 &  \\
+\midrule
+Mon., & Feb. &  16 & Monte Carlo Software & \emph{McElreath\/} Ch.~9 ("Markov Chain Monte Carlo") sections 9.4--9.5 &  \\
+\midrule
+Wed., & Feb. &  18 & Generalized linear models & \emph{McElreath\/} Ch.~10 ("Big Entropy and the Generalized Linear Model") sections 10.1--10.2.1 &  \\
+\bottomrule
 \end{tabular}
-
 \end{center}
 
 \begin{center}
-% latex table generated in R 4.5.1 by xtable 1.8-4 package
-% Thu Oct 16 12:23:35 2025
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
+\midrule
+Mon., & Feb. &  23 & Generalized linear models & \emph{McElreath\/} Ch.~10 ("Big Entropy and the Generalized Linear Model") sections 10.2--10.4 &  \\
+\midrule
+Wed., & Feb. &  25 & Discussion of student projects & No reading &  \\
+\midrule
+Mon., & Mar. &   2 & Discrete statistical models & \emph{McElreath\/} Ch.~11 ("God Spiked the Integers") &  \\
+\midrule
+Wed., & Mar. &   4 & Mixture models & \emph{McElreath\/} Ch.~12 ("Monsters and Mixtures") &  \\
+\midrule
+Mon., & Mar. &   9 & \multirow{2}{*}{\textbf{\scshape{Spring Break}}} & \multirow{2}{*}{No class} &\\\cline{1-3}
+Wed., & Mar. &  11 &  & &  \\
  \midrule
-Tue., & Oct. &  18 & Discussion of student projects & No reading &  \\ 
+Mon., & Mar. &  16 & Multilevel models & \emph{McElreath\/} Ch.~13 ("Models with Memory") &  \\
    \midrule
-Thu., & Oct. &  20 & Discrete statistical models & \emph{McElreath\/} Ch.~11 ("God Spiked the Integers") &  \\ 
+Wed., & Mar. &  18 & Multilevel models, part 2 & \emph{McElreath\/} Ch.~13 ("Models with Memory") &  \\
    \midrule
-Tue., & Oct. &  25 & Mixture models & \emph{McElreath\/} Ch.~12 ("Monsters and Mixtures") &  \\ 
+Mon., & Mar. &  23 & More multilevel models & \emph{McElreath\/} Ch.~14 ("Adventures in Covariance") &  \\
    \midrule
-Thu., & Oct. &  27 & Multilevel models & \emph{McElreath\/} Ch.~13 ("Models with Memory") &  \\ 
+Wed., & Mar. &  25 & Messy data & \emph{McElreath\/} Ch.~15 ("Missing Data and Other Opportunities") &  \\
    \midrule
-Tue., & Nov. &   1 & Multilevel models, part 2 & \emph{McElreath\/} Ch.~13 ("Models with Memory") &  \\ 
+Mon., & Mar. &  30 & Review of Bayesian Regression & No reading &  \\
    \midrule
-Thu., & Nov. &   3 & More multilevel models & \emph{McElreath\/} Ch.~14 ("Adventures in Covariance") &  \\ 
+Wed., & Apr. &   1 & Discussion of projects & No reading &  \\
    \midrule
-Tue., & Nov. &   8 & Messy data & \emph{McElreath\/} Ch.~15 ("Missing Data and Other Opportunities") &  \\ 
+Mon., & Apr. &   6 & Generalized Linear Madness & \emph{McElreath\/} Ch.~16 ("Generalized Linear Madness") sections 16.1--16.2 &  \\
    \midrule
-Thu., & Nov. &  10 & Review of Bayesian Regression & No reading &  \\ 
+Wed., & Apr. &   8 & Differential Equations & \emph{McElreath\/} Ch.~16 ("Generalized Linear Madness") sections 16.3---16.5 &  \\
    \midrule
-Tue., & Nov. &  15 & Discussion of projects & No reading &  \\ 
+Mon., & Apr. &  13 & Diagnosing model output & Reading TBA &  \\
    \midrule
-Thu., & Nov. &  17 & Generalized Linear Madness & \emph{McElreath\/} Ch.~16 ("Generalized Linear Madness") sections 16.1--16.2 &  \\ 
+Wed., & Apr. &  15 & STAN Hamiltonian Monte Carlo sampler & Reading TBA &  \\
    \midrule
-Tue., & Nov. &  22 & \multicolumn{2}{l}{\multirow{3}{*}{\bfseries\scshape\Large Thanksgiving Break}} & \\% & No reading &  \\ 
-  Thu., & Nov. &  24 &  & No reading &  \\ 
-   \midrule
-Tue., & Nov. &  29 & Differential Equations & \emph{McElreath\/} Ch.~16 ("Generalized Linear Madness") sections 16.3---16.5 &  \\ 
-   \midrule
-Thu., & Dec. &   1 & Diagnosing model output & No reading &  \\ 
-   \midrule
-Tue., & Dec. &   6 & Project presentations & No reading &  \\ 
-   \midrule
-Thu., & Dec. &   8 & Project presentations & No reading &  \\ 
+Mon., & Apr. &  20 & Project presentations & No reading &  \\
    \bottomrule
 \end{tabular}
 
