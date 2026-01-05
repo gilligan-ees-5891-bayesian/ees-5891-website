@@ -54,19 +54,18 @@
       2026
     </h3>
 	<!-- end title slide -->
-</section><section id="introductions" class="slide level2"><h2>Introductions</h2>
-<ul>
-<li>Introduce yourselves
-<ul>
+</section><section id="introduce-yourselves" class="slide level2"><h2>Introduce Yourselves</h2>
+<ol>
 <li>Name</li>
-<li>Department and research interests</li>
-<li>How long have you been in your program?</li>
-<li>What previous math and stats have you taken?</li>
-<li>Where are you from?</li>
+<li>What are your major or program, and research interests?</li>
+<li>What’s your year or how long you’ve been in your graduate
+program?</li>
+<li>What previous math or stats have you taken?</li>
+<li>What do you hope to get from this class?</li>
 <li>Something interesting about yourself</li>
-</ul>
-</li>
-</ul></section><section><section id="what-stat-sec" class="title-slide slide level1 center"><h1 class="center">What Is Statistics?</h1>
+<li>(Optional) Ask me a question about some aspect of probability or
+statistics (preferably Bayesian)</li>
+</ol></section><section><section id="what-stat-sec" class="title-slide slide level1 center"><h1 class="center">What Is Statistics?</h1>
 
 </section><section id="what-stat" class="slide level2"><h2>What Is Statistics?</h2>
 <ul>
@@ -94,9 +93,9 @@ see the sun rise once, and then it sets.</p>
 HIV</li>
 <li>Suppose a test has
 <ul>
-<li>99% sensitivity (if someone has HIV, there’s a 99% probability the
-test will correctly say “positive”)</li>
-<li>98.5% specificity (if someone doesn’t have HIV, there’s a 98.5%
+<li>99.0% sensitivity (if someone has HIV, there’s a 99.0% probability
+the test will correctly say “positive”)</li>
+<li>99.0% specificity (if someone doesn’t have HIV, there’s a 99.0%
 probability the test will correctly say “negative”)</li>
 </ul>
 </li>
@@ -104,7 +103,13 @@ probability the test will correctly say “negative”)</li>
 has HIV?</li>
 <li>If the test is negative, what is the probability the person doesn’t
 have HIV?</li>
-</ul></section><section id="disease-testing-1" class="slide level2"><h2>Disease testing:</h2>
+</ul>
+<div class="credit mtop3">
+<p>H.D. Gayle <em>et al.</em>. 1990. “Prevalence of Human
+Immunodeficiency Virus among University Students,” <em>New England J.
+Medicine</em> <strong>323</strong>, 1538. doi: <a href="https://doi.org/10.1056/NEJM199011293232206">10.1056/NEJM199011293232206</a></p>
+</div>
+</section><section id="disease-testing-1" class="slide level2"><h2>Disease testing:</h2>
 <div class="columns">
 <div class="column eighty">
 <ul>
@@ -115,7 +120,7 @@ have HIV?</li>
 </ul>
 </li>
 <li>Sensitivity: 99.0%</li>
-<li>Specificity: 98.5%</li>
+<li>Specificity: 99.0%</li>
 </ul>
 </div>
 <div class="column">
@@ -140,24 +145,24 @@ have HIV?</li>
 </li>
 </ul>
 </li>
-<li>Specificity: 98.5%
+<li>Specificity: 99.0%
 <ul>
-<li>2463 HIV-negative people test <em>true negative</em>
+<li>2470 HIV-negative people test <em>true negative</em>
 </li>
-<li>32 HIV-negative people test <em>false positive</em>
+<li>25 HIV-negative people test <em>false positive</em>
 </li>
 </ul>
 </li>
-<li class="fragment">37 people test positive.
+<li class="fragment">30 people test positive.
 <ul>
-<li>5 (13.5%) are <em>true-positive</em> results, representing people
+<li>5 (16.7%) are <em>true-positive</em> results, representing people
 actually have HIV</li>
-<li>32 (86.5%) are <em>false-positive</em> results, representing people
+<li>25 (83.3%) are <em>false-positive</em> results, representing people
 who don’t have HIV.</li>
 </ul>
 </li>
 <li class="fragment">More exactly, if a university student tests positive, the
-probability they actually have HIV is 11.7%.</li>
+probability they actually have HIV is 16.6%.</li>
 <li class="fragment">If a student tests negative, the probability they don’t have HIV
 is 99.998%.</li>
 </ul>
@@ -175,8 +180,8 @@ mean?</li>
 would be a 1% chance that you’d observe data at least this far away from
 the exact null hypothesis.
 <ul>
-<li>If you don’t have HIV, you have a 1.5% chance of getting a positive
-test (<span class="math inline">\(p = 0.015\)</span>).</li>
+<li>If you don’t have HIV, you have a 1.0% chance of getting a positive
+test (<span class="math inline">\(p = 0.01\)</span>).</li>
 </ul>
 </li>
 <li class="fragment">But what we usually want to know is not the probability seeing
@@ -191,7 +196,52 @@ the data we collected <em>if</em> the null hypothesis is true.
 hypothesis was true before we collected the data, and then calculate how
 much our data changes that probability by giving us more
 information.</li>
-</ul></section></section><section><section id="applications" class="title-slide slide level1"><h1>Applications</h1>
+</ul></section><section id="bayes-thm-1" class="slide level2 eightyfive"><h2 class="eightyfive">Bayes’s Theorem</h2>
+<p><span class="math display">\[ P(H|D,I) = \frac{P(D|H,I) \times
+P(H|I)}{P(D|I)} \]</span></p>
+<div class="leftslide">
+<div>
+<ul>
+<li>
+<em>H</em>: Test hypothesis (student has HIV)</li>
+<li>
+<em>h</em>: Null hypothesis (test hypothesis is false: student does
+not have HIV)</li>
+<li>
+<em>D</em>: New data (HIV test results)</li>
+<li>
+<em>I</em>: Other evidence we had before learning the new data</li>
+</ul>
+</div>
+<div class="mtop-2">
+<ul>
+<li>
+<span class="math inline">\(P(H|D,I)\)</span> = <em>posterior:</em>
+Probability <span class="math inline">\(H\)</span> is true, after
+learning <span class="math inline">\(D\)</span>.</li>
+<li>
+<span class="math inline">\(P(D|H,I)\)</span> =
+<em>sensitivity:</em> likelihood we’d see <span class="math inline">\(D\)</span> if <span class="math inline">\(H\)</span> is true (true positive, if student has
+HIV).</li>
+<li>
+<span class="math inline">\(P(H|I)\)</span> = <em>prior</em>
+probability that <span class="math inline">\(H\)</span> is true, before
+learning <span class="math inline">\(D\)</span>.</li>
+<li>
+<span class="math inline">\(P(D|I)\)</span> = <em>evidence</em>: A
+measure of the additional information we get from learning <span class="math inline">\(D\)</span>. <span class="math display">\[
+\begin{aligned}
+P(D|I) &amp;= P(D|H,I) \times P(H|I) + P(D|h,I) \times P(h|I)
+\end{aligned}
+\]</span>
+</li>
+<li>Tricky parts: Figuring out the <em>prior</em> and calculating the
+<em>evidence</em>
+</li>
+</ul>
+</div>
+</div>
+</section></section><section><section id="applications" class="title-slide slide level1"><h1>Applications</h1>
 <div class="columns">
 <div class="column seventyfive">
 <ul>
@@ -284,10 +334,11 @@ help)</li>
 </li>
 </ul></section><section id="section" class="slide level2" data-background="#FFF0F0"><h2 data-background="#FFF0F0"><!--- dummy for formatting ---></h2>
 <h3 id="textbooks">Textbooks</h3>
+<div class="bare">
 <table>
 <tr style="vertical-align:middle; text-align:center">
 <td>
-<img src="assets/images/rethinking-cover.jpg" height="154.285714285714px" alt="_Statistical Rethinking_ (2nd Edition)">
+<img src="assets/images/rethinking-cover.jpg" height="293.333333333333px" alt="_Statistical Rethinking_ (2nd Edition)">
 </td>
 <td style="vertical-align:middle;">
 Richard McElreath, <i><em>Statistical Rethinking</em>
@@ -297,7 +348,7 @@ libraries
 </tr>
 <tr style="vertical-align:middle; text-align:center">
 <td>
-<img src="assets/images/dbda-cover.png" height="154.285714285714px" alt="_Doing Bayesian Data Analysis_ (2nd Edition)">
+<img src="assets/images/dbda-cover.png" height="293.333333333333px" alt="_Doing Bayesian Data Analysis_ (2nd Edition)">
 </td>
 <td style="vertical-align:middle;">
 John K. Kruschke, <i><em>Doing Bayesian Data Analysis</em>
@@ -307,15 +358,18 @@ required<br>Online version at VU libraries
 </tr>
 <tr style="vertical-align:middle; text-align:center">
 <td>
-<img src="assets/images/r4ds.png" height="154.285714285714px" alt="_R for Data Science_">
+<img src="assets/images/r4ds.png" height="293.333333333333px" alt="_R for Data Science_">
 </td>
 <td style="vertical-align:middle;">
 Hadley Wickham, Mine Çetinkaya-Rundel &amp; Garrett Grolemund, <i><em>R
-for Data Science</em></i><br>Recommended (Free web version online at
-<a href="https://r4ds.had.co.nz/" target="_blank"><code>https://r4ds.had.co.nz/</code></a>)
+for Data Science</em></i><br>Optional recommended book, not
+required<br>Free web version online at
+<a href="https://r4ds.had.co.nz/" target="_blank"><code>https://r4ds.had.co.nz/</code></a>
 </td>
 </tr>
-</table></section><section id="course-material" class="slide level2 eighty" data-background="#FFF0F0"><h2 class="eighty" data-background="#FFF0F0">Course Material</h2>
+</table>
+</div>
+</section><section id="course-material" class="slide level2 eighty" data-background="#FFF0F0"><h2 class="eighty" data-background="#FFF0F0">Course Material</h2>
 <ul>
 <li>Main source of material: <a href="https://ees5891.jgilligan.org">ees5891.jgilligan.org</a>
 <ul>
@@ -419,9 +473,13 @@ at the scene</li>
 </section><section id="comparing-fingerprints" class="slide level2"><h2>Comparing Fingerprints</h2>
 <h3 id="not-a-match">Not a match</h3>
 <p><img data-src="assets/images/fingerprints-not-matching.jpg" height="850" alt="Two fingerprints that don’t match: The one on the left has a plain whorl and the one on the right has an ulnar loop"></p>
-</section><section id="comparing-fingerprints-1" class="slide level2"><h2>Comparing Fingerprints</h2>
+<aside class="notes"><p>These are not a match:</p>
+<ul>
+<li>The fingerprint on the left has a plain whorl</li>
+<li>The fingerprint on the right has an ulnar loop</li>
+</ul></aside></section><section id="comparing-fingerprints-1" class="slide level2"><h2>Comparing Fingerprints</h2>
 <h3 id="do-these-match">Do these match?</h3>
-<div class="columns">
+<div class="columns bare">
 <div class="column textright">
 <p><img data-src="assets/images/fingerprints-may-match-left.jpg" height="850" alt="A latent fingerprint, not very clear"></p>
 </div>
@@ -429,7 +487,12 @@ at the scene</li>
 <p><img data-src="assets/images/fingerprints-may-match-right.jpg" height="850" alt="A fingerprint taken from a suspect"></p>
 </div>
 </div>
-</section><section id="fingerprint-examinations" class="slide level2"><h2>Fingerprint Examinations</h2>
+<aside class="notes"><p>These look like a reasonable match:</p>
+<ul>
+<li>The numbered points of comparison match</li>
+<li>However, there is a lot of missing and blurred data, so it feels
+inconclusive.</li>
+</ul></aside></section><section id="fingerprint-examinations" class="slide level2"><h2>Fingerprint Examinations</h2>
 <p>Suppose the sensitivity and specificity of fingerprint analysis are
 as follows:</p>
 <ul>
