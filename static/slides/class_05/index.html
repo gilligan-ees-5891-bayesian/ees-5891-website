@@ -516,7 +516,19 @@ posterior.</li>
 </div>
 </div>
 </div>
-</section><section id="height-linear" class="slide level2 t95"><h2 class="t95">Linear Models</h2>
+<aside class="notes"><ul>
+<li>The distribution is centered at 178 cm because Richard McElreath is
+178 cm tall.
+<ul>
+<li>
+<span class="math inline">\(178 \pm 40\)</span> (two standard
+deviations) ranges from 138 cm (4’6”) to 218 cm (7’2”).</li>
+<li>95% of the probability mass of a normal falls within two standard
+deviation of the mean, and it’s reasonable to expect that the mean
+height of the !Kung San people will fall within this range.</li>
+</ul>
+</li>
+</ul></aside></section><section id="height-linear" class="slide level2 t95"><h2 class="t95">Linear Models</h2>
 <div class="columns">
 <div class="column">
 <ul>
@@ -595,7 +607,25 @@ negative as positive?</li>
 </div>
 </div>
 </div>
-</section><section id="finishing-our-model" class="slide level2 t95"><h2 class="t95">Finishing our model</h2>
+<aside class="notes"><ul>
+<li>The tallest person who ever lived, as far as we know, was Robert
+Wadlow (1918–1940). He was 272 cm (8’11”) tall.
+<ul>
+<li>Wadlow was normally sized at birth, but by age 8 he was 6 feet
+tall.</li>
+<li>He died at age 20 from a blood infection.</li>
+</ul>
+</li>
+<li>Notice that we don’t look at the actual data here. If we choose our
+priors to match the actual data, then we run the risk of forcing our
+model to fit our preconceptions rather than the actual relationships in
+the data.
+<ul>
+<li>Instead, we pick priors based on what we know <em>before</em> we
+observe the new data.</li>
+</ul>
+</li>
+</ul></aside></section><section id="finishing-our-model" class="slide level2 t95"><h2 class="t95">Finishing our model</h2>
 <div class="columns">
 <div class="column">
 <ul>
@@ -675,7 +705,17 @@ h &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </div>
 </div>
-</section><section id="fit-subsets-of-data" class="slide level2 t85"><h2 class="t85">Fit Subsets of Data</h2>
+<aside class="notes"><ul>
+<li>The book chooses the <strong>mean</strong> of the posterior, but I
+choose the <strong>median</strong> because based on what we know of the
+posterior, there’s a 50% probability the actual value lies above it and
+50% that it lies below it.
+<ul>
+<li>If the posterior is roughly symmetrical, then the mean and the
+median will be approximately the same.</li>
+</ul>
+</li>
+</ul></aside></section><section id="fit-subsets-of-data" class="slide level2 t85"><h2 class="t85">Fit Subsets of Data</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="bare mtop-1 max-listing">
@@ -748,7 +788,26 @@ and the 89% compatibility interval for the line</li>
 </div>
 </div>
 </div>
-</section><section id="checking-predictions" class="slide level2 t85"><h2 class="t85">Checking predictions</h2>
+<aside class="notes"><ul>
+<li>McElreath likes to use the range from 5.5% to 94.5% as his standard
+compatibility interval. This represents 89% of the probability mass.
+<ul>
+<li>Why 89%? Mostly as a pedagogical thing to remind us that there’s
+nothing special about 95%, which most statisticians use.
+<ul>
+<li>Besides, 89 is a prime number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Possibly mention Gelman’s paper about statistical significance:
+<ul>
+<li>Andrew Gelman &amp; Hal Stern, “The Difference between ‘Significant’
+and ’Not Significant” is not Itself Statistically Significant”, <em>The
+American Statistician</em> <strong>60</strong>, 328–331 (2006) doi: <a href="https://doi.org/10.1198/000313006X152649">10.1198/000313006X152649</a>.</li>
+</ul>
+</li>
+</ul></aside></section><section id="checking-predictions" class="slide level2 t85"><h2 class="t85">Checking predictions</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="bare mtop-1 max-listing">
@@ -782,7 +841,15 @@ data points.
 </div>
 </div>
 </div>
-</section></section><section><section id="beyond-linear-models" class="title-slide slide level1 center"><h1 class="center">Beyond Linear Models</h1>
+<aside class="notes"><ul>
+<li>There are two kinds of uncertainty we’re dealing with here in our
+posterior predictions:
+<ol type="1">
+<li>Uncertainty about the parameters in the model</li>
+<li>Randomness in the samples we draw from the posterior</li>
+</ol>
+</li>
+</ul></aside></section></section><section><section id="beyond-linear-models" class="title-slide slide level1 center"><h1 class="center">Beyond Linear Models</h1>
 
 </section><section id="beyond-linear-models-1" class="slide level2 t80"><h2 class="t80">Beyond Linear Models</h2>
 <div class="columns">
