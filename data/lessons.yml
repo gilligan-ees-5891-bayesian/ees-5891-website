@@ -22,6 +22,7 @@ lessons:
 - date: '2026-01-21'
   title: Geocentric Models
   reading: /reading/reading_05
+  lecture: /slides/class_05
 - date: '2026-01-22'
   assignment: /assignment/homework_03
 - date: '2026-01-26'
