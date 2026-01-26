@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Magnolia Gilligan">
+<title>Many Variables (Part 1)</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.30.1.9000/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Many Variables (Part 1)</h1>
+    <h3 class="author">EES 4891-06/5891-01</h3>
+        <h3 class="author">Bayesian Statistical Methods</h3>
+    <h3 class="author">Jonathan Magnolia Gilligan</h3>
+    <h3 class="date">
+      Class #6:
+       Monday, January 26
+      2026
+    </h3>
+	<!-- end title slide -->
+</section><section><section id="outline-of-regression-modeling" class="title-slide slide level1 center"><h1 class="center">Outline of Regression Modeling</h1>
+
+</section><section id="outline-of-regression-modeling-1" class="slide level2 eighty"><h2 class="eighty">Outline of Regression Modeling</h2>
+<div class="columns">
+<div class="column">
+<ol type="1">
+<li>
+<p>Develop a formula relating outcome variable (<span class="math inline">\(y\)</span>) to predictor variables (<span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, …)</p>
+<div class="t90">
+<p><span class="math display">\[
+\begin{align}
+y &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta x
+\end{align}
+\]</span></p>
+</div>
+<ul>
+<li>You can use theory and/or exploratory analysis of your actual
+data.</li>
+</ul>
+</li>
+<li class="fragment">
+<p>Develop priors for parameters</p>
+<div class="t90">
+<p><span class="math display">\[
+\begin{align}
+\alpha &amp;\sim \text{Normal}(178, 20) \\
+\beta &amp; \sim \text{Normal}(0, 10) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align}
+\]</span></p>
+</div>
+<ul>
+<li>Use theory</li>
+<li>Check using <em>prior predictions</em>:
+<ul>
+<li>Does applying priors to formulas make reasonable predictions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="column">
+<ol start="3" type="1">
+<li class="fragment">Fit model:
+<ul>
+<li>Combine <em>formulas</em>, <em>priors</em>, and <em>observed
+data</em> to produce <em>posterior</em> probability distributions of
+parameters</li>
+<li>
+<em>Prior</em> represents what you knew about the parameters before
+getting the new data.</li>
+<li>
+<em>Posterior</em> reflects your improved knowledge about parameters
+after incorporating new observations.</li>
+</ul>
+</li>
+<li class="fragment">Check model:
+<ul>
+<li>Compare <em>posterior predictions</em> to your observed data.</li>
+<li>Covariance among posteriors for different parameters may indicate a
+problem with your formulas.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</section></section><section><section id="checking-models" class="title-slide slide level1 center"><h1 class="center">Checking Models</h1>
+
+</section><section id="checking-fit" class="slide level2 t95"><h2 class="t95">Checking fit</h2>
+<div class="columns">
+<div class="column" style="width:55%;;">
+<ul>
+<li>Sample <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> from the posterior</li>
+<li>Plot a line with the median slope and intercept</li>
+<li>Plot the original data</li>
+</ul>
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(lin_mdl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>map  <span class="ot">&lt;-</span> <span class="fu">summarize</span>(post, <span class="at">a =</span> <span class="fu">median</span>(a), <span class="at">b =</span> <span class="fu">median</span>(b))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>map_line <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">weight =</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight), </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">height =</span> map<span class="sc">$</span>a <span class="sc">+</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                            map<span class="sc">$</span>b <span class="sc">*</span> (weight <span class="sc">-</span> wbar))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> map_line, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (kg)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>)</span></code></pre></div>
+</div>
+</div>
+<div class="column bare" style="width:44%;;">
+<div class="bare mtop-1 max-listing">
+<p><img data-src="assets/fig/plot-lin-mdl-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>The book chooses the <strong>mean</strong> of the posterior, but I
+choose the <strong>median</strong> because based on what we know of the
+posterior, there’s a 50% probability the actual value lies above it and
+50% that it lies below it.
+<ul>
+<li>If the posterior is roughly symmetrical, then the mean and the
+median will be approximately the same.</li>
+</ul>
+</li>
+</ul></aside></section><section id="fit-subsets-of-data" class="slide level2 t85"><h2 class="t85">Fit Subsets of Data</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dN <span class="ot">&lt;-</span> <span class="fu">slice_head</span>(d2, <span class="at">n =</span> N)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  mN <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_lin, <span class="at">data =</span> dN)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(mN, <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  map_line <span class="ot">&lt;-</span> post <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">index =</span> <span class="fu">seq</span>(<span class="fu">n</span>())) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cross_join</span>(<span class="fu">tibble</span>(<span class="at">weight =</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight))) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">height =</span> a <span class="sc">+</span> b <span class="sc">*</span> (weight <span class="sc">-</span> wbar))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(dN, <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">1.5</span> <span class="sc">/</span> <span class="fu">log</span>(N)) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> map_line, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">group=</span>index), </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (kg)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="fu">str_c</span>(<span class="st">"N = "</span>, N))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="dv">10</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="dv">50</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="dv">150</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="fu">nrow</span>(d2))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+</div>
+</div>
+<div class="column bare" style="width:44%;">
+<div class="bare mtop-1 max-listing">
+<p><img data-src="assets/fig/post-pred-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+</section><section id="compatibility-intervals" class="slide level2 t85"><h2 class="t85">Compatibility Intervals</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">weight =</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="dv">1</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(lin_mdl, new_data, <span class="at">value =</span> <span class="st">"height"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>post_sum <span class="ot">&lt;-</span> <span class="fu">summarize</span>(post, <span class="at">lower =</span> <span class="fu">quantile</span>(height, <span class="fl">0.055</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">upper =</span> <span class="fu">quantile</span>(height, <span class="fl">0.945</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">height =</span> <span class="fu">mean</span>(height))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">slice_head</span>(post, <span class="at">n =</span> <span class="dv">100</span>), <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (kg)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> post_sum, <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">stat =</span> <span class="st">"Identity"</span>, </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (kg)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+</div>
+<ul>
+<li>The top graph shows samples of 100 points drawn from the posterior
+predictions of <span class="math inline">\(\mu\)</span>
+</li>
+<li>The bottom shows the actual data together with the best-fit line,
+and the 89% compatibility interval for the line</li>
+</ul>
+</div>
+<div class="column bare" style="width:44%;">
+<div class="bare mtop-1 max-listing">
+<p><img data-src="assets/fig/compat-int-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>McElreath likes to use the range from 5.5% to 94.5% as his standard
+compatibility interval. This represents 89% of the probability mass.
+<ul>
+<li>Why 89%? Mostly as a pedagogical thing to remind us that there’s
+nothing special about 95%, which most statisticians use.
+<ul>
+<li>Besides, 89 is a prime number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Possibly mention Gelman’s paper about statistical significance:
+<ul>
+<li>Andrew Gelman &amp; Hal Stern, “The Difference between ‘Significant’
+and ’Not Significant” is not Itself Statistically Significant”, <em>The
+American Statistician</em> <strong>60</strong>, 328–331 (2006) doi: <a href="https://doi.org/10.1198/000313006X152649">10.1198/000313006X152649</a>.</li>
+</ul>
+</li>
+</ul></aside></section><section id="checking-predictions" class="slide level2 t85"><h2 class="t85">Checking predictions</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">predicted_draws</span>(lin_mdl, new_data, <span class="at">value =</span> <span class="st">"height"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>post_sum <span class="ot">&lt;-</span> <span class="fu">summarize</span>(post, <span class="at">lower =</span> <span class="fu">quantile</span>(height, <span class="fl">0.055</span>), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">upper =</span> <span class="fu">quantile</span>(height, <span class="fl">0.945</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">height =</span> <span class="fu">mean</span>(height))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> post_sum, <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> post_sum, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (kg)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div>
+</div>
+<ul>
+<li>The graph shows the observed data and the 89% compatibility interval
+for predictions of where we will see data points.
+<ul>
+<li>89% of the data should lie within this interval.</li>
+<li>
+<code>linpred_draws</code> samples from posterior for <span class="math inline">\(\mu = \alpha + \beta x\)</span>
+</li>
+<li>
+<code>predicted_draws</code> samples from posterior for <span class="math inline">\(y \sim \text{Normal}(\mu, \sigma)\)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column bare" style="width:44%;">
+<div class="bare mtop-1 max-listing">
+<p><img data-src="assets/fig/pred-check-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>There are two kinds of uncertainty we’re dealing with here in our
+posterior predictions:
+<ol type="1">
+<li>Uncertainty about the parameters in the model</li>
+<li>Randomness in the samples we draw from the posterior</li>
+</ol>
+</li>
+</ul></aside></section></section><section><section id="beyond-linear-models" class="title-slide slide level1 center"><h1 class="center">Beyond Linear Models</h1>
+
+</section><section id="beyond-linear-models-1" class="slide level2 t80"><h2 class="t80">Beyond Linear Models</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Sometimes linear models aren’t good enough.
+<ul>
+<li>If we include children, height is no longer a linear function of
+weight.</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="1">Polynomial models (quadratic, cubic, etc.) may be better.</li>
+<li class="fragment" data-fragment-index="2">High powers of variables can get large, so
+<strong>standardize</strong> your data <span class="math display">\[ x_s
+= \frac{x - \bar x}{\sigma_x},\]</span> where <span class="math inline">\(\bar x\)</span> is the mean of <span class="math inline">\(x\)</span> and <span class="math inline">\(\sigma_x\)</span> is the standard deviation.</li>
+</ul>
+<div class="bare mtop-1 max-listing fragment" data-fragment-index="3">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d_std <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">ws =</span> (weight <span class="sc">-</span> <span class="fu">mean</span>(weight)) <span class="sc">/</span> <span class="fu">sd</span>(weight))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_std, <span class="fu">aes</span>(<span class="at">x =</span> ws, <span class="at">y =</span> height)) <span class="sc">+</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">fill =</span> <span class="st">"darkgreen"</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"weight (std)"</span>, <span class="at">y =</span> <span class="st">"height (cm)"</span>)</span></code></pre></div>
+</div>
+</div>
+<div class="column bare" style="width:44%;;">
+<div class="bare mtop-1 max-listing fragment" data-fragment-index="3">
+<p><img data-src="assets/fig/full-kung-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+</section><section id="polynomial-regression" class="slide level2 t85"><h2 class="t85">Polynomial Regression</h2>
+<div class="columns">
+<div class="column t85">
+<ul>
+<li>
+<p>Model:</p>
+<p><span class="math display">\[
+\begin{align}
+h &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_1 w_s + \beta_2 w_s^2 \\
+\alpha &amp;\sim \text{Normal}(178,20) \\
+\beta_1 &amp;\sim \text{Log-Normal}(0,1) \\
+\beta_2 &amp;\sim \text{Normal}(0, 1) \\
+\sigma &amp;\sim \text{Uniform}(0,50)
+\end{align}
+\]</span></p>
+<ul>
+<li>$w_s = $ standardized weight</li>
+<li>For computational efficiency, make a new variable <span class="math inline">\(ws2 = ws^2\)</span>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d_std <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">ws =</span> (weight <span class="sc">-</span> <span class="fu">mean</span>(weight)) <span class="sc">/</span> <span class="fu">sd</span>(weight),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">ws2 =</span> ws<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>flist_lin_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> ws,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  b <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>lin_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_lin_s, <span class="at">data =</span> d_std)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>flist_quad_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b1 <span class="sc">*</span> ws <span class="sc">+</span> b2 <span class="sc">*</span> ws2,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>quad_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_quad_s, <span class="at">data =</span> d_std)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(quad_mdl_s)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##             mean        sd       5.5%      94.5%
+## a     146.057333 0.3689800 145.467632 146.647035
+## b1     21.733305 0.2888932  21.271598  22.195012
+## b2     -7.802983 0.2741888  -8.241189  -7.364776
+## sigma   5.774541 0.1764705   5.492507   6.056575</code></pre>
+</div>
+</div>
+</div>
+</section><section id="different-polynomials" class="slide level2 t80"><h2 class="t80">Different polynomials</h2>
+<p><img data-src="assets/fig/plot-poly-1.png"><!-- --></p>
+</section></section><section><section id="spline-sec" class="title-slide slide level1 center"><h1 class="center">Nonparametric Models</h1>
+
+</section><section id="splines" class="slide level2 t90"><h2 class="t90">Splines</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Originally from mechanical drafting splines</li>
+<li>Arbitrary smooth curve</li>
+<li>Complexity:
+<ul>
+<li>Physical splines: “ducks” or “whales”</li>
+<li>Mathematical splines: “knots”</li>
+</ul>
+</li>
+<li>Splines are a special case of a class of models called
+<em>generalized additive models</em> (GAMs).</li>
+</ul>
+</div>
+<div class="column bare" style="width:44%;">
+<p><img data-src="assets/images/draughting-spline.jpg" style="width:825px;" alt="draughting spline"></p>
+<p><img data-src="assets/images/draughting-spline-2.png" style="width:825px;" alt="draughting spline"></p>
+<div class="credit">
+<p>(Photos: <a href="https://www.core77.com/posts/55368/When-Splines-Were-Physical-Objects">Rain
+Noe, When Splines Were Physical Objects</a>)</p>
+</div>
+</div>
+</div>
+</section><section id="splines-in-statistical-regression" class="slide level2 t80"><h2 class="t80">Splines in Statistical Regression</h2>
+<div class="columns">
+<div class="column t95">
+<ul>
+<li>Cherry blossom data
+<ul>
+<li>Over 1000 years of historical records of cherry tree blossoming
+dates
+<ul>
+<li>
+<a href="https://doi.org/10.1007/s00484-009-0272-x">Y. Aono &amp; S.
+Saito, Int. J. Biometeorology <strong>54</strong>, 211 (2010)</a>.</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="3">No changes for most of history, but pronounced trend in 20th
+century (global warming).</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="4">Spline regression:
+<ul>
+<li>
+<em>Basis splines</em>: for the <span class="math inline">\(i\)</span>th point, <span class="math inline">\(x_i\)</span> <span class="math display">\[
+\mu_i = \alpha + \sum_{j = 1}^{n_{\text{knots}}} w_j B_{i,j} \\
+\]</span> <span class="math inline">\(n_{\text{knots}}\)</span> = #
+knots, <span class="math inline">\(w_j\)</span> = weight for knot <span class="math inline">\(j\)</span>, <br><span class="math inline">\(B_{i,j}\)</span> = <span class="math inline">\(i\)</span>th row of <span class="math inline">\(j\)</span>th basis function (matrix with one row
+for each <span class="math inline">\(x\)</span> value, and <span class="math inline">\(n_{\text{knots}}\)</span> columns).</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare max-listing fragment" data-fragment-index="1">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(cherry_blossoms)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> cherry_blossoms</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(d, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre class="seventy max-listing"><code>## 'data.frame': 1215 obs. of 5 variables:
+##               mean     sd   5.5%   94.5%       histogram
+## year       1408.00 350.88 867.77 1948.23   ▇▇▇▇▇▇▇▇▇▇▇▇▁
+## doy         104.54   6.41  94.43  115.00        ▁▂▅▇▇▃▁▁
+## temp          6.14   0.66   5.15    7.29        ▁▃▅▇▃▂▁▁
+## temp_upper    7.19   0.99   5.90    8.90 ▁▂▅▇▇▅▂▂▁▁▁▁▁▁▁
+## temp_lower    5.10   0.85   3.79    6.37 ▁▁▁▁▁▁▁▃▅▇▃▂▁▁▁</code></pre>
+</div>
+<div class="bare max-listing fragment" data-fragment-index="2">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> doy)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">600</span>, <span class="dv">2200</span>, <span class="at">by =</span> <span class="dv">200</span>)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Day of year"</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">title=</span><span class="st">"Timing of cherry blossoms in Kyoto"</span>)</span></code></pre></div>
+<p><img src="assets/fig/cherry-blossom-plot-1.png" alt="" style="margin-top:1rem;"></p>
+</div>
+</div>
+</div>
+</section><section id="linear-basis-spline" class="slide level2"><h2>Linear Basis Spline</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Linear basis functions <span class="math inline">\(B_j(x)\)</span>
+<ul>
+<li>5 knots</li>
+<li>Piecewise linear</li>
+<li>At most 2 functions are nonzero for any <span class="math inline">\(x\)</span>.</li>
+</ul>
+</li>
+<li>Model fits weights <span class="math inline">\(w_j\)</span> for each
+basis function</li>
+</ul>
+</div>
+<div class="column">
+<p><img data-src="assets/images/linear-basis-spline.png" style="height:900px;" alt="Linear basis splines: fig. 4.12"></p>
+</div>
+</div>
+</section><section id="cubic-basis-spline" class="slide level2 t80"><h2 class="t80">Cubic Basis Spline</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>15 knots
+<ul>
+<li>Equal # of years with data between knots.</li>
+</ul>
+</li>
+<li>Cubic functions</li>
+<li>Only 3 have nonzero values for any <span class="math inline">\(x\)</span>.</li>
+</ul>
+<div class="bare max-listing fragment mtop-1">
+<div class="sourceCode" id="cb11"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(d, <span class="sc">!</span> <span class="fu">is.na</span>(doy)) <span class="co"># omit missing values</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>n_knots <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>knot_list <span class="ot">&lt;-</span> <span class="fu">quantile</span>(d2<span class="sc">$</span>year, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">probs=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">length.out =</span> n_knots))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create basis function matrix</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">bs</span>(d2<span class="sc">$</span>year, <span class="at">knots =</span> knot_list[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,n_knots)],</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>mdl <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> B <span class="sc">%*%</span> w,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>),</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    w <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">list</span>(<span class="at">D =</span> d2<span class="sc">$</span>doy, <span class="at">B =</span> B),</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(<span class="at">w =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">ncol</span>(B)))</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>
+<code>%*%</code> means matrix multiplication</li>
+</ul>
+</div>
+</div>
+<div class="column">
+<p><img data-src="assets/images/cubic-basis-spline.png" style="height:900px;" alt="Cubic basis splines: fig. 4.12"></p>
+</div>
+</div>
+</section></section><section><section id="multiple-regression" class="title-slide slide level1 center"><h1 class="center">Multiple Regression</h1>
+
+</section><section id="multiple-regression-1" class="slide level2 t85"><h2 class="t85">Multiple Regression</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Single Regression:
+<ul>
+<li>Dependent variable depends on one independent (predictor)
+variable</li>
+</ul>
+</li>
+<li class="fragment">Multiple Regression:
+<ul>
+<li>Dependent variable depends on multiple independent variables.</li>
+</ul>
+</li>
+<li class="fragment">Why use Multiple Regression?
+<ul>
+<li class="fragment">Statistical controls for confounding effects
+<ul>
+<li class="fragment">On average, men are taller than women</li>
+<li class="fragment">Studies of how income correlates with height should control for
+sex.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment">Why use Multiple Regression? (cont.)
+<ul>
+<li class="fragment">Multiple causes and complex causation
+<ul>
+<li>Earth’s temperature depends on
+<ul>
+<li>Greenhouse gas concentrations</li>
+<li>Albedo (reflection of sunlight)</li>
+<li>Brightness of the sun</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment">Interactions (Chapter 8)
+<ul>
+<li class="fragment">Smoking increases risk of lung cancer</li>
+<li class="fragment">Exposure to radon increases risk of lung cancer
+<ul>
+<li class="fragment">The effect of radon is much greater among smokers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="spurious-association" class="slide level2"><h2>Spurious Association</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/fig/waffles-1.png"><!-- --></p>
+<ul>
+<li>Does the presence of Waffle House restaurants cause married couples
+to get divorced?</li>
+</ul>
+</div>
+<div class="column fragment">
+<p><img data-src="assets/fig/spurious-2-1.png"><!-- --></p>
+</div>
+</div>
+</section><section id="standardize-data" class="slide level2 t85"><h2 class="t85">Standardize Data</h2>
+<div class="columns">
+<div class="column">
+<div class="bare mbot-2 max-listing">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(WaffleDivorce)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> WaffleDivorce <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">D =</span> <span class="fu">standardize</span>(Divorce),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="fu">standardize</span>(Marriage),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="fu">standardize</span>(MedianAgeMarriage)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<ul>
+<li>Model <span class="math display">\[
+\begin{align}
+D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_A A_i \\
+\alpha &amp;\sim \text{Normal}(0, 0.2) \\
+\beta_A &amp;\sim \text{Normal}(0, 0.5) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align}
+\]</span>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="columns">
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb13"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mdl_A <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bA <span class="sc">*</span> A,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span></code></pre></div>
+</div>
+</div>
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mdl_M <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><img data-src="assets/fig/plot-m5-1-1.png"><!-- --></p>
+</div>
+</div>
+</section><section id="causal-relationships" class="slide level2 t85"><h2 class="t85">Causal Relationships</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Think before you regress
+<ul>
+<li class="fragment"><p>The pattern we see here is typical when one variable
+influences the dependent variable and also the other independent
+variable.</p></li>
+<li class="fragment">
+<p>Two possible causal relationships</p>
+<div class="bare">
+<p><img data-src="assets/fig/dag-1-1.png"><!-- --><img data-src="assets/fig/dag-2-1.png"><!-- --></p>
+</div>
+</li>
+<li class="fragment"><p>Which is it?</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<p><img data-src="assets/fig/spurious-std-1.png"><!-- --></p>
+</div>
+</div>
+</section><section id="testable-implications" class="slide level2 t85"><h2 class="t85">Testable Implications</h2>
+<div class="columns">
+<div class="column t85">
+<ul>
+<li>
+<p>What are the possible <em>testable implications</em> of these
+DAGs?</p>
+<div class="bare">
+<p><img data-src="assets/fig/dag-1-1.png"><!-- --><img data-src="assets/fig/dag-2-1.png"><!-- --></p>
+</div>
+</li>
+<li>
+<p><strong>Conditional independencies:</strong></p>
+<ol type="1">
+<li>Which variables should be associated in the data?</li>
+<li>Which variables become dis-associated when we <em>condition</em> on
+another set of variables</li>
+</ol>
+<ul>
+<li class="fragment"><strong>Conditioning:</strong> <em>Y</em> is independent of
+<em>X</em>, conditioned on <em>Z</em> (<span class="math inline">\(Y
+\indep X | Z\)</span>) if <em>X</em> doesn’t give us any additional
+information about <em>Y</em> when we already know <em>Z</em>.</li>
+<li class="fragment">Left DAG: There shouldn’t be any independence among <em>D</em>,
+<em>A</em>, and <em>M</em>.</li>
+<li class="fragment">Right DAG: <span class="math inline">\(D \indep M |
+A\)</span>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare max-listing fragment">
+<ul>
+<li>
+<p>Left DAG:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>DMA_dag1 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag{ D &lt;- A -&gt; M -&gt; D }"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">impliedConditionalIndependencies</span>(DMA_dag1)</span></code></pre></div>
+<ul>
+<li>No conditional independencies</li>
+</ul>
+</li>
+<li>
+<p>Right DAG:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>DMA_dag2 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag{ D &lt;- A -&gt; M }"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">impliedConditionalIndependencies</span>(DMA_dag2)</span></code></pre></div>
+<pre class="seventy max-listing"><code>## D _||_ M | A</code></pre>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section></section><section><section id="multiple-regression-models" class="title-slide slide level1 center"><h1 class="center">Multiple Regression Models</h1>
+
+</section><section id="multiple-regression-notation" class="slide level2 t85"><h2 class="t85">Multiple Regression Notation</h2>
+<div class="columns">
+<div class="column">
+<p><span class="math display">\[
+\begin{align}
+D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_M M_i + \beta_A A_i \\
+\alpha &amp;\sim \text{Normal}(0,0.2) \\
+\beta_M &amp;\sim \text{Normal}(0,0.5) \\
+\beta_A &amp;\sim \text{Normal}(0,0.5) \\
+\sigma &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span></p>
+</div>
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mdl_multi <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M <span class="sc">+</span> bA <span class="sc">*</span> A,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_multi, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
+## a      0.00 0.10 -0.16  0.16
+## bM    -0.07 0.15 -0.31  0.18
+## bA    -0.61 0.15 -0.85 -0.37
+## sigma  0.79 0.08  0.66  0.91</code></pre>
+</div>
+</div>
+</div>
+</section><section id="comparing-models" class="slide level2 t85"><h2 class="t85">Comparing Models</h2>
+<div class="columns">
+<div class="column" style="width:66%;">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_A, mdl_M, mdl_multi), <span class="at">par =</span> <span class="fu">c</span>(<span class="st">"bA"</span>, <span class="st">"bM"</span>))</span></code></pre></div>
+<p><img src="assets/fig/plot-models-2-1.png" alt="" style="margin-top:0.5rem;"></p>
+</div>
+<ul>
+<li class="fragment">In the multiple model, <em>b<sub>M</sub></em> is consistent with
+zero:
+<ul>
+<li>If we know the median age <em>A</em>,</li>
+<li>we get no additional information from knowing the marriage rate
+<em>M</em>.</li>
+<li><span class="t80"><span class="math inline">\(D \indep M |
+A\)</span></span></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column" style="width:30%;">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mdl_A <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bA <span class="sc">*</span> A,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mdl_M <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mdl_multi <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M <span class="sc">+</span> bA <span class="sc">*</span> A,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</section></section><section><section id="diagnostic-posterior-plots" class="title-slide slide level1 center"><h1 class="center">Diagnostic Posterior Plots</h1>
+
+</section><section id="diagnostic-posterior-plots-1" class="slide level2 t85"><h2 class="t85">Diagnostic Posterior Plots</h2>
+<ul>
+<li>We can also learn from plotting the posterior in different ways.
+<ol type="1">
+<li>
+<strong>Predictor residual plots:</strong> Data versus residual
+predictor values.
+<ul>
+<li>These are only useful for understanding the model itself.</li>
+</ul>
+</li>
+<li>
+<strong>Posterior prediction plots:</strong> Predictions versus raw
+data.
+<ul>
+<li>Useful for checking how well the model fits the data.</li>
+<li>Don’t tell us about causal relationships.</li>
+</ul>
+</li>
+<li>
+<strong>Counterfactual plots:</strong> Implied predictions for
+imaginary experiments.
+<ul>
+<li>Useful for exploring causal implications.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul></section><section id="predictor-residual-plots" class="slide level2 t85"><h2 class="t85">Predictor Residual Plots</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li>
+<p>Predict <em>M</em> from <em>A</em></p>
+<div class="bare max-listing">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>mdl_MA <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    M <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> A,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">select</span>(d, D, A, M, Loc)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>notable_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WY"</span>, <span class="st">"ND"</span>, <span class="st">"ME"</span>, <span class="st">"HI"</span>, <span class="st">"DC"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  mdl_MA, new_data, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="st">"mu"</span>, <span class="at">ndraws =</span> <span class="dv">100</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span></code></pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="column" style="width:59%;">
+<div class="bare t90 max-listing">
+<div class="sourceCode" id="cb27"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post, <span class="fu">aes</span>(<span class="at">x =</span> A, <span class="at">y =</span> M)) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> A, <span class="at">yend =</span> estimate), <span class="at">size =</span> <span class="fl">0.25</span>, </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> <span class="fu">filter</span>(post, Loc <span class="sc">%in%</span> notable_states),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>, </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_x =</span> <span class="fl">0.01</span>, <span class="at">nudge_y =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age at marriage (std)"</span>, <span class="at">y =</span> <span class="st">"Marriage rate (std)"</span>) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="assets/fig/plot-MA-1.png" alt="" style="margin-top:0.5rem;"></p>
+</div>
+</div>
+</div>
+</section><section id="more-residual-plots" class="slide level2 t85"><h2 class="t85">More Residual Plots</h2>
+<div class="columns">
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> post <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">resid =</span> M <span class="sc">-</span> estimate)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mdl_resid <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b_res <span class="sc">*</span> resid,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    b_res <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d2</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>post_MA <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_resid, <span class="fu">select</span>(d2, resid),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"estimate"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(estimate), </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.055</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.945</span>),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="st">"resid"</span>)</span></code></pre></div>
+</div>
+</div>
+<div class="column">
+<div class="bare max-listing">
+<p><img data-src="assets/fig/plot_resid-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Look for structure in the residuals.
+<ul>
+<li>Is the trend line consistent with being flat?
+<ul>
+<li class="fragment">Marriage rate residuals?</li>
+<li class="fragment">Age at marriage residuals?</li>
+<li class="fragment">The error in marriage rate isn’t correlated with divorce rate,
+but the error in age at marriage is.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="posterior-predictive-plots" class="slide level2 t85"><h2 class="t85">Posterior Predictive Plots</h2>
+<div class="columns">
+<div class="column">
+<div class="bare max-listing">
+<p><img data-src="assets/fig/post-pred-ml-1.png"><!-- --></p>
+</div>
+<ol type="1">
+<li>How well does the posterior distribution match the data?</li>
+<li>When the model fails, <strong><em>how</em></strong> does it
+fail?</li>
+</ol>
+<ul>
+<li class="fragment">Notice that I use <code>linpred_draws</code> (equivalent to
+<code>link</code>), not <code>predicted draws</code> (equivalent to
+<code>extract.samples</code>)</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_multi, <span class="fu">select</span>(d, D, A, M, Loc), </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"mu"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> mu <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(mu, <span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.055</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.975</span>),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>notable_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"UT"</span>, <span class="st">"RI"</span>, <span class="st">"ME"</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> D, <span class="at">y =</span> estimate, </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">ymax =</span> upper, <span class="at">ymin =</span> lower)) <span class="sc">+</span> </span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> <span class="fu">filter</span>(d2, Loc <span class="sc">%in%</span> notable_states),</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed divorce rate"</span>,</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted divorce"</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/math/math.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees5891.jgilligan.org/slides/class_06">' +
+  	'<img src="qrcode.png" alt="https://ees5891.jgilligan.org/slides/class_06"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees5891.jgilligan.org/slides/class_06">https://ees5891.jgilligan.org/slides/class_06</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees5891.jgilligan.org/slides/class_06/ees_5891-01_class_06_slides.pdf" target="_blank">https://ees5891.jgilligan.org/slides/class_06/ees_5891-01_class_06_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  indep: "\\perp \\!\\!\\! \\perp"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+    displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+    processEscapes: true
+  }
+})
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>

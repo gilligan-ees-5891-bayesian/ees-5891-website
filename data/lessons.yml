@@ -28,6 +28,7 @@ lessons:
 - date: '2026-01-26'
   title: Many variables (part 1)
   reading: /reading/reading_06
+  lecture: /slides/class_06
 - date: '2026-01-28'
   title: Many variables (part 2)
   reading: /reading/reading_07
