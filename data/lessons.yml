@@ -26,76 +26,75 @@ lessons:
 - date: '2026-01-22'
   assignment: /assignment/homework_03
 - date: '2026-01-26'
+  title: Class canceled (winter storm)
+- date: '2026-01-28'
   title: Many variables (part 1)
   reading: /reading/reading_06
   lecture: /slides/class_06
-- date: '2026-01-28'
+- date: '2026-02-02'
   title: Many variables (part 2)
   reading: /reading/reading_07
-- date: '2026-01-29'
-  assignment: /assignment/homework_04
-- date: '2026-02-02'
+- date: '2026-02-04'
   title: Designing statistical models
   reading: /reading/reading_08
-- date: '2026-02-04'
+- date: '2026-02-05'
+  assignment: /assignment/homework_04
+- date: '2026-02-09'
   title: Regularization
   reading: /reading/reading_09
-- date: '2026-02-05'
+- date: '2026-02-10'
   assignment: /assignment/homework_05
-- date: '2026-02-09'
+- date: '2026-02-11'
   title: Interactions
   reading: /reading/reading_10
-- date: '2026-02-11'
-  title: Monte Carlo sampling
-  reading: /reading/reading_11
 - date: '2026-02-12'
   assignment: /assignment/homework_06
 - date: '2026-02-16'
+  title: Monte Carlo sampling
+  reading: /reading/reading_11
+- date: '2026-02-18'
   title: Monte Carlo Software
   reading: /reading/reading_12
-- date: '2026-02-18'
-  title: Generalized linear models
-  reading: /reading/reading_13
 - date: '2026-02-19'
   assignment: /assignment/homework_07
 - date: '2026-02-23'
   title: Generalized linear models
-  reading: /reading/reading_14
+  reading: /reading/reading_13
 - date: '2026-02-25'
+  title: Generalized linear models
+  reading: /reading/reading_14
+- date: '2026-03-02'
   title: Discussion of student projects
   reading: /reading/reading_15
-- date: '2026-03-02'
+- date: '2026-03-04'
   title: Discrete statistical models
   reading: /reading/reading_16
-- date: '2026-03-04'
-  title: Mixture models
-  reading: /reading/reading_17
 - date: '2026-03-09'
   title: Spring Break
 - date: '2026-03-11'
   title: Spring Break
 - date: '2026-03-16'
-  title: Multilevel models
-  reading: /reading/reading_18
+  title: Mixture models
+  reading: /reading/reading_17
 - date: '2026-03-17'
   assignment: /assignment/homework_08
 - date: '2026-03-18'
-  title: Multilevel models, part 2
-  reading: /reading/reading_19
+  title: Multilevel models
+  reading: /reading/reading_18
 - date: '2026-03-19'
   assignment: /assignment/project_proposal
 - date: '2026-03-23'
+  title: Multilevel models, part 2
+  reading: /reading/reading_19
+- date: '2026-03-25'
   title: More multilevel models
   reading: /reading/reading_20
-- date: '2026-03-25'
+- date: '2026-03-30'
   title: Messy data
   reading: /reading/reading_21
-- date: '2026-03-30'
+- date: '2026-04-01'
   title: Review of Bayesian Regression
   reading: /reading/reading_22
-- date: '2026-04-01'
-  title: Discussion of projects
-  reading: /reading/reading_23
 - date: '2026-04-06'
   title: Generalized Linear Madness
   reading: /reading/reading_24

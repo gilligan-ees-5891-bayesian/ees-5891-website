@@ -98,7 +98,7 @@ code span.wa { font-style: italic; } /* Warning */
     <h3 class="author">Jonathan Magnolia Gilligan</h3>
     <h3 class="date">
       Class #6:
-       Monday, January 26
+       Wednesday, January 28
       2026
     </h3>
 	<!-- end title slide -->
@@ -407,34 +407,33 @@ h &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 <div class="column">
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d_std <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">ws =</span> (weight <span class="sc">-</span> <span class="fu">mean</span>(weight)) <span class="sc">/</span> <span class="fu">sd</span>(weight),</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">ws2 =</span> ws<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>flist_lin_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> ws,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  b <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>lin_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_lin_s, <span class="at">data =</span> d_std)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>flist_quad_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b1 <span class="sc">*</span> ws <span class="sc">+</span> b2 <span class="sc">*</span> ws2,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>quad_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_quad_s, <span class="at">data =</span> d_std)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(quad_mdl_s)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d_std <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">ws =</span> <span class="fu">standardize</span>(weight), <span class="at">ws2 =</span> ws<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>flist_lin_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> ws,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  b <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>lin_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_lin_s, <span class="at">data =</span> d_std)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>flist_quad_s <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b1 <span class="sc">*</span> ws <span class="sc">+</span> b2 <span class="sc">*</span> ws2,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">50</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>quad_mdl_s <span class="ot">&lt;-</span> <span class="fu">quap</span>(flist_quad_s, <span class="at">data =</span> d_std)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(quad_mdl_s)</span></code></pre></div>
 <pre class="seventy max-listing"><code>##             mean        sd       5.5%      94.5%
-## a     146.057333 0.3689800 145.467632 146.647035
-## b1     21.733305 0.2888932  21.271598  22.195012
-## b2     -7.802983 0.2741888  -8.241189  -7.364776
-## sigma   5.774541 0.1764705   5.492507   6.056575</code></pre>
+## a     146.057412 0.3689756 145.467718 146.647106
+## b1     21.733063 0.2888891  21.271362  22.194763
+## b2     -7.803267 0.2741839  -8.241466  -7.365068
+## sigma   5.774476 0.1764652   5.492450   6.056501</code></pre>
 </div>
 </div>
 </div>
@@ -643,13 +642,34 @@ sex.</li>
 </ul>
 </div>
 </div>
-</section><section id="spurious-association" class="slide level2"><h2>Spurious Association</h2>
+</section><section id="does-waffle-house-drive-divorce-rates" class="slide level2 t85"><h2 class="t85">Does Waffle House Drive Divorce Rates?</h2>
 <div class="columns">
 <div class="column">
 <p><img data-src="assets/fig/waffles-1.png"><!-- --></p>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="assets/fig/waffle-choropleth-1.png"><!-- --></p>
+</div>
+</div>
+<div class="column ptop-5 fragment" data-fragment-index="2">
 <ul>
-<li>Does the presence of Waffle House restaurants cause married couples
-to get divorced?</li>
+<li>The Waffle-House Index</li>
+</ul>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/images/waffle-house-ny-post.png"><img data-src="assets/images/waffle-house-murfreesboro.png"></p>
+</div>
+<div class="column">
+<p><img data-src="assets/images/waffle-house-code-red.jpg"></p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="spurious-association" class="slide level2"><h2>Spurious Association</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/fig/unnamed-chunk-6-1.png"><!-- --></p>
+<ul>
+<li>Causation vs. correlation</li>
 </ul>
 </div>
 <div class="column fragment">
@@ -659,7 +679,11 @@ to get divorced?</li>
 </section><section id="standardize-data" class="slide level2 t85"><h2 class="t85">Standardize Data</h2>
 <div class="columns">
 <div class="column">
-<div class="bare mbot-2 max-listing">
+<ul>
+<li>Standardizing makes it easier to compare effects of different
+variables</li>
+</ul>
+<div class="bare mtop-1 mbot-2 max-listing">
 <div class="sourceCode" id="cb12"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(WaffleDivorce)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> WaffleDivorce <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
@@ -708,7 +732,11 @@ D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 </div>
 </div>
 </div>
+<div class="mtop-1">
+<div class="bare">
 <p><img data-src="assets/fig/plot-m5-1-1.png"><!-- --></p>
+</div>
+</div>
 </div>
 </div>
 </section><section id="causal-relationships" class="slide level2 t85"><h2 class="t85">Causal Relationships</h2>
@@ -825,12 +853,12 @@ D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 </div>
 </div>
 </div>
-</section><section id="comparing-models" class="slide level2 t85"><h2 class="t85">Comparing Models</h2>
+</section><section id="comparing-models" class="slide level2 t85" data-transition="fade-out"><h2 class="t85" data-transition="fade-out">Comparing Models</h2>
 <div class="columns">
 <div class="column" style="width:66%;">
 <div class="bare max-listing">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_A, mdl_M, mdl_multi), <span class="at">par =</span> <span class="fu">c</span>(<span class="st">"bA"</span>, <span class="st">"bM"</span>))</span></code></pre></div>
-<p><img src="assets/fig/plot-models-2-1.png" alt="" style="margin-top:0.5rem;"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_A, mdl_M, mdl_multi), <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"bA"</span>, <span class="st">"bM"</span>))</span></code></pre></div>
+<p><img src="assets/fig/plot-models-do-1.png" alt="" style="margin-top:0.5rem;"></p>
 </div>
 <ul>
 <li class="fragment">In the multiple model, <em>b<sub>M</sub></em> is consistent with
@@ -876,6 +904,45 @@ A\)</span></span></li>
 </div>
 </div>
 </div>
+</section><section id="conclusion" class="slide level2 t85" data-transition="fade-in"><h2 class="t85" data-transition="fade-in">Conclusion</h2>
+<div class="columns">
+<div class="column" style="width:66%;">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_A, mdl_M, mdl_multi), <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"bA"</span>, <span class="st">"bM"</span>))</span></code></pre></div>
+<p><img src="assets/fig/unnamed-chunk-11-1.png" alt="" style="margin-top:0.5rem;"></p>
+</div>
+<ul>
+<li>In the multiple model, <em>b<sub>M</sub></em> is consistent with
+zero:
+<ul>
+<li>If we know the median age <em>A</em>,</li>
+<li>we get no additional information from knowing the marriage rate
+<em>M</em>.</li>
+<li><span class="t80"><span class="math inline">\(D \indep M |
+A\)</span></span></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column" style="width:30%;">
+<ul>
+<li>
+<p>Therefore, DAG 2 is more consistent with the data</p>
+<ol>
+<li>
+<p>DAG 1 (No conditional independencies)</p>
+<p><img data-src="assets/fig/unnamed-chunk-12-1.png"><!-- --></p>
+</li>
+<li>
+<p>DAG 2 (<span class="t80"><span class="math inline">\(D \indep M |
+A\)</span></span>)</p>
+<p><img data-src="assets/fig/unnamed-chunk-13-1.png"><!-- --></p>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
 </section></section><section><section id="diagnostic-posterior-plots" class="title-slide slide level1 center"><h1 class="center">Diagnostic Posterior Plots</h1>
 
 </section><section id="diagnostic-posterior-plots-1" class="slide level2 t85"><h2 class="t85">Diagnostic Posterior Plots</h2>
@@ -883,24 +950,24 @@ A\)</span></span></li>
 <li>We can also learn from plotting the posterior in different ways.
 <ol type="1">
 <li>
-<strong>Predictor residual plots:</strong> Data versus residual
-predictor values.
+<strong>Predictor residual plots:</strong>
 <ul>
+<li><em>Data versus residual predictor values.</em></li>
 <li>These are only useful for understanding the model itself.</li>
 </ul>
 </li>
 <li>
-<strong>Posterior prediction plots:</strong> Predictions versus raw
-data.
+<strong>Posterior prediction plots:</strong>
 <ul>
+<li><em>Predictions versus raw data.</em></li>
 <li>Useful for checking how well the model fits the data.</li>
 <li>Don’t tell us about causal relationships.</li>
 </ul>
 </li>
 <li>
-<strong>Counterfactual plots:</strong> Implied predictions for
-imaginary experiments.
+<strong>Counterfactual plots:</strong>
 <ul>
+<li><em>Implied predictions for imaginary experiments.</em></li>
 <li>Useful for exploring causal implications.</li>
 </ul>
 </li>
@@ -913,46 +980,47 @@ imaginary experiments.
 <li>
 <p>Predict <em>M</em> from <em>A</em></p>
 <div class="bare max-listing">
-<div class="sourceCode" id="cb25"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>mdl_MA <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    M <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> A,</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">select</span>(d, D, A, M, Loc)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>notable_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WY"</span>, <span class="st">"ND"</span>, <span class="st">"ME"</span>, <span class="st">"HI"</span>, <span class="st">"DC"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  mdl_MA, new_data, </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="st">"mu"</span>, <span class="at">ndraws =</span> <span class="dv">100</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mdl_MA <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    M <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> A,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">select</span>(d, D, A, M, Loc)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>notable_states_MA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WY"</span>, <span class="st">"ND"</span>, <span class="st">"ME"</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"HI"</span>, <span class="st">"DC"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>post_MA <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  mdl_MA, new_data, </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="st">"mu"</span>, <span class="at">ndraws =</span> <span class="dv">100</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span></code></pre></div>
 </div>
 </li>
 </ul>
 </div>
 <div class="column" style="width:59%;">
-<div class="bare t90 max-listing">
-<div class="sourceCode" id="cb27"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post, <span class="fu">aes</span>(<span class="at">x =</span> A, <span class="at">y =</span> M)) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> A, <span class="at">yend =</span> estimate), <span class="at">size =</span> <span class="fl">0.25</span>, </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> <span class="fu">filter</span>(post, Loc <span class="sc">%in%</span> notable_states),</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>, </span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_x =</span> <span class="fl">0.01</span>, <span class="at">nudge_y =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age at marriage (std)"</span>, <span class="at">y =</span> <span class="st">"Marriage rate (std)"</span>) <span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="assets/fig/plot-MA-1.png" alt="" style="margin-top:0.5rem;"></p>
+<div class="bare t90">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_MA, <span class="fu">aes</span>(<span class="at">x =</span> A, <span class="at">y =</span> M)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> A, <span class="at">yend =</span> estimate), <span class="at">size =</span> <span class="fl">0.25</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Loc <span class="sc">%in%</span> notable_states_MA),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>, </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_x =</span> <span class="fl">0.01</span>, <span class="at">nudge_y =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age at marriage (std)"</span>, <span class="at">y =</span> <span class="st">"Marriage rate (std)"</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Predict marriage rate from age at marriage"</span>) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+</div>
+<div class="bare">
+<p><img src="assets/fig/plot-MA-resid-1.png" alt="" style="margin-top:0.5rem;"></p>
 </div>
 </div>
 </div>
@@ -960,24 +1028,40 @@ imaginary experiments.
 <div class="columns">
 <div class="column">
 <div class="bare max-listing">
-<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> post <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">resid =</span> M <span class="sc">-</span> estimate)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mdl_resid <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b_res <span class="sc">*</span> resid,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    b_res <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d2</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>post_MA <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_resid, <span class="fu">select</span>(d2, resid),</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"estimate"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(estimate), </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.055</span>),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.945</span>),</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="st">"resid"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> post_MA <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">resid =</span> M <span class="sc">-</span> estimate)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>mdl_MA_resid <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b_res <span class="sc">*</span> resid,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    b_res <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d2</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>post_MA_2 <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_MA_resid, <span class="fu">select</span>(d2, resid),</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"estimate"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(estimate), </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.055</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.945</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="st">"resid"</span>)</span></code></pre></div>
+</div>
+<div class="t90">
+<ul>
+<li>Look for structure in the residuals.
+<ul>
+<li>Is the trend line consistent with being flat?
+<ul>
+<li class="fragment">Marriage rate residuals? (No)</li>
+<li class="fragment">Age at marriage residuals? (Yes)</li>
+<li class="fragment">Correlation implies structure the model doesn’t account
+for.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="column">
@@ -986,20 +1070,7 @@ imaginary experiments.
 </div>
 </div>
 </div>
-<ul>
-<li>Look for structure in the residuals.
-<ul>
-<li>Is the trend line consistent with being flat?
-<ul>
-<li class="fragment">Marriage rate residuals?</li>
-<li class="fragment">Age at marriage residuals?</li>
-<li class="fragment">The error in marriage rate isn’t correlated with divorce rate,
-but the error in age at marriage is.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul></section><section id="posterior-predictive-plots" class="slide level2 t85"><h2 class="t85">Posterior Predictive Plots</h2>
+</section><section id="posterior-predictive-plots" class="slide level2 t85"><h2 class="t85">Posterior Predictive Plots</h2>
 <div class="columns">
 <div class="column">
 <div class="bare max-listing">
@@ -1018,26 +1089,135 @@ fail?</li>
 </div>
 <div class="column">
 <div class="bare max-listing">
-<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_multi, <span class="fu">select</span>(d, D, A, M, Loc), </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"mu"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> mu <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(mu, <span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.055</span>),</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.975</span>),</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>notable_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"UT"</span>, <span class="st">"RI"</span>, <span class="st">"ME"</span>)</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> D, <span class="at">y =</span> estimate, </span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">ymax =</span> upper, <span class="at">ymin =</span> lower)) <span class="sc">+</span> </span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> <span class="fu">filter</span>(d2, Loc <span class="sc">%in%</span> notable_states),</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed divorce rate"</span>,</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted divorce"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_multi, <span class="fu">select</span>(d, D, A, M, Loc), </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"mu"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> mu <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.055</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(mu, <span class="fl">0.975</span>),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>notable_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"UT"</span>, <span class="st">"RI"</span>, <span class="st">"ME"</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x =</span> D, <span class="at">y =</span> estimate, </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">ymax =</span> upper, <span class="at">ymin =</span> lower)) <span class="sc">+</span> </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> <span class="fu">filter</span>(d2, Loc <span class="sc">%in%</span> notable_states),</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> Loc), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed divorce rate"</span>,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted divorce"</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</section><section id="counterfactual-predictions" class="slide level2"><h2>Counterfactual Predictions</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>No states have both a high median age of marriage and a high
+marriage rate.</li>
+<li>Utah: A<sub>std</sub> = -2.21, M<sub>std</sub> = 2.5,
+D<sub>std</sub> = 0.28.
+<ul>
+<li><p>What would Utah’s divorce rate be if its median age at marriage
+were high, and its marriage rate remained the same?</p></li>
+<li class="fragment">
+<p>Use this causal model:</p>
+<div class="bare mtop-1">
+<img data-src="assets/fig/unnamed-chunk-15-1.png"><!-- -->
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment">Recipe:
+<ol type="1">
+<li>Pick a variable to manipulate: <em>intervention</em> variable.</li>
+<li>Define a range of values for the intervention variable.</li>
+<li>For each value of the intervention variable:
+<ul>
+<li>Sample parameters from the posterior.</li>
+<li>For each sample of the posterior, use causal model to simulate the
+values of other variables, including the outcome.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="implementing-counterfactual-prediction" class="slide level2 t85"><h2 class="t85">Implementing Counterfactual Prediction</h2>
+<div class="columns">
+<div class="column">
+<div class="bare max-listing">
+<div class="sourceCode" id="cb32"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mdl_cfact <span class="ot">&lt;-</span> <span class="fu">quap</span>( <span class="fu">alist</span>( </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## A -&gt; D &lt;- M </span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  D <span class="sc">~</span> <span class="fu">dnorm</span>( mu, sigma), </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M <span class="sc">+</span> bA <span class="sc">*</span> A, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span>, <span class="fl">0.2</span>), </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  bM <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  bA <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dexp</span>( <span class="dv">1</span>), </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## A -&gt; M </span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  M <span class="sc">~</span> <span class="fu">dnorm</span>( mu_M, sigma_M), </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  mu_M <span class="ot">&lt;-</span> aM <span class="sc">+</span> bAM<span class="sc">*</span>A, </span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  aM <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span>, <span class="fl">0.2</span>), </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  bAM <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  sigma_M <span class="sc">~</span> <span class="fu">dexp</span>( <span class="dv">1</span>) </span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">A =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">to =</span> <span class="dv">2</span>, <span class="at">length.out =</span> <span class="dv">30</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cfact <span class="ot">&lt;-</span> <span class="fu">sim</span>(mdl_cfact, <span class="at">data =</span> new_data, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"D"</span>))</span></code></pre></div>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<p><img data-src="assets/fig/cfact-plot-1.png"><!-- --></p>
+</div>
+<ul>
+<li>
+<p>Model DAG:</p>
+<p><img data-src="assets/fig/unnamed-chunk-16-1.png"><!-- --></p>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="different-counterfactual" class="slide level2 t85"><h2 class="t85">Different Counterfactual</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Now, suppose you want to explore the effect of changing M instead of
+A?
+<ul>
+<li>
+<p>If we’re going to change M, we need a different DAG:</p>
+<p><img data-src="assets/fig/dag-3-1.png"><!-- --></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="bare max-listing">
+<div class="sourceCode" id="cb35"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>new_data_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">M =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">to =</span> <span class="dv">2</span>, <span class="at">length.out =</span> <span class="dv">30</span>),</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">A =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cfact_2 <span class="ot">&lt;-</span> <span class="fu">sim</span>(mdl_cfact, <span class="at">data =</span> new_data_2, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"D"</span>))</span></code></pre></div>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<p><img data-src="assets/fig/cfact-2-plot-1.png"><!-- --></p>
+<ul>
+<li class="fragment">We’ve simulated two controlled experiments:
+<ol type="1">
+<li>Vary A and account for effects of A on M.</li>
+<li>Vary M and keep A constant.</li>
+</ol>
+</li>
+</ul>
 </div>
 </div>
 </div>
