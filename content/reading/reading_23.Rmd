@@ -1,5 +1,5 @@
 ---
-title: Discussion of projects
+title: Differential Equations
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 23
@@ -8,7 +8,7 @@ slug: reading_23
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-04-01'
+  par_date: '2026-04-08'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_23.pdf
 output:
@@ -17,8 +17,10 @@ output:
 ---
 ## Reading:
 
-No new reading for today.
+### Required Reading (everyone):
 
-### Notes:
+* Statistical Rethinking, Ch. 16 ("Generalized Linear Madness"), sections 16.3---16.5.
 
-No new reading for today. We will discuss the projects in class
+### Reading Notes:
+
+This section continues on the connection between scientific and statistical models by introducing Bayesian models that incorporate ordinary differential equations to represent the dynamics of time series.

@@ -1,5 +1,5 @@
 ---
-title: Multilevel models, part 2
+title: More multilevel models
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 19
@@ -8,7 +8,7 @@ slug: reading_19
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-03-23'
+  par_date: '2026-03-25'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_19.pdf
 output:
@@ -19,5 +19,5 @@ output:
 
 ### Required Reading (everyone):
 
-* Statistical Rethinking, Ch. 13 ("Models with Memory").
+* Statistical Rethinking, Ch. 14 ("Adventures in Covariance").
 

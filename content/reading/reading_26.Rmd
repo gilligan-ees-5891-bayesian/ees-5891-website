@@ -1,5 +1,5 @@
 ---
-title: Diagnosing model output
+title: Project presentations
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 26
@@ -8,7 +8,7 @@ slug: reading_26
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-04-13'
+  par_date: '2026-04-20'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_26.pdf
 output:
@@ -18,3 +18,7 @@ output:
 ## Reading:
 
 No new reading for today.
+
+### Notes:
+
+No reading for today. You will make presentations about your semester research projects.

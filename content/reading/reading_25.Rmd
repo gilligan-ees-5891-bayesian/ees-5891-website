@@ -1,5 +1,5 @@
 ---
-title: Differential Equations
+title: STAN Hamiltonian Monte Carlo sampler
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 25
@@ -8,7 +8,7 @@ slug: reading_25
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-04-08'
+  par_date: '2026-04-15'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_25.pdf
 output:
@@ -17,10 +17,4 @@ output:
 ---
 ## Reading:
 
-### Required Reading (everyone):
-
-* Statistical Rethinking, Ch. 16 ("Generalized Linear Madness"), sections 16.3---16.5.
-
-### Reading Notes:
-
-This section continues on the connection between scientific and statistical models by introducing Bayesian models that incorporate ordinary differential equations to represent the dynamics of time series.
+No new reading for today.

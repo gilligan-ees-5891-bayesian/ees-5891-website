@@ -1,5 +1,5 @@
 ---
-title: Mixture models
+title: Multilevel models
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 17
@@ -8,7 +8,7 @@ slug: reading_17
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-03-16'
+  par_date: '2026-03-18'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_17.pdf
 output:
@@ -19,5 +19,5 @@ output:
 
 ### Required Reading (everyone):
 
-* Statistical Rethinking, Ch. 12 ("Monsters and Mixtures").
+* Statistical Rethinking, Ch. 13 ("Models with Memory").
 

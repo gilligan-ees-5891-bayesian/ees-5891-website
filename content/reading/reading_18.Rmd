@@ -1,5 +1,5 @@
 ---
-title: Multilevel models
+title: Multilevel models, part 2
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 18
@@ -8,7 +8,7 @@ slug: reading_18
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-03-18'
+  par_date: '2026-03-23'
   par_subtitle: ~
 pdf_url: /files/reading_asgts/reading_18.pdf
 output:
