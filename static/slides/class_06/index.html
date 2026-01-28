@@ -664,7 +664,18 @@ sex.</li>
 </div>
 </div>
 </div>
-</section><section id="spurious-association" class="slide level2"><h2>Spurious Association</h2>
+<aside class="notes"><ul>
+<li>Waffle House is prevalent in the Southeast because it was founded in
+Georgia in 1955.</li>
+<li>FEMA uses the Waffle House Index internally as it develops its
+estimates of storm severity.
+<ul>
+<li>See, e.g., Valerie Bauerlein, “How to Measure a Storm’s Fury One
+Breakfast at a Time,” <em>Wall St. Journal</em>, Sept. 1, 2011. <a href="https://www.wsj.com/articles/SB10001424053111904716604576542460736605364" class="uri">https://www.wsj.com/articles/SB10001424053111904716604576542460736605364</a>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="spurious-association" class="slide level2"><h2>Spurious Association</h2>
 <div class="columns">
 <div class="column">
 <p><img data-src="assets/fig/unnamed-chunk-6-1.png"><!-- --></p>
@@ -676,7 +687,23 @@ sex.</li>
 <p><img data-src="assets/fig/spurious-2-1.png"><!-- --></p>
 </div>
 </div>
-</section><section id="standardize-data" class="slide level2 t85"><h2 class="t85">Standardize Data</h2>
+<aside class="notes"><ul>
+<li>Causation is complicated. We’re not going to get into the
+philosophical details here.
+<ul>
+<li>In statistics we focus on prediction rather than strict
+causation.</li>
+</ul>
+</li>
+<li>Question for discussion: Does marriage <em>cause</em> divorce?
+<ul>
+<li>Why might divorce rates have a relationship to median age at
+marriage?</li>
+<li>Does theory give a strong indication of what sign the correlation
+should be?</li>
+</ul>
+</li>
+</ul></aside></section><section id="standardize-data" class="slide level2 t85"><h2 class="t85">Standardize Data</h2>
 <div class="columns">
 <div class="column">
 <ul>
@@ -739,11 +766,28 @@ D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 </div>
 </div>
 </div>
-</section><section id="causal-relationships" class="slide level2 t85"><h2 class="t85">Causal Relationships</h2>
+<aside class="notes"><ul>
+<li>We standardize variables because then the slopes from regression
+models make sense:
+<ul>
+<li>Compare the effects of two different predictors</li>
+<li>Interpret slopes as the effect of changing a variable by one
+standard deviation</li>
+<li>Avoid uncertainties due to covariation between slope and
+intercept</li>
+<li>Makes it easier to choose priors:
+<ul>
+<li>Intercept should be centered at zero.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="causal-relationships" class="slide level2 t85"><h2 class="t85">Causal Relationships</h2>
 <div class="columns">
 <div class="column">
 <ul>
-<li>Think before you regress
+<li>
+<strong>Think before you regress</strong>
 <ul>
 <li class="fragment"><p>The pattern we see here is typical when one variable
 influences the dependent variable and also the other independent
@@ -763,7 +807,25 @@ variable.</p></li>
 <p><img data-src="assets/fig/spurious-std-1.png"><!-- --></p>
 </div>
 </div>
-</section><section id="testable-implications" class="slide level2 t85"><h2 class="t85">Testable Implications</h2>
+<aside class="notes"><ul>
+<li>Discuss what the DAGs mean in terms of causation.
+<ul>
+<li>How would A, M, and D influence one another?</li>
+<li>Younger A would tend to mean larger M because there are more young
+people than old people</li>
+</ul>
+</li>
+<li>Thought experiment:
+<ul>
+<li>Evil dictator forbids marriage before age 65.
+<ul>
+<li>Not as many people are alive at 65 as at 25</li>
+<li>But how would this affect divorce?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="testable-implications" class="slide level2 t85"><h2 class="t85">Testable Implications</h2>
 <div class="columns">
 <div class="column t85">
 <ul>
@@ -816,7 +878,26 @@ A\)</span>.</li>
 </div>
 </div>
 </div>
-</section></section><section><section id="multiple-regression-models" class="title-slide slide level1 center"><h1 class="center">Multiple Regression Models</h1>
+<aside class="notes"><ul>
+<li>The <span class="math inline">\(\indep\)</span> notation is
+annoying, and McElreath says so.</li>
+<li>
+<em>Conditioning</em> vs. <em>controlling</em>:
+<ul>
+<li>The idea of controlling for a variable comes from experiments where
+that variable is deliberately and systematically varied while everything
+else remains constant.</li>
+<li>In statistics, we often don’t have the ability to do that, so what
+we actually do is better described as <em>conditioning</em>.</li>
+</ul>
+</li>
+<li>Discuss why D is not independent of M, conditional on A in the left
+DAG.</li>
+<li>In the first DAG, there are no conditional independencies, which
+means that there are no testable implications. However, for the second
+DAG, there is a conditional independency, which can be tested by
+comparing different regression models.</li>
+</ul></aside></section></section><section><section id="multiple-regression-models" class="title-slide slide level1 center"><h1 class="center">Multiple Regression Models</h1>
 
 </section><section id="multiple-regression-notation" class="slide level2 t85"><h2 class="t85">Multiple Regression Notation</h2>
 <div class="columns">
@@ -853,7 +934,19 @@ D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 </div>
 </div>
 </div>
-</section><section id="comparing-models" class="slide level2 t85" data-transition="fade-out"><h2 class="t85" data-transition="fade-out">Comparing Models</h2>
+<aside class="notes"><ul>
+<li>This model lets us address two questions:
+<ol type="1">
+<li>After I already know A, what additional value is there in knowing
+M?</li>
+<li>After I already know M, what additional value is there in knowing
+A?</li>
+</ol>
+</li>
+<li>The precis shows that <span class="math inline">\(\beta_M\)</span>
+is consistent with zero, so knowing M gives no additional information,
+once we know A.</li>
+</ul></aside></section><section id="comparing-models" class="slide level2 t85" data-transition="fade-out"><h2 class="t85" data-transition="fade-out">Comparing Models</h2>
 <div class="columns">
 <div class="column" style="width:66%;">
 <div class="bare max-listing">
@@ -994,9 +1087,9 @@ A\)</span></span>)</p>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"HI"</span>, <span class="st">"DC"</span>)</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>post_MA <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  mdl_MA, new_data, </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="st">"mu"</span>, <span class="at">ndraws =</span> <span class="dv">100</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    mdl_MA, new_data, </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="st">"mu"</span>, <span class="at">ndraws =</span> <span class="dv">100</span> ) <span class="sc">|&gt;</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">mean</span>(mu), </span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(<span class="st">"Loc"</span>, <span class="st">"D"</span>, <span class="st">"A"</span>, <span class="st">"M"</span>))</span></code></pre></div>
 </div>
@@ -1024,9 +1117,45 @@ A\)</span></span>)</p>
 </div>
 </div>
 </div>
-</section><section id="more-residual-plots" class="slide level2 t85"><h2 class="t85">More Residual Plots</h2>
+<aside class="notes"><ul>
+<li>Positive residuals mean actual marriage rate is greater than you’d
+predict.
+<ul>
+<li>Why might some states (WY, ND, ME, HI, DC) be so far from the
+predictions?</li>
+</ul>
+</li>
+</ul></aside></section><section id="which-model" class="slide level2 t85"><h2 class="t85">Which Model?</h2>
+<ul>
+<li>
+<p>We compared two models:</p>
+<ol type="1">
+<li><div class="bare">
+<p><img data-src="assets/fig/unnamed-chunk-14-1.png"><!-- --></p>
+</div></li>
+<li><div class="bare">
+<p><img data-src="assets/fig/unnamed-chunk-15-1.png"><!-- --></p>
+</div></li>
+</ol>
+<ul>
+<li>We ruled out (1).</li>
+</ul>
+</li>
+<li>
+<p>But what about this alternative?</p>
+<ol start="3" type="1">
+<li><div class="bare">
+<p><img data-src="assets/fig/unnamed-chunk-16-1.png"><!-- --></p>
+</div></li>
+</ol>
+</li>
+</ul></section><section id="compare-residual-plots" class="slide level2 t85" data-transition="fade-out"><h2 class="t85" data-transition="fade-out">Compare Residual Plots</h2>
 <div class="columns">
 <div class="column">
+<div class="bare mtop-1 mbot-1">
+<p>DAG 2 <img data-src="assets/fig/unnamed-chunk-17-1.png"><!-- -->
+vs.  DAG 3 <img data-src="assets/fig/unnamed-chunk-18-1.png"><!-- --></p>
+</div>
 <div class="bare max-listing">
 <div class="sourceCode" id="cb29"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> post_MA <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">resid =</span> M <span class="sc">-</span> estimate)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1039,24 +1168,66 @@ A\)</span></span>)</p>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d2</span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>post_MA_2 <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_MA_resid, <span class="fu">select</span>(d2, resid),</span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>post_MA_2 <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_MA_resid, <span class="fu">select</span>(d2, resid), </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ndraws =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="st">"estimate"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(estimate), </span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">lower =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.055</span>),</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.945</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(estimate, <span class="fl">0.945</span>), </span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="st">"resid"</span>)</span></code></pre></div>
 </div>
-<div class="t90">
+</div>
+<div class="column">
+<div class="bare max-listing">
+<p><img data-src="assets/fig/plot-resid-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>Top row: Predict M from A and A from M: Look at the residuals.
+<ul>
+<li>A few states stand out as having especially large positive or
+negative residuals.</li>
+</ul>
+</li>
+<li>Bottom row: Predict divorce rate from residuals in the top row.
+<ul>
+<li>Left: Residuals are consistent with zero-slope.
+<ul>
+<li>This indicates that knowing M adds no useful information after we
+know A</li>
+</ul>
+</li>
+<li>Right: Residuals show a significantly nonzero slope, indicating that
+knowing A imparts a lot of useful information even after we know
+<ol start="13" type="A">
+<li>
+</ol>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="compare-residual-plots-1" class="slide level2 t85" data-transition="fade-in"><h2 class="t85" data-transition="fade-in">Compare Residual Plots</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<p>DAG 2 <img data-src="assets/fig/unnamed-chunk-19-1.png"><!-- -->
+vs.  DAG 3 <img data-src="assets/fig/unnamed-chunk-20-1.png"><!-- --></p>
+</div>
+<div class="mtop-1">
 <ul>
 <li>Look for structure in the residuals.
 <ul>
 <li>Is the trend line consistent with being flat?
 <ul>
-<li class="fragment">Marriage rate residuals? (No)</li>
-<li class="fragment">Age at marriage residuals? (Yes)</li>
+<li class="fragment">DAG 2: Marriage rate residuals? (Yes)</li>
+<li class="fragment">DAG 3: Age at marriage residuals? (No)
+<ul>
 <li class="fragment">Correlation implies structure the model doesn’t account
 for.</li>
+<li class="fragment">A influences D, even after accounting for M</li>
+<li class="fragment">DAG (3) is ruled out.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1066,11 +1237,34 @@ for.</li>
 </div>
 <div class="column">
 <div class="bare max-listing">
-<p><img data-src="assets/fig/plot_resid-1.png"><!-- --></p>
+<p><img data-src="assets/fig/plot-resid-2-1.png"><!-- --></p>
 </div>
 </div>
 </div>
-</section><section id="posterior-predictive-plots" class="slide level2 t85"><h2 class="t85">Posterior Predictive Plots</h2>
+<aside class="notes"><ul>
+<li>Top row: Predict M from A and A from M: Look at the residuals.
+<ul>
+<li>A few states stand out as having especially large positive or
+negative residuals.</li>
+</ul>
+</li>
+<li>Bottom row: Predict divorce rate from residuals in the top row.
+<ul>
+<li>Left: Residuals are consistent with zero-slope.
+<ul>
+<li>This indicates that knowing M adds no useful information after we
+know A</li>
+</ul>
+</li>
+<li>Right: Residuals show a significantly nonzero slope, indicating that
+knowing A imparts a lot of useful information even after we know
+<ol start="13" type="A">
+<li>
+</ol>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="posterior-predictive-plots" class="slide level2 t85"><h2 class="t85">Posterior Predictive Plots</h2>
 <div class="columns">
 <div class="column">
 <div class="bare max-listing">
@@ -1112,7 +1306,15 @@ fail?</li>
 </div>
 </div>
 </div>
-</section><section id="counterfactual-predictions" class="slide level2"><h2>Counterfactual Predictions</h2>
+<aside class="notes"><ul>
+<li>Points to the left of the diagonal line have lower divorce rates
+than predicted.</li>
+<li>Points to the right have higher divorce rates</li>
+<li>ID and UT have considerably lower divorce rates than you would
+predict from the median age at marriage. One possible explanation might
+be because both states have especially large Mormon populations, and
+Mormons are known to have very low rates of divorce.</li>
+</ul></aside></section><section id="counterfactual-predictions" class="slide level2"><h2>Counterfactual Predictions</h2>
 <div class="columns">
 <div class="column">
 <ul>
@@ -1126,7 +1328,7 @@ were high, and its marriage rate remained the same?</p></li>
 <li class="fragment">
 <p>Use this causal model:</p>
 <div class="bare mtop-1">
-<img data-src="assets/fig/unnamed-chunk-15-1.png"><!-- -->
+<img data-src="assets/fig/unnamed-chunk-22-1.png"><!-- -->
 </div>
 </li>
 </ul>
@@ -1182,7 +1384,7 @@ values of other variables, including the outcome.</li>
 <ul>
 <li>
 <p>Model DAG:</p>
-<p><img data-src="assets/fig/unnamed-chunk-16-1.png"><!-- --></p>
+<p><img data-src="assets/fig/unnamed-chunk-23-1.png"><!-- --></p>
 </li>
 </ul>
 </div>
@@ -1196,7 +1398,7 @@ A?
 <ul>
 <li>
 <p>If we’re going to change M, we need a different DAG:</p>
-<p><img data-src="assets/fig/dag-3-1.png"><!-- --></p>
+<p><img data-src="assets/fig/dag-4-1.png"><!-- --></p>
 </li>
 </ul>
 </li>
@@ -1220,6 +1422,12 @@ A?
 </ul>
 </div>
 </div>
+<aside class="notes"><ul>
+<li>When we manipulate M, we break the causal relationship between A and
+M, which is why we need a different DAG for this mode.</li>
+<li>The result shows that manipulating M has no discernible effect on
+D.</li>
+</ul></aside>
 </div>
 </section></section>
 </div>
