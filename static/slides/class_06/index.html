@@ -1422,17 +1422,22 @@ need a different DAG:</p>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">A =</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>cfact_2 <span class="ot">&lt;-</span> <span class="fu">sim</span>(mdl_cfact, <span class="at">data =</span> new_data_2, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"D"</span>))</span></code></pre></div>
 </div>
-</div>
-<div class="column">
-<div class="bare">
-<p><img data-src="assets/fig/cfact-2-plot-1.png"><!-- --></p>
 <ul>
-<li class="fragment">We’ve simulated two controlled experiments:
+<li class="fragment">We’ve simulated 2 controlled experiments:
 <ol type="1">
 <li>Vary A and account for effects of A on M.</li>
 <li>Vary M and keep A constant.</li>
 </ol>
 </li>
+</ul>
+</div>
+<div class="column">
+<div class="bare">
+<p><img data-src="assets/fig/cfact-2-plot-1.png"><!-- --></p>
+</div>
+<ul>
+<li class="fragment">When we break the causality between <em>A</em> and <em>M</em>,
+the direct effect of <em>M</em> on <em>D</em> is very small.</li>
 </ul>
 </div>
 </div>
@@ -1441,9 +1446,7 @@ need a different DAG:</p>
 M, which is why we need a different DAG for this mode.</li>
 <li>The result shows that manipulating M has no discernible effect on
 D.</li>
-</ul></aside>
-</div>
-</section></section>
+</ul></aside></section></section>
 </div>
   </div>
   <!--
