@@ -104,29 +104,90 @@ code span.wa { font-style: italic; } /* Warning */
 	<!-- end title slide -->
 </section><section><section id="masked-relationships" class="title-slide slide level1 center"><h1 class="center">Masked Relationships</h1>
 
+</section><section id="primate-milk-data" class="slide level2 t80"><h2 class="t80">Primate Milk Data</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Data from K. Hinde &amp; L.A. Milligan, “Primate milk: Proximate
+mechanisms and ultimate perspectives,” <em>Evolutionary
+Anthropology</em> <strong>20</strong>, 9–23 (2011). doi: <a href="https://doi.org/10.1002/evan.20289">10.1002/evan.20289</a>
+<ul>
+<li>Goal: How have evolutionary forces shaped lactation in different
+primate species.</li>
+</ul>
+</li>
+<li>Data:
+<ul>
+<li>29 species, belonging to 4 clades.</li>
+<li>For each species:
+<ul>
+<li>Body characteristics:
+<ul>
+<li>Mean maternal body mass (kg)</li>
+<li>Fraction of total brain mass consisting of neocortex tissue</li>
+</ul>
+</li>
+<li>Milk characteristics:
+<ul>
+<li>Energy density (kilocalories/kilogram)</li>
+<li>Percent of milk energy from fat, protein, and lactose</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column bare">
+<div class="bare pbot-half">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(milk)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> milk</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(milk)</span></code></pre></div>
+<pre class="seventy max-listing"><code>## Rows: 29
+## Columns: 8
+## $ clade          &lt;fct&gt; Strepsirrhine, Strepsirrhine, Strepsirrh…
+## $ species        &lt;fct&gt; Eulemur fulvus, E macaco, E mongoz, E ru…
+## $ kcal.per.g     &lt;dbl&gt; 0.49, 0.51, 0.46, 0.48, 0.60, 0.47, 0.56…
+## $ perc.fat       &lt;dbl&gt; 16.60, 19.27, 14.11, 14.91, 27.28, 21.22…
+## $ perc.protein   &lt;dbl&gt; 15.42, 16.91, 16.85, 13.18, 19.50, 23.58…
+## $ perc.lactose   &lt;dbl&gt; 67.98, 63.82, 69.04, 71.91, 53.22, 55.20…
+## $ mass           &lt;dbl&gt; 1.95, 2.09, 2.51, 1.62, 2.19, 5.25, 5.37…
+## $ neocortex.perc &lt;dbl&gt; 55.16, NA, NA, NA, NA, 64.54, 64.54, 67.…</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(milk, <span class="sc">-</span>species, <span class="sc">-</span>clade) <span class="sc">|&gt;</span> <span class="fu">precis</span>()</span></code></pre></div>
+<pre class="seventy max-listing"><code>##                      mean         sd    5.5%   94.5%
+## kcal.per.g      0.6417241  0.1614016  0.4654  0.9146
+## perc.fat       33.9903448 14.2866705 14.5420 53.8240
+## perc.protein   16.4034483  4.8468777  9.7020 23.5152
+## perc.lactose   49.6062069 14.0551735 30.6934 71.1150
+## mass           14.7268966 24.7704693  0.4010 66.2108
+## neocortex.perc 67.5758824  5.9686117 58.4072 75.5872
+##                   histogram
+## kcal.per.g      ▇▅▂▁▁▅▂▁▁▂▁
+## perc.fat       ▁▁▂▃▂▅▂▇▂▂▇▁
+## perc.protein     ▁▂▂▇▃▃▂▃▃▁
+## perc.lactose     ▁▇▃▃▃▅▂▂▃▃
+## mass             ▇▁▁▁▁▁▁▁▁▁
+## neocortex.perc ▂▁▂▅▁▅▅▅▇▅▂▂</code></pre>
+</div>
+</div>
+</div>
 </section><section id="masked-relationships-1" class="slide level2 eighty"><h2 class="eighty">Masked Relationships</h2>
 <div class="columns">
 <div class="column">
 <ul>
-<li>Hypothesis:
+<li>Goal: <em>How have evolutionary forces shaped primate
+lactation?</em>
+</li>
+<li class="fragment" data-fragment-index="1">What we know:
 <ul>
-<li>Primates with larger brains produce higher-calorie milk so infant
-brains grow faster.</li>
+<li>Brains have high metabolic demands</li>
+<li>Infants with large brains need more calories</li>
 </ul>
 </li>
-<li class="fragment" data-fragment-index="1">Data:
+<li class="fragment" data-fragment-index="1">Hypothesis:
 <ul>
-<li>Load data on characteristics of milk in different primate species.
-<ul>
-<li>
-<code>kcal.per.g</code>: Kilocalories energy per kg milk</li>
-<li>
-<code>mass</code>: female body mass (kg)</li>
-<li>
-<code>neocortex.perc</code>: percent of total brain-mass that is
-neocortex</li>
-</ul>
-</li>
+<li>Species with large brains will produce higher-calorie milk</li>
 </ul>
 </li>
 <li class="fragment" data-fragment-index="2">Standardize data
@@ -144,30 +205,18 @@ values</li>
 </ul>
 </div>
 <div class="column lefttext">
-<div class="bare mbot-1 fragment" data-fragment-index="1">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(milk)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> milk</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code></pre></div>
-<pre class="seventy max-listing"><code>## Rows: 29
-## Columns: 8
-## $ clade          &lt;fct&gt; Strepsirrhine, Strepsirrhine, Strepsirrh…
-## $ species        &lt;fct&gt; Eulemur fulvus, E macaco, E mongoz, E ru…
-## $ kcal.per.g     &lt;dbl&gt; 0.49, 0.51, 0.46, 0.48, 0.60, 0.47, 0.56…
-## $ perc.fat       &lt;dbl&gt; 16.60, 19.27, 14.11, 14.91, 27.28, 21.22…
-## $ perc.protein   &lt;dbl&gt; 15.42, 16.91, 16.85, 13.18, 19.50, 23.58…
-## $ perc.lactose   &lt;dbl&gt; 67.98, 63.82, 69.04, 71.91, 53.22, 55.20…
-## $ mass           &lt;dbl&gt; 1.95, 2.09, 2.51, 1.62, 2.19, 5.25, 5.37…
-## $ neocortex.perc &lt;dbl&gt; 55.16, NA, NA, NA, NA, 64.54, 64.54, 67.…</code></pre>
+<div class="bare mtop-1 fragment" data-fragment-index="2">
+<p><img data-src="assets/fig/plot-mass-1.png"><!-- --></p>
 </div>
 <div class="mtop-1 fragment" data-fragment-index="2">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="fu">standardize</span>(kcal.per.g),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">standardize</span>(neocortex.perc),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="fu">standardize</span>(<span class="fu">log</span>(mass))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="fu">standardize</span>(kcal.per.g),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">standardize</span>(neocortex.perc),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="fu">standardize</span>(<span class="fu">log</span>(mass))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="mtop-1 fragment" data-fragment-index="3">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dcc <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(d, K, N, M)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dcc <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(d, K, N, M)</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -210,17 +259,89 @@ K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </div>
 </div>
+</section><section id="test-model-with-simulated-data" class="slide level2 t80"><h2 class="t80">Test Model with Simulated Data</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Can our model estimate parameters accurately?</li>
+<li class="fragment" data-fragment-index="1">Test it with simulated data:
+<ol type="1">
+<li>Pick parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_N\)</span>, <span class="math inline">\(\sigma\)</span> at random from the priors</li>
+<li class="fragment" data-fragment-index="2">Generate simulated data with those parameters</li>
+<li class="fragment" data-fragment-index="3">Use the model to estimate <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span> from the simulate data.</li>
+<li class="fragment" data-fragment-index="4">Compare the posterior distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span> from the model to the actual
+values sampled in step 1.</li>
+</ol>
+</li>
+<li class="fragment" data-fragment-index="5">All three parameters lie within the 89% highest-density
+interval of the posterior
+<ul>
+<li>Success!</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare mbot-half fragment" data-fragment-index="1">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>alpha   <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>beta_N  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sigma   <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Print the parameters</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">alpha =</span> alpha, <span class="at">beta_N =</span> beta_N, <span class="at">sigma =</span> sigma))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##   alpha  beta_N   sigma 
+## -0.2168 -0.2577  0.0496</code></pre>
+</div>
+<div class="bare mbot-half fragment" data-fragment-index="2">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d_sim <span class="ot">&lt;-</span> dcc <span class="sc">|&gt;</span> <span class="fu">select</span>(clade, species, N) <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">K =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), alpha <span class="sc">+</span> beta_N <span class="sc">*</span> N, sigma))</span></code></pre></div>
+</div>
+<div class="bare mbot-half fragment" data-fragment-index="3">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mdl <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu , sigma) ,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bN <span class="sc">*</span> N ,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.2</span>) ,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    bN <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.5</span>) ,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>d_sim )</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##         mean     sd   5.5%  94.5%
+## a     -0.217 0.0125 -0.237 -0.197
+## bN    -0.270 0.0129 -0.291 -0.249
+## sigma  0.052 0.0088  0.038  0.066</code></pre>
+</div>
+</div>
+</div>
 </section><section id="examine-model" class="slide level2 eighty"><h2 class="eighty">Examine Model</h2>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_1a, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<ul>
+<li>
+<p>Now, apply model to estimate <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span> for the actual data.</p>
+<div class="bare mtop-half">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mdl_milk_1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu , sigma) ,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bN <span class="sc">*</span> N ,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.2</span>) ,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    bN <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.5</span>) ,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>dcc )</span></code></pre></div>
+</div>
+</li>
+<li class="fragment" data-fragment-index="1">
+<p>Examine the posterior estimate from the model:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_1))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##       mean   sd  5.5% 94.5%
 ## a     0.04 0.15 -0.21  0.29
 ## bN    0.13 0.22 -0.22  0.49
 ## sigma 1.00 0.16  0.74  1.26</code></pre>
-<ul>
-<li class="fragment" data-fragment-index="1">Both <em>a</em> and <em>bN</em> are consistent with zero. There
-isn’t a strong relationship between <em>N</em> and <em>K</em>.</li>
+</li>
+<li class="fragment" data-fragment-index="2"><p>Both <em>a</em> and <em>bN</em> are consistent with zero.
+There isn’t a strong relationship between <em>N</em> and
+<em>K</em>.</p></li>
 </ul>
 </div>
 <div class="column">
@@ -233,8 +354,7 @@ isn’t a strong relationship between <em>N</em> and <em>K</em>.</li>
 <div class="columns">
 <div class="column">
 <ul>
-<li>
-<p>Model <span class="math display">\[
+<li><p>Model <span class="math display">\[
 \begin{align}
 K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 \mu &amp;= \alpha + \beta_M M \\
@@ -242,27 +362,27 @@ K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 \beta_M &amp;\sim \text{Normal}(0, 1) \\
 \sigma &amp;\sim \text{Exponential}(1) \\  
 \end{align}
-\]</span></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_2, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+\]</span></p></li>
+<li class="fragment" data-fragment-index="1">
+<p>Examine the posterior:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_2))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
 ## a      0.05 0.15 -0.20  0.29
 ## bM    -0.28 0.19 -0.59  0.03
 ## sigma  0.95 0.16  0.70  1.20</code></pre>
 </li>
+<li class="fragment" data-fragment-index="2"><p>Again, <em>a</em> and <em>bM</em> are consistent with
+zero.</p></li>
 </ul>
 </div>
 <div class="column">
-<div class="fragment" data-fragment-index="2">
-
-</div>
 <div class="fragment" data-fragment-index="2">
 <p><img data-src="assets/fig/plot-post-2-1.png"><!-- --></p>
 </div>
 </div>
 </div>
-</section><section id="compare-models-using-counterfactuals" class="slide level2 eighty"><h2 class="eighty">Compare Models using Counterfactuals</h2>
-<div class="columns">
-<div class="column">
+</section><section id="consider-both-m-and-n" class="slide level2 eighty"><h2 class="eighty">Consider Both <em>M</em> and <em>N</em>
+</h2>
 <ul>
 <li>Model <span class="math display">\[
 \begin{align}
@@ -275,8 +395,32 @@ K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 \end{align}
 \]</span>
 </li>
-<li class="fragment" data-fragment-index="2"><em>M</em> and <em>N</em> have opposite effects, so they cancel
-out.
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mdl_milk_3 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu , sigma) ,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bM <span class="sc">*</span> M <span class="sc">+</span> bN <span class="sc">*</span> N,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.2</span>) ,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.5</span>) ,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    bN <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span> , <span class="fl">0.5</span>) ,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>dcc )</span></code></pre></div>
+</section><section id="compare-models-using-counterfactuals" class="slide level2 eighty"><h2 class="eighty">Compare Models using Counterfactuals</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Examine the posterior:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_3))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
+## a      0.07 0.13 -0.15  0.28
+## bM    -0.70 0.22 -1.06 -0.35
+## bN     0.68 0.25  0.28  1.07
+## sigma  0.74 0.13  0.53  0.95</code></pre>
+</li>
+<li class="fragment" data-fragment-index="1">
+<p><em>M</em> and <em>N</em> have opposite effects, so they
+cancel out.</p>
 <ul>
 <li class="fragment"><strong>Masking</strong>
 </li>
@@ -307,7 +451,7 @@ K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 </li>
 </ul>
 <div class="bare mtop-1">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_3, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_milk_3, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
 ## a      0.07 0.13 -0.15  0.28
 ## bM    -0.70 0.22 -1.06 -0.35
@@ -317,9 +461,9 @@ K   &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 <div class="column">
 <div class="bare mbot-1 fragment" data-fragment-index="1">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_M, mdl_N, mdl_multi), </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"bM"</span>, <span class="st">"bN"</span>))</span></code></pre></div>
-<p><img data-src="assets/fig/unnamed-chunk-3-1.png"><!-- --></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab_plot</span>(<span class="fu">coeftab</span>(mdl_M, mdl_N, mdl_multi), </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"bM"</span>, <span class="st">"bN"</span>))</span></code></pre></div>
+<p><img data-src="assets/fig/unnamed-chunk-4-1.png"><!-- --></p>
 </div>
 <ul>
 <li class="fragment">This is the opposite of what we saw for divorce rates.</li>
@@ -355,13 +499,15 @@ have higher milk energy</li>
 </div>
 <div class="column">
 <div class="t90 bare mbot-1 fragment" data-fragment-index="1">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dcc, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"K"</span>, <span class="st">"M"</span>, <span class="st">"N"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dcc, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"K"</span>, <span class="st">"M"</span>, <span class="st">"N"</span>))</span></code></pre></div>
 <p><img data-src="assets/fig/milk-pairs-1.png"><!-- --></p>
 </div>
 </div>
 </div>
+</section><section id="examining-the-posterior" class="slide level2"><h2>Examining the Posterior</h2>
+<p><img data-src="assets/fig/milk-post-pairs-1.png"><!-- --></p>
 </section><section id="causal-possibilities" class="slide level2 t90"><h2 class="t90">Causal Possibilities</h2>
 <div class="columns">
 <div class="column" style="width:45;">
@@ -376,7 +522,7 @@ higher-calorie milk</li>
 percent</li>
 </ul>
 </li>
-<li class="fragment">
+<li class="fragment" data-fragment-index="1">
 <p>There are 3 possible DAGs</p>
 <div class="bare mtop-1">
 <p><img data-src="assets/fig/dag-1-1.png"><!-- --><img data-src="assets/fig/dag-2-1.png"><!-- --><img data-src="assets/fig/dag-3-1.png"><!-- --></p>
@@ -385,7 +531,7 @@ percent</li>
 </ul>
 </div>
 <div class="column" style="width:54;">
-<div class="fragement">
+<div class="fragment" data-fragment-index="2">
 <ol type="1">
 <li>Larger body mass causes greater neocortex percent</li>
 <li>Greater neocortex percent causes great body mass</li>
@@ -437,11 +583,11 @@ some college, college grad, postgrad degree</li>
 </li>
 </ul>
 </li>
-</ul></section><section id="milk-data" class="slide level2 t85"><h2 class="t85">Milk Data</h2>
+</ul></section><section id="milk-data" class="slide level2 t80"><h2 class="t80">Milk Data</h2>
 <div class="columns">
 <div class="column">
 <div class="bare t95">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code></pre></div>
 <pre class="seventy max-listing"><code>## Rows: 29
 ## Columns: 11
 ## $ clade          &lt;fct&gt; Strepsirrhine, Strepsirrhine, Strepsirrh…
@@ -455,7 +601,7 @@ some college, college grad, postgrad degree</li>
 ## $ K              &lt;dbl&gt; -0.9400408, -0.8161263, -1.1259125, -1.0…
 ## $ N              &lt;dbl&gt; -2.08019603, NA, NA, NA, NA, -0.50864129…
 ## $ M              &lt;dbl&gt; -0.4558357, -0.4150024, -0.3071581, -0.5…</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d<span class="sc">$</span>clade)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d<span class="sc">$</span>clade)</span></code></pre></div>
 <pre class="seventy max-listing"><code>## 
 ##              Ape New World Monkey Old World Monkey 
 ##                9                9                6 
@@ -463,10 +609,11 @@ some college, college grad, postgrad degree</li>
 ##                5</code></pre>
 </div>
 <ul>
-<li>Consider how the average milk energy varies by clade.</li>
+<li class="fragment">Consider how the average milk energy varies by clade.</li>
 </ul>
 </div>
 <div class="column">
+<div class="fragment">
 <ul>
 <li>
 <p>Model:</p>
@@ -480,21 +627,58 @@ K        &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 \]</span></p>
 </li>
 </ul>
-<div class="bare t90">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">clade_id =</span> <span class="fu">as.integer</span>(clade))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mdl_clade <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[clade_id],</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    a[clade_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="bare t90 fragment">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">clade_id =</span> <span class="fu">as.integer</span>(clade))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mdl_clade <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[clade_id],</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    a[clade_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 </div>
-</section><section id="results" class="slide level2 t90"><h2 class="t90">Results</h2>
+</div>
+<aside class="notes"><ul>
+<li>Clades:
+<ul>
+<li>Apes
+<ul>
+<li>
+<em>Hominoidia</em>: 2 families, 8 genera, 28 species
+<ul>
+<li>Closely related to old-world monkeys.</li>
+<li>Include humans</li>
+<li>Do not have tails</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Old-World Monkeys
+<ul>
+<li>24 genera, 138 species (most of any primate classification)</li>
+<li>Habitats in Africa &amp; Asia. Used to inhabit much of Europe during
+the Neogene (pre-Pleistocene)</li>
+</ul>
+</li>
+<li>New-Workd Monkeys
+<ul>
+<li>5 families,</li>
+<li>Inhabit Mexico, Central, and South America</li>
+</ul>
+</li>
+<li>Strepsirrhine
+<ul>
+<li>Lemurs, bush babies, lorises, etc.</li>
+<li>Mostly nocturnal</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></aside></section><section id="results" class="slide level2 t90"><h2 class="t90">Results</h2>
 <div class="columns">
 <div class="column">
 <ul>
@@ -511,36 +695,366 @@ K        &amp;\sim \text{Normal}(\mu_i, \sigma) \\
 </li>
 </ul>
 <div class="bare t90">
-<div class="sourceCode" id="cb18"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">clade_id =</span> <span class="fu">as.integer</span>(clade))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mdl_clade <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[clade_id],</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    a[clade_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">clade_id =</span> <span class="fu">as.integer</span>(clade))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>mdl_clade <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    K <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[clade_id],</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    a[clade_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> d</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div class="column">
 <div class="t90 bare mbot-1">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_clade, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_clade, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre class="seventy max-listing"><code>##        mean    sd   5.5% 94.5%
 ## a[1]  -0.48 0.218 -0.832 -0.14
 ## a[2]   0.37 0.217  0.019  0.71
 ## a[3]   0.68 0.258  0.264  1.09
-## a[4]  -0.59 0.275 -1.024 -0.15
+## a[4]  -0.59 0.275 -1.025 -0.15
 ## sigma  0.72 0.097  0.565  0.87</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"a["</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"]: "</span>, <span class="fu">levels</span>(d<span class="sc">$</span>clade))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_clade, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">pars =</span> <span class="st">"a"</span>),</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> labels, <span class="at">xlab =</span> <span class="st">"expected kcal (std)"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"a["</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"]: "</span>, <span class="fu">levels</span>(d<span class="sc">$</span>clade))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_clade, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">pars =</span> <span class="st">"a"</span>),</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> labels, <span class="at">xlab =</span> <span class="st">"expected kcal (std)"</span>)</span></code></pre></div>
 <p><img data-src="assets/fig/mdl-clade-results-1.png"><!-- --></p>
 </div>
 </div>
 </div>
-</section></section>
+</section></section><section><section id="review" class="title-slide slide level1 center"><h1 class="center">Review</h1>
+
+</section><section id="bayesian-workflow" class="slide level2"><h2>Bayesian Workflow</h2>
+<p><img data-src="assets/images/extended-bayesian-workflow.png" height="900" alt="Diagram of extended Bayesian workflow"></p>
+<aside class="notes"><ul>
+<li>“Estimatnd” is what we’re trying to estimate in order to answer our
+research question. In parametric analyses, it’s ususally a
+parameter.</li>
+<li>We create a generative model of the process that we think creates
+our observations (including randomness, error, etc.)</li>
+<li>We choose an estimand that we’re going to try to estimate</li>
+<li>We create a statistical model that uses our generative model to
+estimate our estimand.</li>
+<li>Before we apply our model to actual data, we check it using
+<ul>
+<li>prior predictive checking,</li>
+<li>Estimating estimands using simulated data,</li>
+<li>…</li>
+</ul>
+</li>
+<li>Once we’re confident our statistical model works, we apply it to
+actual data</li>
+<li>Our statistical model uses our generative model to combine our
+<em>prior</em> estimates for the <em>estimand</em> with _actual data) to
+produce a <em>posterior</em> estimate of the <em>estimand</em>.</li>
+<li>Once we have produced an <em>estimate</em> (a <em>posterior</em>
+probability distribution for the <em>estimand</em>), we can check the
+model using various posterior checks:
+<ul>
+<li>Posterior residuals</li>
+<li>Posterior predictions</li>
+<li>Counterfactuals</li>
+<li>…</li>
+</ul>
+</li>
+</ul></aside></section><section id="generative-models" class="slide level2 t75"><h2 class="t75">Generative Models</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Consider the model</p>
+<p><span class="math display">\[
+\begin{align}
+K   &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_M M + \beta_N N \\
+\alpha &amp;\sim \text{Normal}(0, 1) \\
+\beta_M &amp;\sim \text{Normal}(0, 1) \\
+\beta_N &amp;\sim \text{Normal}(0, 1) \\
+\sigma &amp;\sim \text{Exponential}(1) \\  
+\end{align}
+\]</span></p>
+</li>
+<li class="fragment" data-fragment-index="1">
+<p>The generative part is in the first two lines:</p>
+<p><span class="math display">\[
+\begin{align}
+K   &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_M M + \beta_N N \\
+\end{align}
+\]</span></p>
+<ul>
+<li>Our observations of <span class="math inline">\(K\)</span> are drawn
+from a random distribution with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment" data-fragment-index="1">
+<ul>
+<li>
+<span class="math inline">\(\mu\)</span> is a linear function of
+<span class="math inline">\(M\)</span> and <span class="math inline">\(N\)</span>.</li>
+<li>There are four unknown parameters that describe the details of this
+generative process: <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_M\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span>.</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="2">Where does the randomness come from in the first line of the
+model?
+<ul>
+<li>
+<em>Why</em> are our observations of <span class="math inline">\(K\)</span> randomly distributed?</li>
+</ul>
+<ol type="1">
+<li class="fragment">Sampling: milk properties vary from individual to individual and
+may vary over time.
+<ul>
+<li>What we measure depends on which individual we choose and when we
+measure its milk</li>
+</ul>
+</li>
+<li class="fragment">Our laboratory assay has uncertainty.</li>
+<li class="fragment">We may make errors in collecting amd storing the milk or in
+performing the assay</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="estimands" class="slide level2 t80"><h2 class="t80">Estimands</h2>
+<ul>
+<li>
+<p>Generative Model</p>
+<p><span class="math display">\[
+\begin{align}
+K   &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_M M + \beta_N N \\
+\end{align}
+\]</span></p>
+</li>
+<li>
+<p>We want to <em>estimate</em> the unknown parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_M\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span>.</p>
+<ul>
+<li>These are our <em>estimands</em>.
+<ul>
+<li class="fragment">We use these <em>estimands</em> to answer research questions,
+such as whether either <span class="math inline">\(\beta_M\)</span> or
+<span class="math inline">\(\beta_N\)</span> is nonzero.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="statistical-model" class="slide level2 eighty"><h2 class="eighty">Statistical Model</h2>
+<div class="columns">
+<div class="column" style="width:39%;">
+<ul>
+<li>
+<p>We start with our <em>generative model</em></p>
+<p><span class="math display">\[
+\begin{align}
+K   &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_M M + \beta_N N \\
+\end{align}
+\]</span></p>
+<p>and our <em>estimands</em> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_M\)</span>, <span class="math inline">\(\beta_N\)</span>, and <span class="math inline">\(\sigma\)</span>.</p>
+</li>
+<li><p>We want to use a <em>statistical model</em> to <em>estimate</em>
+our <em>estimands</em>.</p></li>
+</ul>
+</div>
+<div class="column" style="width:60%;">
+<ul>
+<li>
+<p>In Bayesian statistics, our <em>statistical model</em>
+combines:</p>
+<ol type="1">
+<li>
+<p>Our <em>generative model</em>,</p>
+<p><span class="math display">\[
+\begin{align}
+K   &amp;\sim \text{Normal}(\mu, \sigma) \\
+\mu &amp;= \alpha + \beta_M M + \beta_N N \\
+\end{align}
+\]</span></p>
+</li>
+<li><p><em>Prior</em> estimates for our <em>estimands</em>,</p></li>
+</ol>
+<p><span class="math display">\[
+   \begin{align}
+   \alpha &amp;\sim \text{Normal}(0, 1) \\
+   \beta_M &amp;\sim \text{Normal}(0, 1) \\
+   \beta_N &amp;\sim \text{Normal}(0, 1) \\
+   \sigma &amp;\sim \text{Exponential}(1) \\  
+   \end{align}
+   \]</span></p>
+<ol start="3" type="1">
+<li>and <em>data</em>
+</li>
+</ol>
+<p>to generate a <em>posterior estimate</em> of the
+<em>estimands</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="choosing-priors" class="slide level2 t75"><h2 class="t75">Choosing Priors</h2>
+<div class="columns">
+<div class="column" style="width:34%;">
+<ul>
+<li>Choosing priors can be tricky</li>
+<li class="fragment">Sometimes you know your priors from previous research.
+<ul>
+<li>You already have estimates of your <em>estimands</em> from your
+literature review, and you’re trying to improve the accuracy of those
+estimates by collecting more data.</li>
+</ul>
+</li>
+<li class="fragment">Other times, theory can guide you.
+<ul>
+<li>Mass cannot be negative</li>
+<li>The slope of a sand pile can’t exceed a critical value or it will
+collapse</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column" style="width:65%;">
+<div class="fragment">
+<ul>
+<li>
+<strong>Uninformative Priors:</strong> You know almost nothing about
+the <em>estimand</em>
+<ul>
+<li>Globe tossing: You don’t know anything about the fraction of earth
+covered by water.
+<ul>
+<li>
+<strong>Uniform prior</strong>: all values from 0 to 1 are equally
+likely.</li>
+</ul>
+</li>
+<li>The posterior is almost entirely determined by the data</li>
+</ul>
+</li>
+<li class="fragment"><strong>Weakly-informative prior:</strong> You know something
+about the <em>estimand</em> but have a lot of uncertainty
+<ul>
+<li>The intercept for predicting height from weight is somewhere around
+178 cm, but it could be anywhere from 138 to 218.</li>
+<li>The posterior is a balance between the prior and the data</li>
+</ul>
+</li>
+<li class="fragment"><strong>Strongly-informative prior:</strong> You are very
+confident about the <em>estimand</em>, and can confidently rule out many
+possibilities, but you stil want to improve the precision of your
+estimate.
+<ul>
+<li>People have been measuring the speed of light for more than 100
+years, but you want to make it even more accurate.</li>
+<li>The posterior is mostly determined by the prior, and new data only
+changes it a little.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="prior-predictive-tests" class="slide level2 eighty"><h2 class="eighty">Prior Predictive Tests</h2>
+<ul>
+<li>You often know more than you think.
+<ul>
+<li class="fragment">Certain values of the <em>estimand</em> are just not believable.
+<ul>
+<li>Your priors should rule these out</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment">Prior predictive checks can help you find
+<em>weakly-informative</em> priors that rule out absurd values, without
+unduly constraining your analysis.</li>
+<li class="fragment"><em>Strongly-informative</em> priors can be a problem if they
+are overconfident.
+<ul>
+<li>They can prevent your data from contributing to an improved
+<em>posterior</em> estimate.</li>
+</ul>
+</li>
+<li class="fragment">In most cases, <em>weakly-informative</em> priors are the best
+choice, and using prior predictive checks can help guide you to a sweet
+spot between too informative and not informative enough</li>
+</ul></section><section id="applying-statistical-models" class="slide level2 eighty"><h2 class="eighty">Applying Statistical Models</h2>
+<ul>
+<li>After you have:
+<ol type="1">
+<li>Developed your <em>generative model</em>
+</li>
+<li>Chosen your <em>estimands</em>
+</li>
+<li>Chosen your <em>priors</em>
+</li>
+</ol>
+</li>
+<li>It’s time to apply your statistical model to your data to create a
+<em>posterior probability distribution</em> for your
+<em>estimand</em>
+</li>
+<li>After you apply your statistical model, you perform various
+<em>posterior</em> tests of the model to help determine how well you
+trust the results of your analysis.</li>
+</ul></section><section id="bayesian-analysis-and-scientific-method" class="slide level2 eighty"><h2 class="eighty">Bayesian Analysis and Scientific Method</h2>
+<ul>
+<li>Science proceeds iteratively:
+<ul>
+<li>Each experiment or observation adds to the knowledge we already
+have.</li>
+</ul>
+</li>
+<li class="fragment">Bayesian statistical methods embody this
+<ul>
+<li>Previous knowledge determines your <em>priors</em>
+</li>
+<li>New data from experiments or observations lets you create a
+<em>posterior</em> estimate that improves your knowledge of the
+<em>estimand</em> from what you knew before.</li>
+<li>When you get new data, the old <em>posterior</em> becomes the
+<em>prior</em> for your next analysis</li>
+</ul>
+</li>
+</ul></section></section><section><section id="globe-tossing" class="title-slide slide level1 center"><h1 class="center">Globe Tossing</h1>
+
+</section><section id="sampling" class="slide level2"><h2>Sampling</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>You have a globe and want to figure out what fraction of the earth’s
+surface is water.</li>
+<li>Toss the globe in the air, catch it, and note whether your index
+finger is on water or land: outcomes are <em>W</em> and <em>L</em>.</li>
+<li>At every toss, use Bayes’s theorem to update your estimate of the
+fraction that is water.</li>
+</ul>
+</div>
+<div class="column">
+<p><img data-src="assets/images/globe.jpg" style="height:800px;" alt="A globe"></p>
+</div>
+</div>
+</section><section id="iteratively-improving-estimates-of-water-coverage" class="slide level2 eighty"><h2 class="eighty">Iteratively Improving Estimates of Water
+Coverage</h2>
+<p><img data-src="assets/fig/subsequent-tosses-1.png"><!-- --></p>
+<aside class="notes"><ul>
+<li>At each toss, the dashed line is the prior and the solid is the
+posterior</li>
+<li>We start with a completely uninformative prior, but as the data
+accumulate, the priors become increasingly informative.</li>
+<li>Notice how the posteriors are very different to the priors when the
+priors are uninformative or weakly informative, but as the priors become
+strongly informative, the posterior is only slightly different to the
+prior.</li>
+</ul></aside></section></section>
 </div>
   </div>
   <!--
