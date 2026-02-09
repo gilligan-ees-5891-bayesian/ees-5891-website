@@ -45,6 +45,7 @@ lessons:
 - date: '2026-02-09'
   title: Designing statistical models
   reading: /reading/reading_08
+  lecture: /slides/class_08
 - date: '2026-02-11'
   title: Regularization
   reading: /reading/reading_09
