@@ -49,6 +49,7 @@ lessons:
 - date: '2026-02-11'
   title: Regularization
   reading: /reading/reading_09
+  lecture: /slides/class_09
 - date: '2026-02-12'
   title: 'Homework: Multivariable models'
   assignment: /assignment/homework_05
