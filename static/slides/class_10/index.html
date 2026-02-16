@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Magnolia Gilligan">
+<title>Interactions</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.30.1.9000/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Interactions</h1>
+    <h3 class="author">EES 4891-06/5891-01</h3>
+        <h3 class="author">Bayesian Statistical Methods</h3>
+    <h3 class="author">Jonathan Magnolia Gilligan</h3>
+    <h3 class="date">
+      Class #10:
+       Monday February 16,
+      2026
+    </h3>
+	<!-- end title slide -->
+</section><section><section id="regularization" class="title-slide slide level1 center"><h1 class="center">Regularization</h1>
+
+</section><section id="regularizing-priors" class="slide level2 eighty"><h2 class="eighty">Regularizing Priors</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Alternate approach: <em>regularizing priors</em>
+<ul>
+<li><p>Widely used in Machine Learning</p></li>
+<li class="fragment" data-fragment-index="1"><p>Models that are worse at fitting <em>training data</em> can
+be better at predicting <em>test data</em>.</p></li>
+<li class="fragment" data-fragment-index="2"><p>Regularizing priors tend to force unnecessary parameters to
+small (near-zero) values.</p></li>
+<li class="fragment" data-fragment-index="3">
+<p>Regularizing normal prior for <span class="math inline">\(\beta\)</span> params:</p>
+<div class="bare">
+<p><img data-src="assets/fig/regularizing-prior-1.png"><!-- --></p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare fragment" data-fragment-index="4">
+<p><img data-src="assets/images/regularized_fits.png" alt="Regularized regressions"></p>
+</div>
+<ul>
+<li class="fragment" data-fragment-index="4">Synthetic data generated from 3-parameter distribution.
+<ul>
+<li>
+<span class="math inline">\(N\)</span> samples in training set,
+<span class="math inline">\(N\)</span> in testing set.</li>
+<li>
+<span class="medbluetext">blue = in-sample</span>, <span class="blacktext">black = out-of-sample</span>
+</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="5">With more training data (<em>N</em> = 100), regularizing priors
+keep out-of-sample deviance small, even with many parameters.</li>
+<li class="fragment" data-fragment-index="6">You can use fancier regularizing priors than just normal
+distributions.</li>
+</ul>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>Minimum out-of-sample deviance for 3 parameters because that’s the
+“correct” number.
+<ul>
+<li>Above 3, in-sample deviance gets smaller, out-of-sample gets larger
+<ul>
+<li>That’s a sign of over-fitting.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data was generated by sampling from an artificial three-parameter
+distribution.
+<ul>
+<li>We test our model by checking that:
+<ol type="1">
+<li>It correctly identifies 3-parameters as the best model</li>
+<li>It accurately estimates the values of the 3 parameters used to
+generate the data.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Fancier priors can set a threshold, and push posteriors with means
+below the threshold toward zero, and posteriors with means above the
+threshold farther from zero.</li>
+</ul></aside></section></section><section><section id="predicting-predictive-accuracy" class="title-slide slide level1 center"><h1 class="center">Predicting Predictive Accuracy</h1>
+
+</section><section id="cross-validation" class="slide level2 eighty"><h2 class="eighty">Cross-Validation</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>How can we get a sense of how well our model will work with
+out-of-sample predictions?</li>
+<li class="fragment">We started by splitting our data in half: <em>training</em> and
+<em>test</em> data.</li>
+<li class="fragment">Sometimes it’s not efficient to split our data in half.</li>
+<li class="fragment">Can we do better?</li>
+<li class="fragment"><em>k</em>-fold cross-validation:
+<ul>
+<li class="fragment">Split data into <span class="math inline">\(k\)</span> equal
+parts (example: <span class="math inline">\(k\)</span> = 5)
+<ul>
+<li>For each part <span class="math inline">\(i\)</span> (called a
+“fold”), fit the model to the other <span class="math inline">\(k-1\)</span> parts and then predict part <span class="math inline">\(i\)</span>.</li>
+<li>Repeat this for all <span class="math inline">\(k\)</span>
+parts.</li>
+<li>Use all <span class="math inline">\(k\)</span> folds to assess model
+performance</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment">Leave-one-out cross-validation (LOOCV):
+<ul>
+<li>An extreme form of <em>K</em>-fold cross-validation, where
+<em>k</em> = <em>N</em>, the size of the data.</li>
+<li>For each data point, fit the model to all the others and then
+predict that one point.</li>
+</ul>
+</li>
+<li class="fragment">Problem: If you have <em>N</em> observations, then you have to
+fit your model <em>N</em> times. If <em>N</em> is large, this can be
+very slow.</li>
+<li class="fragment">Pareto-Smoothed Importance Sampling (PSIS) is a fancy technique
+that lets us estimate LOOCV while we fit the model one time, without
+actually having to do real cross-validation.</li>
+</ul>
+</div>
+</div>
+</section><section id="information-criteria" class="slide level2 eighty"><h2 class="eighty">Information Criteria</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>As an alternative to cross-validation, use information theory to
+estimate the out-of-sample KL divergence.</li>
+<li class="fragment" data-fragment-index="1">Examine the differences between in-sample and out-of-sample
+divergence in the figure
+<ul>
+<li class="fragment" data-fragment-index="2">The difference is roughly twice the number of parameters.
+<ul>
+<li class="fragment" data-fragment-index="3">In general, for relatively flat priors, the overfitting penalty
+is about twice the number of parameters.</li>
+</ul>
+</li>
+<li class="fragment" data-fragment-index="4">Akaike Information Criterion (AIC) <span class="math display">\[ \text{AIC} = D_{\text{train}} + 2p = -2
+\text{lppd} + 2p, \]</span> where <code>lppd</code> is the
+log-pointwise-predictive density (basically a sample of the
+posterior).</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare fragment" data-fragment-index="1">
+<p><img data-src="assets/images/regularized_fits.png" alt="KL-divergence with regularizing priors"></p>
+</div>
+<ul>
+<li class="fragment" data-fragment-index="5">Conditions for validity:
+<ul>
+<li>Priors are flat, or dominated by likelihood (data).</li>
+<li>Posterior distribution is approximately Gaussian for each
+parameter.</li>
+<li>The data sample size <em>N</em> is much greater than the number of
+parameters <em>k</em>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="other-information-criteria" class="slide level2 seventy"><h2 class="seventy">Other Information Criteria</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>AIC is only valid under these conditions:
+<ul>
+<li>Priors are flat, or dominated by likelihood (data).</li>
+<li>Posterior distribution is approximately Gaussian for each
+parameter.</li>
+<li>The data sample size <em>N</em> is much greater than the number of
+parameters <em>k</em>.</li>
+</ul>
+</li>
+<li class="fragment">Flat priors are usually not a good choice.</li>
+<li class="fragment">DIC (Deviance Information Criteria) works with informative
+priors, but the other two criteria still apply.</li>
+<li class="fragment">Watanabe-Akaike Information Criteria (WAIC, also called Widely
+Applicable Information Criterion) is more broadly applicable.
+<ul>
+<li class="fragment">We won’t go into details of calculating WAIC. The rethinking
+package will do it for us, and so will most other Bayesian analysis
+packages.</li>
+</ul>
+</li>
+<li class="fragment">General principle:
+<ul>
+<li>For all the information criteria we’re examining, the smaller (more
+negative) they are, the better the model performs.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare fragment">
+<p><img data-src="assets/images/comparison.png" alt="Comparison of different criteria for goodness of fit"></p>
+<ul>
+<li>Comparison of different measures</li>
+</ul>
+</div>
+</div>
+</div>
+</section></section><section><section id="how-to-compare-models" class="title-slide slide level1 center"><h1 class="center">How to Compare Models</h1>
+
+</section><section id="comparison-vs.-selection" class="slide level2 eighty"><h2 class="eighty">Comparison vs. Selection</h2>
+<ul>
+<li>Many people use CV, PSIS, Deviance, or Information Criteria to
+select models
+<ul>
+<li class="fragment">Use whatever model has the smallest score</li>
+</ul>
+</li>
+<li class="fragment">This is not wise. It only looks at what model is smallest, but
+doesn’t consider how great the differences are between models.
+<ul>
+<li class="fragment">This is like only looking at the mode (maximum) of the posterior
+and ignoring the rest of it.</li>
+<li class="fragment">The width the posterior matters too. It tells us about how
+uncertain the estimate is.</li>
+</ul>
+</li>
+<li class="fragment">When we compare models, look at how great the differences are
+between them.</li>
+<li class="fragment">Remember that these criteria tell us about predictive power, but
+we have seen that predictive power doesn’t tell us about causality.
+<ul>
+<li class="fragment">Backdoor paths can have useful information, even though it’s not
+causal.
+<ul>
+<li class="fragment">But backdoor predictions only work if we don’t interfere with
+the system.
+<ul>
+<li>In other words, if the future is just like the past.</li>
+</ul>
+</li>
+<li class="fragment">In the plant-growth model, knowing about the fungus was a better
+predictor of plant growth than knowing about the anti-fungus treatment
+<ul>
+<li>but knowing about the fungus doesn’t help us predict the effect of
+treating a field.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="example-using-waic" class="slide level2 eighty" data-transition="fade-out"><h2 class="eighty" data-transition="fade-out">Example Using WAIC</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Plant growth experiment:
+<ul>
+<li>
+<p>DAG</p>
+<div class="bare">
+<p><img data-src="assets/fig/fungus-dag-1.png"><!-- --></p>
+</div>
+<p><em>H<sub>0</sub></em> = height before, <em>H<sub>1</sub></em> =
+height after, <br><em>T</em> = anti-fungal treatment, <em>F</em> =
+fungus</p>
+</li>
+<li>
+<p>Three models:</p>
+<ol type="1">
+<li>
+<code>mdl_0</code>: <span class="math inline">\(\mu \sim
+\text{log-Normal}(0, 0.25)\)</span>
+</li>
+<li>
+<code>mdl_T</code>: <span class="math inline">\(\mu = \alpha +
+\beta_T T\)</span>
+</li>
+<li>
+<code>mdl_TF</code>: <span class="math inline">\(\mu = \alpha +
+\beta_T T + \beta_F F\)</span>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare mtop-1 max-listing fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">WAIC</span>(mdl_TF), <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##     WAIC    lppd penalty std_err
+## 1 361.45 -177.17    3.55   14.17</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">77</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">compare</span>(mdl_0, mdl_T, mdl_TF, <span class="at">func =</span> WAIC), <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##          WAIC    SE dWAIC   dSE pWAIC weight
+## mdl_TF 361.81 14.26  0.00    NA  3.74      1
+## mdl_T  402.65 11.20 40.84 10.44  2.58      0
+## mdl_0  405.91 11.65 44.10 12.22  1.58      0</code></pre>
+</div>
+<ul>
+<li class="fragment">Best predictions on top.</li>
+<li class="fragment">“d” are differences from the best model.</li>
+<li class="fragment">“SE” are standard errors.</li>
+<li class="fragment">pWAIC is prediction penalty (estimate of <em>out-of-sample</em>
+vs. <em>in-sample</em>).</li>
+<li class="fragment">weight gives the relative support for each model, given the
+data.
+<ul>
+<li>Useful for model-averaging.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="example-using-waic-1" class="slide level2 eighty" data-transition="fade-in"><h2 class="eighty" data-transition="fade-in">Example Using WAIC</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Plant growth experiment:
+<ul>
+<li>
+<p>DAG</p>
+<div class="bare">
+<p><img data-src="assets/fig/fungus-dag-1.png"><!-- --></p>
+</div>
+<p><em>H<sub>0</sub></em> = height before, <em>H<sub>1</sub></em> =
+height after, <br><em>T</em> = anti-fungal treatment, <em>F</em> =
+fungus</p>
+</li>
+<li>
+<p>Three models:</p>
+<ol type="1">
+<li>
+<code>mdl_0</code>: <span class="math inline">\(\mu \sim
+\text{log-Normal}(0, 0.25)\)</span>
+</li>
+<li>
+<code>mdl_T</code>: <span class="math inline">\(\mu = \alpha +
+\beta_T T\)</span>
+</li>
+<li>
+<code>mdl_TF</code>: <span class="math inline">\(\mu = \alpha +
+\beta_T T + \beta_F F\)</span>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare mtop-1 max-listing">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare</span>(mdl_0, mdl_T, mdl_TF, <span class="at">func =</span> WAIC), <span class="at">cex=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img data-src="assets/fig/model-result-plot-1.png"><!-- --></p>
+</div>
+<ul>
+<li class="fragment">Plot:
+<ul>
+<li>Line is range of estimated out-of-sample deviance</li>
+<li>Gray point is best estimate of out-of-sample deviance</li>
+<li>Black point is in-sample deviance</li>
+<li>Light lines over models are differences from best model</li>
+</ul>
+</li>
+<li class="fragment">TF model is clearly the best for predictions
+<ul>
+<li>We can’t tell which of the others is better</li>
+</ul>
+</li>
+<li class="fragment">TF model has post-treatment confounder
+<ul>
+<li>WAIC can’t tell us about causation</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="interactions" class="slide level2 eighty"><h2 class="eighty">Interactions</h2>
+<ul>
+<li>Multiple regression models may or may not include interactions:
+<ul>
+<li>Non-interacting models are <em>separable</em>: The effect of each
+variable is independent of all the other variables. <span class="math display">\[ \mu = \alpha + \beta_x x + \beta_x z \]</span>
+<ul>
+<li class="fragment">Doubling <em>x</em> has the same effect on <span class="math inline">\(\mu\)</span> regardless what <em>z</em> is.</li>
+</ul>
+</li>
+<li class="fragment">Interacting models are <em>non-separable</em>: The effect of one
+variable depends on another. <span class="math display">\[ \mu = \alpha
++ \beta_x x + \beta_z z + \beta_{xz} x z \]</span>
+<ul>
+<li>The effect of doubling <em>x</em> depends on <em>z</em>.</li>
+<li class="fragment">Example: Compared to non-smokers who aren’t exposed to asbestos,
+<ul>
+<li>Smokers have 10.3 times greater risk of lung cancer.</li>
+<li>Non-smokers exposed to asbestos have 7.4 times greater risk.</li>
+<li>Smokers exposed to asbestos have 36.8 times greater risk.
+<ul>
+<li class="fragment">If there was no interaction, the increase would be 17.7 times
+(10.3 + 7.4).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="interactions-and-dags" class="slide level2 eighty"><h2 class="eighty">Interactions and DAGs</h2>
+<ul>
+<li>A DAG can’t tell you about an interaction.</li>
+</ul>
+<div class="bare mtop-half">
+<p><img data-src="assets/fig/interaction-dag-1.png"><!-- --></p>
+</div>
+<ul>
+<li>This figure could represent a model with or without interactions:
+<span class="math display">\[
+\begin{align}
+\mu &amp;= \alpha + \beta_x x + \beta_z z \\
+&amp; \text{or} \\
+\mu &amp;= \alpha + \beta_x x + \beta_z z + \beta_{xz} x z \\
+\end{align}
+\]</span>
+</li>
+<li>The DAG says that <em>x</em> and <em>z</em> influence <em>y</em>,
+but it doesn’t say <strong>how</strong> they influence <em>y</em>.</li>
+</ul></section></section><section><section id="worked-example-africa" class="title-slide slide level1 center"><h1 class="center">Worked Example: Africa</h1>
+
+</section><section id="geography-and-economy-in-africa" class="slide level2 eighty"><h2 class="eighty">Geography and Economy in Africa</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Is there a relationship between topographic roughness and
+per-capita GDP?</p>
+<div class="bare max-listing">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rugged)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rugged</span></code></pre></div>
+<ul>
+<li>
+<p>Columns include:</p>
+<ul>
+<li>
+<code>rgdppc_2000</code>: GDP per-capita in 2000</li>
+<li>
+<code>rugged</code>: Terrain ruggedness.</li>
+<li>
+<code>cont_africa</code>: Indicator variable if continent is
+Africa</li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li class="fragment">
+<p>Transform data</p>
+<div class="bare max-listing">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">complete.cases</span>(rgdppc_2000)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_gdp =</span> <span class="fu">log</span>(rgdppc_2000),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_gdp_std =</span> log_gdp <span class="sc">/</span> <span class="fu">mean</span>(log_gdp),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">rugged_std =</span> rugged <span class="sc">/</span> <span class="fu">max</span>(rugged)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare max-listing fragment">
+<p><img data-src="assets/fig/plot-gdp-1.png"><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dd <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Africa =</span> <span class="fu">ifelse</span>(cont_africa,<span class="st">"African nations"</span>, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Non-African nations"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rugged_std, <span class="at">y =</span> log_gdp_std)) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ruggedness (std)"</span>, <span class="at">y =</span> <span class="st">"Log GDP (std)"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Africa)</span></code></pre></div>
+</div>
+</div>
+</div>
+</section><section id="model" class="slide level2 t90"><h2 class="t90">Model</h2>
+<div class="columns">
+<div class="column textleft" style="width:65%;">
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mdl_simple <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu , sigma),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> dd)</span></code></pre></div>
+<ul>
+<li><p>The <code>0.215</code> is the average roughness for all
+countries.</p></li>
+<li class="fragment"><p>Now check the priors</p></li>
+</ul>
+</div>
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(mdl_simple, <span class="at">n =</span> <span class="dv">50</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">rugged_std =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>prior_samples <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  mdl_simple, new_data, <span class="at">post =</span> prior, <span class="at">value =</span> <span class="st">"mu"</span>)</span></code></pre></div>
+</div>
+<div class="bare max-listing fragment">
+<ul>
+<li>Plot the priors</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prior_samples, <span class="fu">aes</span>(<span class="at">x =</span> rugged_std, <span class="at">y =</span> mu, <span class="at">group =</span> .draw)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">quantile</span>(dd<span class="sc">$</span>log_gdp_std, <span class="fu">c</span>(<span class="fl">0.055</span>, <span class="fl">0.945</span>)),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ruggedness (std)"</span>, <span class="at">y =</span> <span class="st">"log GDP"</span>, )</span></code></pre></div>
+</div>
+</div>
+<div class="column" style="width:34%;">
+<div class="bare max-listing mtop-1 fragment">
+<p><img data-src="assets/fig/mdl-simple-plot-prior-real-1.png"><!-- --></p>
+</div>
+<div class="bare max-listing mtop-1 fragment">
+<p><img data-src="assets/fig/mdl-simple-plot-better_prior-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>In the plots, the dashed lines represent the 89% most likely
+interval for the actual GDP data.</li>
+<li>The top plot has priors going all over the place</li>
+<li>The bottom plot has priors concentrated much better within the 89%
+highest-probability density interval.</li>
+</ul></aside></section><section id="examine-the-model" class="slide level2 eighty"><h2 class="eighty">Examine the model</h2>
+<div class="columns">
+<div class="column textleft">
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mdl_simple <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu , sigma),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.3</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> dd)</span></code></pre></div>
+</div>
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb13"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_simple, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##       mean   sd  5.5% 94.5%
+## a     1.00 0.01  0.98  1.02
+## b     0.00 0.05 -0.09  0.09
+## sigma 0.14 0.01  0.12  0.15</code></pre>
+</div>
+<ul>
+<li class="fragment">Create an interaction:
+<ul>
+<li class="fragment">Intercept depends on the continent</li>
+<li class="fragment">Create an indicator variable:</li>
+</ul>
+</li>
+</ul>
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb15"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an indicator variable</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> dd <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">cid =</span> <span class="fu">ifelse</span>( dd<span class="sc">$</span>cont_africa<span class="sc">==</span><span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">2</span> ))</span></code></pre></div>
+</div>
+</div>
+<div class="column textleft">
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mdl_inter <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma) ,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>) ,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>, <span class="fl">0.1</span>) ,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.3</span>) ,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dd)</span></code></pre></div>
+</div>
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb17"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(mdl_simple, mdl_inter) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##               WAIC    SE dWAIC   dSE pWAIC weight
+## mdl_inter  -252.27 15.28  0.00    NA  4.24      1
+## mdl_simple -188.70 13.31 63.57 15.16  2.71      0</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_inter, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
+## a[1]   0.88 0.02  0.85  0.91
+## a[2]   1.05 0.01  1.03  1.07
+## b     -0.05 0.05 -0.12  0.03
+## sigma  0.11 0.01  0.10  0.12</code></pre>
+</div>
+</div>
+</div>
+</section><section id="how-does-the-model-do" class="slide level2 eighty"><h2 class="eighty">How does the model do?</h2>
+<div class="columns">
+<div class="column textleft">
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rugged_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">1.1</span>, <span class="at">length.out =</span> <span class="dv">30</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mu_afr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rugged_std =</span> rugged_seq, <span class="at">cid =</span> <span class="dv">1</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mu_not_afr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rugged_std =</span> rugged_seq, <span class="at">cid =</span> <span class="dv">2</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(mu_afr, mu_not_afr)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">linpred_draws</span>(mdl_inter, new_data) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cid =</span> <span class="fu">ordered</span>(cid, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Not Africa"</span>)))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>post_sum <span class="ot">&lt;-</span> post <span class="sc">|&gt;</span> <span class="fu">group_by</span>(.row, rugged_std, cid) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mu =</span> <span class="fu">mean</span>(.value), </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">pi =</span> <span class="fu">list</span>(<span class="fu">PI</span>(.value) <span class="sc">|&gt;</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>)))) <span class="sc">|&gt;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> <span class="fu">unnest_wider</span>(pi)</span></code></pre></div>
+</div>
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dd <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">cid =</span> <span class="fu">ordered</span>(cid, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Not Africa"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rugged_std, <span class="at">y =</span> log_gdp_std, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> cid, <span class="at">shape =</span> cid, <span class="at">linetype =</span> cid)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> mu, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> post_sum, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Africa"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Not Africa"</span> <span class="ot">=</span> <span class="st">"black"</span>), </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Africa"</span> <span class="ot">=</span> <span class="st">"solid"</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Not Africa"</span> <span class="ot">=</span> <span class="st">"dashed"</span>), </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Africa"</span> <span class="ot">=</span> <span class="dv">19</span>, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Not Africa"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ruggedness (std)"</span>, <span class="at">y =</span> <span class="st">"log GDP (std)"</span>) <span class="sc">+</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">"lines"</span>))</span></code></pre></div>
+</div>
+</div>
+<div class="column textleft">
+<div class="bare max-listing fragment">
+<p><img data-src="assets/fig/plot-mdl-inter-1.png"><!-- --></p>
+</div>
+</div>
+</div>
+</section><section id="better-interactions" class="slide level2 eighty"><h2 class="eighty">Better Interactions</h2>
+<div class="columns">
+<div class="column textleft">
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mdl_int_2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma) ,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>) ,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>, <span class="fl">0.1</span>) ,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.3</span>) ,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dd)</span></code></pre></div>
+</div>
+<div class="bare max-listing mtop-1 fragment">
+<div class="sourceCode" id="cb24"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_int_2, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5%
+## a[1]   0.89 0.02  0.86  0.91
+## a[2]   1.05 0.01  1.03  1.07
+## b[1]   0.13 0.07  0.01  0.25
+## b[2]  -0.14 0.05 -0.23 -0.06
+## sigma  0.11 0.01  0.10  0.12</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(mdl_simple, mdl_inter, mdl_int_2) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##               WAIC    SE dWAIC   dSE pWAIC weight
+## mdl_int_2  -258.68 15.21  0.00    NA  5.38   0.97
+## mdl_inter  -251.99 15.25  6.69  6.69  4.36   0.03
+## mdl_simple -189.00 13.29 69.68 15.47  2.58   0.00</code></pre>
+</div>
+</div>
+</div>
+</section><section id="how-does-the-model-do-1" class="slide level2 eighty"><h2 class="eighty">How does the model do?</h2>
+<div class="bare mtop-1">
+<p><img data-src="assets/fig/plot-mdl-int-2-1.png"><!-- --></p>
+</div>
+</section></section><section><section id="continuous-interactions" class="title-slide slide level1 center"><h1 class="center">Continuous Interactions</h1>
+
+</section><section id="a-winter-flower" class="slide level2 eighty"><h2 class="eighty">A Winter Flower</h2>
+<div class="columns">
+<div class="column textleft">
+<ul>
+<li>Tulips grown in greenhouses
+<ul>
+<li>Soil</li>
+<li>Light</li>
+<li>Water</li>
+</ul>
+</li>
+</ul>
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tulips)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> tulips</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tulips)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##   bed water shade blooms
+## 1   a     1     1   0.00
+## 2   a     1     2   0.00
+## 3   a     1     3 111.04
+## 4   a     2     1 183.47
+## 5   a     2     2  59.16
+## 6   a     2     3  76.75</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(tulips<span class="sc">$</span>bed)</span></code></pre></div>
+<pre class="seventy max-listing"><code>## [1] "a" "b" "c"</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">mutate</span>( </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">blooms_std =</span> blooms <span class="sc">/</span> <span class="fu">max</span>(blooms),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">water_cent =</span> water <span class="sc">-</span> <span class="fu">mean</span>(water),</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">shade_cent =</span> shade <span class="sc">-</span> <span class="fu">mean</span>(shade)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</div>
+<div class="column textleft">
+<ul>
+<li class="fragment">Predict <code>blooms</code> from <code>water</code>, and
+<code>shade</code>.</li>
+<li class="fragment">Two models:
+<ul>
+<li>
+<p><strong>Non-interacting:</strong></p>
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb33"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mdl_tulip_non <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    blooms_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bw <span class="sc">*</span> water_cent <span class="sc">+</span> bs <span class="sc">*</span> shade_cent,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="fl">0.5</span>, <span class="fl">0.25</span>),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    bw <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.25</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    bs <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.25</span>),</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>d)</span></code></pre></div>
+</div>
+</li>
+<li>
+<p><strong>Interacting:</strong></p>
+<div class="bare max-listing mtop-1">
+<div class="sourceCode" id="cb34"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mdl_tulip_inter <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    blooms_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma) ,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bw <span class="sc">*</span> water_cent <span class="sc">+</span> bs <span class="sc">*</span> shade_cent <span class="sc">+</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>          bws <span class="sc">*</span> water_cent <span class="sc">*</span> shade_cent,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="fl">0.5</span>, <span class="fl">0.25</span>),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    bw <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.25</span>),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    bs <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.25</span>),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    bws <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.25</span>),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>d)</span></code></pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="interpreting-the-models" class="slide level2 eighty"><h2 class="eighty">Interpreting the models</h2>
+<p><img data-src="assets/fig/plot_cont_inter-1.png"><!-- --></p>
+</section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/math/math.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees5891.jgilligan.org/slides/class_10">' +
+  	'<img src="qrcode.png" alt="https://ees5891.jgilligan.org/slides/class_10"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees5891.jgilligan.org/slides/class_10">https://ees5891.jgilligan.org/slides/class_10</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees5891.jgilligan.org/slides/class_10/ees_5891-01_class_10_slides.pdf" target="_blank">https://ees5891.jgilligan.org/slides/class_10/ees_5891-01_class_10_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  indep: "\\perp \\!\\!\\! \\perp"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+    displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+    processEscapes: true
+  }
+})
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>
