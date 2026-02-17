@@ -24,3 +24,6 @@ output:
 ### Reading Notes:
 
 Read sections 9.1--9.3, about the theory of Markov Chain Monte Carlo methods.
+
+Be sure to **skip the section** on "Overthinking: Hamiltonian Monte Carlo 
+in the raw" on pp. 276--278.

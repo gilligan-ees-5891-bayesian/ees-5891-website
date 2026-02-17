@@ -19,7 +19,7 @@ output:
 
 ### Required Reading (everyone):
 
-* Statistical Rethinking, Ch. 9 ("Markov Chain Monte Carlo"), sections 9.4--9.5.
+* Statistical Rethinking, Ch. 9 ("Markov Chain Monte Carlo"), sections 9.4--9.6.
 
 ### Reading Notes:
 
