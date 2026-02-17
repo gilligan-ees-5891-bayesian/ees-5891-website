@@ -571,39 +571,70 @@ your next sample.</li>
 </ul>
 </li>
 </ul></section><section id="illustrations-of-hamiltonian-monte-carlo" class="slide level2 eighty"><h2 class="eighty">Illustrations of Hamiltonian Monte Carlo</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="hamiltonian-monte-carlo-1">Hamiltonian Monte Carlo</h3>
 <div class="bare mtop-1">
 <p><img data-src="assets/images/king-monty.png" height="500"></p>
 </div>
 <ul>
 <li>Horizontal lines are elevation contours</li>
-<li>Position 0 is the bottom of the valley, which goes uphill to the
-North and South.</li>
+<li>Bottom of the valley at 0: uphill to North and South.</li>
 <li>Thickness of the line is momentum (speed)
 <ul>
 <li>Ball slows down as it moves uphill</li>
 <li>Ball speeds up as it moves downhill</li>
-<li>Slower speed at high altitude, so it spends more time there</li>
+<li>Within any trajectory:
+<ul>
+<li>Slower speed, more time at high altitude.</li>
 </ul>
 </li>
-</ul></section><section id="illustrations-of-hamiltonian-monte-carlo-1" class="slide level2 eighty"><h2 class="eighty">Illustrations of Hamiltonian Monte Carlo</h2>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column fragment" style="width:39%;">
+<h3 id="metropolis-monte-carlo">Metropolis Monte Carlo</h3>
+<div class="bare mtop-1">
+<p><img data-src="assets/images/king-markov.png" height="500"></p>
+</div>
+<ul>
+<li>Much greater autocorrelation among samples</li>
+</ul>
+</div>
+</div>
+</section><section id="illustrations-of-hamiltonian-monte-carlo-1" class="slide level2 eighty"><h2 class="eighty">Illustrations of Hamiltonian Monte Carlo</h2>
 <div class="columns">
 <div class="column">
 <ul>
-<li>Top left: Uncorrelated parameters, well-tuned HMC
+<li>X = start, solid = accepted proposal, hollow = rejected
+proposal</li>
+<li>Top: Uncorrelated parameters
+<ul>
+<li>Top left: Well-tuned HMC
 <ul>
 <li>Samples are far apart, uncorrelated</li>
 </ul>
 </li>
-<li class="fragment">Top right: Uncorrelated parameters, poorly-tuned HMC
+<li class="fragment">Top right: Poorly-tuned HMC
 <ul>
-<li>Samples are close together because “ball” made U-turns</li>
+<li>Samples are close together because “rolling ball” made U-turns</li>
 <li>Stan has a “No U-Turn Sampler” (NUTS) to avoid this.</li>
 </ul>
 </li>
-<li class="fragment">Lower left: Highly correlated parameters. HMC samples the space
-effectively, with little autocorrelation</li>
-<li class="fragment">Lower right: Only one proposal was rejected and they effectively
-explore the space and quickly find the maximum.</li>
+</ul>
+</li>
+<li class="fragment">Bottom: Highly correlated parameters
+<ul>
+<li>Lower left: HMC samples the space effectively, with little
+autocorrelation</li>
+<li class="fragment">Lower right: Only one proposal was rejected.
+<ul>
+<li>Effectively explores the space and quickly finds the maximum.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="column">
