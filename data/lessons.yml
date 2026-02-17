@@ -60,6 +60,7 @@ lessons:
 - date: '2026-02-18'
   title: Monte Carlo sampling
   reading: /reading/reading_11
+  lecture: /slides/class_11
 - date: '2026-02-19'
   title: 'Homework: Statistical models'
   assignment: /assignment/homework_06
