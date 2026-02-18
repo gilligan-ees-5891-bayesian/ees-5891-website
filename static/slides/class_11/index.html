@@ -394,8 +394,9 @@ several thousand</li>
 parameter space, the posterior for <span class="math inline">\(\beta\)</span> is <span class="math display">\[
 P(\beta | Y, X) =
      \frac{ P(Y | \beta, X) P(\beta) }
-          { \sum_{i=1}^{N_{\text{samples}}} P(Y | \beta_i, X)
-P(\beta_i)} \]</span>
+          { \sum_{i=1}^{N_{\text{samples}}}
+            P(Y | \beta_i, X) P(\beta_i)}
+\]</span>
 </li>
 <li class="fragment">The bigger <em>n</em> is, the more samples you need.
 <ul>
@@ -529,9 +530,13 @@ parameters are highly correlated
 <ul>
 <li>Samples don’t uniformly fill high-probability region
 <ul>
-<li>X = starting point (<span class="math inline">\(\beta_1\)</span>)</li>
-<li>Solid = accepted proposals</li>
-<li>Hollow = rejected proposals</li>
+<li>
+<span class="math inline">\(\times\)</span> = starting point (<span class="math inline">\(\beta_1\)</span>)</li>
+<li>
+<span class="math inline">\(\bullet\)</span> = accepted
+proposals</li>
+<li>
+<span class="math inline">\(\circ\)</span> = rejected proposals</li>
 </ul>
 </li>
 </ul>
@@ -541,7 +546,7 @@ parameters are highly correlated
 </ul>
 </li>
 <li class="fragment">The problem is that these algorithms only look along a few
-directions at a time, and with high dimensions, they may not be looking
+directions at a time, and with many dimensions, they may not be looking
 in the most interesting direction, so they keep poking around in the
 dark, not looking at where the interesting stuff is.</li>
 </ul></section></section><section><section id="hamiltonian-monte-carlo" class="title-slide slide level1 center"><h1 class="center">Hamiltonian Monte Carlo</h1>
@@ -562,51 +567,97 @@ algorithm spins its wheels.</li>
 <li class="fragment">Proposals are costly</li>
 <li class="fragment">But their quality is much greater</li>
 <li class="fragment">For complex problems, HMC finds solutions much faster.</li>
-<li class="fragment">For many years, HMC wasn’t very useful because you had to write
-custom code and there were many options to control the performance, and
-no one knew how to adjust the options effectively.</li>
-</ul>
-</li>
-</ul></section><section id="stan" class="slide level2 eighty"><h2 class="eighty">Stan</h2>
-<ul>
-<li>In 2012, the <code>stan</code> program changed everything:
-<ul>
-<li class="fragment">The developers figured out how to adjust the HMC options
-effectively and automatically</li>
-<li class="fragment"><code>Stan</code> lets you write your model in a simple
-programming language and translates it to efficient <code>c++</code>,
-which is compiled and runs very fast.</li>
-<li class="fragment">Now R packages like <code>rethinking</code> and
-<code>brms</code> let you specify the model in <code>R</code> and
-translates it to the <code>stan</code> language, and <code>stan</code>
-then translates it to <code>c++</code> and turns it into a program.</li>
 </ul>
 </li>
 </ul></section><section id="hamiltonian-monte-carlo-carlo" class="slide level2 eighty"><h2 class="eighty">Hamiltonian Monte Carlo Carlo</h2>
+<div class="columns">
+<div class="column">
 <ul>
 <li>Hamiltonian Monte Carlo uses a physics simulation to do statistical
 calculations
 <ul>
-<li class="fragment">Think of graphs of probability as hills and valleys
+<li class="fragment" data-fragment-index="1">Think of probability distributions as hills and valleys
 <ul>
-<li>The elevation is the logarithm of the posterior probability
+<li>The elevation is the negative logarithm of the posterior probability
 density</li>
 </ul>
 </li>
-<li class="fragment">Consider your Monte Carlo sampling point like a ball rolling on
+<li class="fragment" data-fragment-index="2">Consider your Monte Carlo sampling point like a ball rolling on
 the landscape
 <ol type="1">
-<li class="fragment">Pick a starting point and put the ball there.</li>
-<li class="fragment">Flick the ball in a random direction with a random velocity</li>
-<li class="fragment">Allow the ball to roll over the landscape for some amount of
+<li class="fragment" data-fragment-index="3">Put the ball at a random starting point.</li>
+<li class="fragment" data-fragment-index="4">Flick the ball in a random direction with a random
+velocity</li>
+<li class="fragment" data-fragment-index="5">Allow the ball to roll over the landscape for some amount of
 time</li>
-<li class="fragment">Otherwise, after the time is up, wherever the ball is, that’s
-your next sample.</li>
+<li class="fragment" data-fragment-index="6">After the time is up, wherever the ball is, that’s your next
+proposal.</li>
+<li class="fragment" data-fragment-index="7">Repeat steps 2–4</li>
 </ol>
 </li>
 </ul>
 </li>
-</ul></section><section id="illustrations-of-hamiltonian-monte-carlo" class="slide level2 eighty"><h2 class="eighty">Illustrations of Hamiltonian Monte Carlo</h2>
+</ul>
+</div>
+<div class="column">
+<div class="bare fragment" data-fragment-index="1">
+<p><img data-src="assets/fig/potential-well-1.png"><!-- --></p>
+</div>
+<div class="bare mtop-half fragment" data-fragment-index="2">
+<p><img data-src="assets/images/Hamiltonian_Monte_Carlo.gif" style="width:100.0%"></p>
+<div class="credit">
+<p>Credit: <a href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Wikipedia</a></p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="interlude" class="slide level2"><h2>Interlude</h2>
+<iframe width="1680" height="945" src="https://www.youtube.com/embed/yORG-0itEaM?si=GW405uBWZV-LvhZl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+</section><section id="stan" class="slide level2 eighty"><h2 class="eighty">Stan</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>For many years, HMC wasn’t very useful:
+<ul>
+<li class="fragment">You had to write custom code for the simulation</li>
+<li class="fragment">There are many options to control the performance of the
+simulation
+<ul>
+<li>No one knew how to adjust the options effectively.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment">In 2012, the <code>stan</code> program changed everything:
+<ul>
+<li class="fragment">The developers figured out how to adjust the HMC options
+effectively and automatically.</li>
+<li class="fragment"><code>Stan</code> lets you write your model in a simple
+programming language and translates it to efficient <code>c++</code>,
+which is compiled and runs very fast.</li>
+<li class="fragment">With R packages like <code>rethinking</code> and
+<code>brms</code>:
+<ul>
+<li>You specify the model in <code>R</code>
+</li>
+<li>The package automatically translates your model into the
+<code>stan</code> language</li>
+<li>
+<code>stan</code> then creates a <code>c++</code> program for an HMC
+simulator of your model</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="illustrations-of-hamiltonian-monte-carlo" class="slide level2 eighty"><h2 class="eighty">Illustrations of Hamiltonian Monte Carlo</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <h3 id="hamiltonian-monte-carlo-1">Hamiltonian Monte Carlo</h3>
@@ -620,11 +671,6 @@ your next sample.</li>
 <ul>
 <li>Ball slows down as it moves uphill</li>
 <li>Ball speeds up as it moves downhill</li>
-<li>Within any trajectory:
-<ul>
-<li>Slower speed, more time at high altitude.</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -643,8 +689,8 @@ your next sample.</li>
 <div class="columns">
 <div class="column">
 <ul>
-<li>X = start, solid = accepted proposal, hollow = rejected
-proposal</li>
+<li>
+<span class="math inline">\(\times\)</span> = start, <span class="math inline">\(\bullet\)</span> = accepted proposal,<br><span class="math inline">\(\circ\)</span> = rejected proposal</li>
 <li>Top: Uncorrelated parameters
 <ul>
 <li>Top left: Well-tuned HMC
