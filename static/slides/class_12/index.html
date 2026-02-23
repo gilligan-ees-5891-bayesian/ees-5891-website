@@ -116,6 +116,9 @@ few small changes to the <code>rethinking</code> package:
 <li>It is more straightforward and reliable to install
 <code>cmdstanr</code> than <code>rstan</code>
 </li>
+<li>To extract the fitted model from an <code>ulam</code> object
+<code>mdl</code>, use <code>mdl@cstanfit</code> instead of
+<code>mdl@stanfit</code> (see p. 290).</li>
 </ul>
 </li>
 <li>The <code>precis()</code> function operating on a model fitted by
@@ -778,8 +781,17 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </div>
 <div class="column">
-<div class="bare mtop-1 max-listing fragment">
-<div class="sourceCode" id="cb50"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_non_id)</span></code></pre></div>
+<ul>
+<li class="fragment">
+<p>Error message:</p>
+<div class="bare max-listing mtop-half">
+<pre><code>Warning: 1522 of 2000 (76.0%) transitions hit the maximum treedepth limit of 10.
+See https://mc-stan.org/misc/warnings for details.</code></pre>
+</div>
+</li>
+</ul>
+<div class="bare mtop-half max-listing fragment">
+<div class="sourceCode" id="cb51"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_non_id)</span></code></pre></div>
 <pre class="seventy max-listing"><code>## Hamiltonian Monte Carlo approximation
 ## 2000 samples from 4 chains
 ## 
@@ -796,7 +808,7 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 ## a1 ~ dnorm(0, 1000)
 ## a2 ~ dnorm(0, 1000)
 ## sigma ~ dexp(1)</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_non_id, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_non_id, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##         mean     sd    5.5%  94.5% rhat ess_bulk
 ## a1    -84.92 374.08 -702.21 519.46 2.36     4.99
 ## a2     85.11 374.08 -519.34 702.33 2.36     4.99
@@ -806,21 +818,21 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </section><section id="pair-correlation-plots-2" class="slide level2 eighty"><h2 class="eighty">Pair-Correlation Plots</h2>
 <div class="bare max-listing">
-<div class="sourceCode" id="cb54"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>nid_mdl_fit <span class="ot">&lt;-</span> mdl_non_id<span class="sc">@</span>cstanfit</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>nid_mdl_draws <span class="ot">&lt;-</span> nid_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(nid_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>nid_mdl_fit <span class="ot">&lt;-</span> mdl_non_id<span class="sc">@</span>cstanfit</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>nid_mdl_draws <span class="ot">&lt;-</span> nid_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(nid_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
 <p><img data-src="assets/fig/pairs-nid-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-plots-3" class="slide level2 eighty"><h2 class="eighty">MCMC Trace Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb56"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(nid_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(nid_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trace-nid-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-rank-plots-3" class="slide level2 eighty"><h2 class="eighty">MCMC Trace-Rank Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb57"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(nid_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(nid_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trank-nid-ulam-1.png"><!-- --></p>
 </div>
 </section></section><section><section id="regularize-model" class="title-slide slide level1 center"><h1 class="center">Regularize Model</h1>
@@ -841,20 +853,29 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </li>
 </ul>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb58"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>mdl_reg <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    y <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a1 <span class="sc">+</span> a2,</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    a1 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    a2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> y), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>mdl_reg <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    y <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a1 <span class="sc">+</span> a2,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    a1 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    a2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> y), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span> )</span></code></pre></div>
 </div>
 </div>
 <div class="column">
-<div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb59"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_reg)</span></code></pre></div>
+<ul>
+<li class="fragment">
+<p>Error message:</p>
+<div class="bare max-listing mtop-half">
+<pre><code>Warning: 14 of 2000 (1.0%) transitions hit the maximum treedepth limit of 10.
+See https://mc-stan.org/misc/warnings for details.</code></pre>
+</div>
+</li>
+</ul>
+<div class="bare mtop-half max-listing fragment">
+<div class="sourceCode" id="cb61"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_reg)</span></code></pre></div>
 <pre class="seventy max-listing"><code>## Hamiltonian Monte Carlo approximation
 ## 2000 samples from 4 chains
 ## 
@@ -871,7 +892,7 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 ## a1 ~ dnorm(0, 10)
 ## a2 ~ dnorm(0, 10)
 ## sigma ~ dexp(1)</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_reg, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_reg, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##       mean   sd   5.5% 94.5% rhat ess_bulk
 ## a1    0.12 7.08 -11.01 11.63 1.01   543.50
 ## a2    0.06 7.08 -11.45 11.15 1.01   544.07
@@ -881,21 +902,21 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </section><section id="pair-correlation-plots-3" class="slide level2 eighty"><h2 class="eighty">Pair-Correlation Plots</h2>
 <div class="bare max-listing">
-<div class="sourceCode" id="cb63"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>reg_mdl_fit <span class="ot">&lt;-</span> mdl_reg<span class="sc">@</span>cstanfit</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>reg_mdl_draws <span class="ot">&lt;-</span> reg_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(reg_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>reg_mdl_fit <span class="ot">&lt;-</span> mdl_reg<span class="sc">@</span>cstanfit</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>reg_mdl_draws <span class="ot">&lt;-</span> reg_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(reg_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
 <p><img data-src="assets/fig/pairs-reg-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-plots-4" class="slide level2 eighty"><h2 class="eighty">MCMC Trace Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb65"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(reg_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(reg_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trace-reg-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-rank-plots-4" class="slide level2 eighty"><h2 class="eighty">MCMC Trace-Rank Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb66"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(reg_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(reg_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trank-reg-ulam-1.png"><!-- --></p>
 </div>
 </section></section><section><section id="make-model-identifiable" class="title-slide slide level1 center"><h1 class="center">Make Model Identifiable</h1>
@@ -915,19 +936,19 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </li>
 </ul>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb67"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>mdl_re_id <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>    y <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a,</span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> y), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>mdl_re_id <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    y <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a,</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> y), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span> )</span></code></pre></div>
 </div>
 </div>
 <div class="column">
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb68"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_re_id)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(mdl_re_id)</span></code></pre></div>
 <pre class="seventy max-listing"><code>## Hamiltonian Monte Carlo approximation
 ## 2000 samples from 4 chains
 ## 
@@ -943,7 +964,7 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 ## mu &lt;- a
 ## a ~ dnorm(0, 10)
 ## sigma ~ dexp(1)</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_re_id, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis_show</span>(<span class="fu">precis</span>(mdl_re_id, <span class="at">digits=</span><span class="dv">2</span>))</span></code></pre></div>
 <pre class="seventy max-listing"><code>##       mean   sd 5.5% 94.5% rhat ess_bulk
 ## a     0.19 0.10 0.03  0.36    1  1439.69
 ## sigma 1.04 0.08 0.92  1.16    1  1444.62</code></pre>
@@ -952,21 +973,21 @@ y &amp;\sim \text{Normal}(\mu, \sigma) \\
 </div>
 </section><section id="pair-correlation-plots-4" class="slide level2 eighty"><h2 class="eighty">Pair-Correlation Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb72"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>re_id_mdl_fit <span class="ot">&lt;-</span> mdl_re_id<span class="sc">@</span>cstanfit</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>re_id_mdl_draws <span class="ot">&lt;-</span> re_id_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(re_id_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>re_id_mdl_fit <span class="ot">&lt;-</span> mdl_re_id<span class="sc">@</span>cstanfit</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>re_id_mdl_draws <span class="ot">&lt;-</span> re_id_mdl_fit<span class="sc">$</span><span class="fu">draws</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"blue"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(re_id_mdl_draws, <span class="at">off_diag_args =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>))</span></code></pre></div>
 <p><img data-src="assets/fig/pairs-re-id-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-plots-5" class="slide level2 eighty"><h2 class="eighty">MCMC Trace Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb74"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(re_id_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">"brewer-Dark2"</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(re_id_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trace-re-id-ulam-1.png"><!-- --></p>
 </div>
 </section><section id="mcmc-trace-rank-plots-5" class="slide level2 eighty"><h2 class="eighty">MCMC Trace-Rank Plots</h2>
 <div class="bare mtop-1 max-listing">
-<div class="sourceCode" id="cb75"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(re_id_mdl_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_rank_overlay</span>(re_id_mdl_draws)</span></code></pre></div>
 <p><img data-src="assets/fig/trank-re-id-ulam-1.png"><!-- --></p>
 </div>
 </section></section>
