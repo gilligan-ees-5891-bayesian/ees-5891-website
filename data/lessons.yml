@@ -67,6 +67,7 @@ lessons:
 - date: '2026-02-23'
   title: Monte Carlo Software
   reading: /reading/reading_12
+  lecture: /slides/class_12
 - date: '2026-02-25'
   title: Generalized linear models
   reading: /reading/reading_13
