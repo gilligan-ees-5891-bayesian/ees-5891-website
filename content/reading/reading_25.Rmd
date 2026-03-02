@@ -1,5 +1,5 @@
 ---
-title: STAN Hamiltonian Monte Carlo sampler
+title: Diagnosing model output
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 25

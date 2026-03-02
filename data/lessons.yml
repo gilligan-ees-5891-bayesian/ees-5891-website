@@ -79,55 +79,58 @@ lessons:
   title: Generalized linear models
   reading: /reading/reading_14
 - date: '2026-03-04'
-  title: Discrete statistical models
+  title: Discussion of student projects
   reading: /reading/reading_15
 - date: '2026-03-09'
   title: Spring Break
 - date: '2026-03-11'
   title: Spring Break
 - date: '2026-03-16'
-  title: Mixture models
+  title: Discrete statistical models
   reading: /reading/reading_16
 - date: '2026-03-17'
   title: 'Homework: Monte-Carlo sampling'
   assignment: /assignment/homework_08
 - date: '2026-03-18'
-  title: Multilevel models
+  title: Mixture models
   reading: /reading/reading_17
 - date: '2026-03-19'
   title: 'Project: Research project proposal'
   assignment: /assignment/project_proposal
 - date: '2026-03-23'
-  title: Multilevel models, part 2
+  title: Multilevel models
   reading: /reading/reading_18
 - date: '2026-03-25'
-  title: More multilevel models
+  title: Multilevel models, part 2
   reading: /reading/reading_19
 - date: '2026-03-30'
-  title: Messy data
+  title: More multilevel models
   reading: /reading/reading_20
 - date: '2026-04-01'
-  title: Review of Bayesian Regression
+  title: Messy data
   reading: /reading/reading_21
 - date: '2026-04-06'
-  title: Generalized Linear Madness
+  title: Review of Bayesian Regression
   reading: /reading/reading_22
 - date: '2026-04-08'
-  title: Differential Equations
+  title: Generalized Linear Madness
   reading: /reading/reading_23
 - date: '2026-04-09'
   title: 'Project: Progress report'
   assignment: /assignment/project_draft
 - date: '2026-04-13'
-  title: Diagnosing model output
+  title: Differential Equations
   reading: /reading/reading_24
 - date: '2026-04-15'
-  title: STAN Hamiltonian Monte Carlo sampler
+  title: Diagnosing model output
   reading: /reading/reading_25
 - date: '2026-04-20'
-  title: Project presentations
+  title: STAN Hamiltonian Monte Carlo sampler
   reading: /reading/reading_26
   assignment: /assignment/project_presentation
+- date: '2026-04-22'
+  title: Project presentations
+  reading: /reading/reading_27
 - date: '2026-04-24'
   title: 'Project: Research project report'
   assignment: /assignment/project_report

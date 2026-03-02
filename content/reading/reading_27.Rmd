@@ -1,16 +1,16 @@
 ---
-title: Review of Bayesian Regression
+title: Project presentations
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
-class_number: 22
-weight: 22
-slug: reading_22
+class_number: 27
+weight: 27
+slug: reading_27
 pubdate: '2025-12-31'
 date: '`r params$par_date`'
 params:
-  par_date: '2026-04-06'
+  par_date: '2026-04-22'
   par_subtitle: ~
-pdf_url: /files/reading_asgts/reading_22.pdf
+pdf_url: /files/reading_asgts/reading_27.pdf
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -21,4 +21,4 @@ No new reading for today.
 
 ### Notes:
 
-No new reading for today. I will review selected topics that we've read about but not discussed in depth in class.
+No reading for today. You will make presentations about your semester research projects.

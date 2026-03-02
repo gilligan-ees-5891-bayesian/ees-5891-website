@@ -1,5 +1,5 @@
 ---
-title: Discrete statistical models
+title: Discussion of student projects
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 15
@@ -17,7 +17,8 @@ output:
 ---
 ## Reading:
 
-### Required Reading (everyone):
+No new reading for today.
 
-* Statistical Rethinking, Ch. 11 ("God Spiked the Integers").
+### Notes:
 
+No reading for today. We will discuss the semester research projects.

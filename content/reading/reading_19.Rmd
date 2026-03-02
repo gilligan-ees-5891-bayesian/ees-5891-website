@@ -1,5 +1,5 @@
 ---
-title: More multilevel models
+title: Multilevel models, part 2
 subtitle: '`r params$par_subtitle`'
 class_date: '`r params$par_date`'
 class_number: 19
@@ -19,5 +19,5 @@ output:
 
 ### Required Reading (everyone):
 
-* Statistical Rethinking, Ch. 14 ("Adventures in Covariance").
+* Statistical Rethinking, Ch. 13 ("Models with Memory").
 
