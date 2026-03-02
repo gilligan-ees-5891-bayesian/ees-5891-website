@@ -78,6 +78,7 @@ lessons:
 - date: '2026-03-02'
   title: Generalized linear models
   reading: /reading/reading_14
+  lecture: /slides/class_14
 - date: '2026-03-04'
   title: Discussion of student projects
   reading: /reading/reading_15
