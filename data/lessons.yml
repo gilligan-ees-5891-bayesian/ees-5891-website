@@ -89,6 +89,7 @@ lessons:
 - date: '2026-03-16'
   title: Discrete statistical models
   reading: /reading/reading_16
+  lecture: /slides/class_16
 - date: '2026-03-17'
   title: 'Homework: Monte-Carlo sampling'
   assignment: /assignment/homework_08
