@@ -96,6 +96,7 @@ lessons:
 - date: '2026-03-18'
   title: Mixture models
   reading: /reading/reading_17
+  lecture: /slides/class_17
 - date: '2026-03-19'
   title: 'Project: Research project proposal'
   assignment: /assignment/project_proposal
