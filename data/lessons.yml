@@ -103,6 +103,7 @@ lessons:
 - date: '2026-03-23'
   title: Multilevel models
   reading: /reading/reading_18
+  lecture: /slides/class_18
 - date: '2026-03-25'
   title: Multilevel models, part 2
   reading: /reading/reading_19
