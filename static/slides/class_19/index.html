@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Magnolia Gilligan">
+<title>Multilevel Models (part 2)</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.30.1.9000/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Multilevel Models (part 2)</h1>
+    <h3 class="author">EES 4891-06/5891-01</h3>
+        <h3 class="author">Bayesian Statistical Methods</h3>
+    <h3 class="author">Jonathan Magnolia Gilligan</h3>
+    <h3 class="date">
+      Class #19:
+       Wednesday March 25,
+      2026
+    </h3>
+	<!-- end title slide -->
+</section><section><section id="chimpanzees" class="title-slide slide level1 center"><h1 class="center">Chimpanzees</h1>
+
+</section><section id="chimpanzee-experiment" class="slide level2 eighty"><h2 class="eighty">Chimpanzee Experiment</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Experimental treatments:
+<ul>
+<li>Partner or not</li>
+<li>Pro-social lever on left or right</li>
+</ul>
+</li>
+<li>Other conditions
+<ul>
+<li>Experiments were performed in “blocks” during different days</li>
+</ul>
+</li>
+<li>Outcome:
+<ul>
+<li>
+<span class="math inline">\(L\)</span>: Which lever did the chimp
+pull (1 = left, 0 = right)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Load data</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(chimpanzees)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> chimpanzees <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="dv">1</span><span class="dt">L</span> <span class="sc">+</span> prosoc_left <span class="sc">+</span> <span class="dv">2</span><span class="dt">L</span> <span class="sc">*</span> condition)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dat_list <span class="ot">&lt;-</span> <span class="fu">select</span>(d, pulled_left, actor, <span class="at">block_id =</span> block,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                   treatment)</span></code></pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="original-model" class="slide level2 eighty"><h2 class="eighty">Original Model</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Original Model: <span class="math display">\[
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \alpha_{\text{actor}} + \beta_{\text{treatment}}
+\\
+\alpha &amp;\sim dnorm(0, 1.5) \\
+\beta &amp;\sim dnorm(0, 0.5)
+\end{align}
+\]</span></p>
+<ul>
+<li>Limitations:
+<ul>
+<li>Prior for <span class="math inline">\(\alpha\)</span> assumes equal
+likelihood of being left- or right-handed</li>
+<li>Experiments were conducted in 6 “blocks” on different days. Did
+chimpanzees behave differently on different days?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Model code:</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">25</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, p),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> b[treatment],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dat_list, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="multilevel-model" class="slide level2 eighty"><h2 class="eighty">Multilevel Model</h2>
+<div class="columns">
+<div class="column pright-1">
+<ul>
+<li>
+<p>New model:</p>
+<div class="ninety">
+<p><span class="math display">\[
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \alpha_{\text{actor}} + \gamma_{\text{block}} +
+  \beta_{\text{treatment}} \\
+\beta_{\text{treatment}} &amp;\sim \text{Normal}(0, 0.5),
+  \text{treatment in } 1 \ldots 4 \\
+\alpha_{\text{actor}} &amp;\sim \text{Normal}(\bar \alpha,
+\sigma_\alpha),
+  \text{actor in } 1 \ldots 7 \\
+\gamma_{\text{block}} &amp;\sim \text{Normal}(0, \sigma_\gamma),
+  \text{block in } 1 \ldots 6 \\
+\bar \alpha &amp;\sim \text{Normal}(0, 1.5) \\
+\sigma_\alpha &amp;\sim \text{Exponential}(1) \\
+\sigma_\gamma &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span></p>
+</div>
+</li>
+<li class="fragment"><p>This allows for partial pooling across actors and blocks
+(e.g., most actors tend to pull the right lever, but some prefer the
+left)</p></li>
+<li class="fragment"><p>Example of a multilevel model with two different kinds of
+clusters.</p></li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Model code:</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, p),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> g[block_id] <span class="sc">+</span> b[treatment],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="do">## adaptive priors</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sigma_a),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        g[block_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, sigma_g),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="do">## hyper-priors</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        sigma_g <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dat_list, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</li>
+<li class="fragment"><p>Hyperparameters: <span class="math inline">\(\bar\alpha\)</span>, <span class="math inline">\(\sigma_\alpha\)</span>, <span class="math inline">\(\sigma_\gamma\)</span></p></li>
+<li class="fragment">
+<p>Hyperpriors for the hyperparameters:</p>
+<p><span class="math display">\[
+\begin{align}
+  \bar \alpha &amp;\sim \text{Normal}(0, 1.5) \\
+  \sigma_\alpha &amp;\sim \text{Exponential}(1) \\
+  \sigma_\gamma &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span></p>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="why-we-must-use-mcmc-methods" class="slide level2 eighty"><h2 class="eighty">Why We Must Use MCMC Methods</h2>
+<ul>
+<li>Quadratic approximation (<code>quap</code>) works well for
+completely pooled and completely un-pooled data
+<ul>
+<li>Find maximum of probability density by varying parameters one at a
+time.</li>
+<li class="fragment">Multilevel model: The effect of varying one parameter depends on
+the values of other hyperparameters.
+<ul>
+<li>Varying parameters and hyperparameters one at a time won’t
+efficiently find the maximum.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment">Hamiltonian Monte Carlo (<code>ulam</code>): imaginary particle
+moving in <em>N</em>-dimensional space, varying all parameters
+simultaneously.</li>
+</ul></section><section id="model-results" class="slide level2 eighty"><h2 class="eighty">Model Results</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Model 1 (the old one)</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##       mean   sd  5.5% 94.5% rhat ess_bulk
+## b[1] -0.01 0.28 -0.48  0.42    1   617.56
+## b[2]  0.52 0.29  0.05  0.99    1   670.66
+## b[3] -0.35 0.28 -0.79  0.08    1   717.91
+## b[4]  0.40 0.28 -0.06  0.85    1   697.56
+## a[1] -0.48 0.34 -0.99  0.07    1   800.53
+## a[2]  3.88 0.77  2.72  5.24    1  1160.62
+## a[3] -0.79 0.33 -1.31 -0.26    1   786.29
+## a[4] -0.78 0.33 -1.31 -0.26    1   785.30
+## a[5] -0.49 0.32 -1.00  0.04    1   712.42
+## a[6]  0.44 0.34 -0.07  0.99    1   790.12
+## a[7]  1.93 0.42  1.30  2.64    1  1044.93</code></pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Model 2 (multilevel)</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp<span class="fl">.2</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##          mean   sd  5.5% 94.5% rhat ess_bulk
+## b[1]    -0.12 0.28 -0.58  0.31 1.01   616.79
+## b[2]     0.40 0.29 -0.05  0.87 1.01   594.26
+## b[3]    -0.47 0.29 -0.96 -0.02 1.00   563.73
+## b[4]     0.29 0.29 -0.17  0.75 1.01   488.59
+## a[1]    -0.35 0.34 -0.90  0.19 1.01   502.88
+## a[2]     4.73 1.38  3.05  7.31 1.01   467.66
+## a[3]    -0.66 0.36 -1.24 -0.08 1.01   601.74
+## a[4]    -0.68 0.35 -1.23 -0.10 1.00   493.56
+## a[5]    -0.36 0.34 -0.91  0.19 1.01   463.32
+## a[6]     0.58 0.35  0.03  1.13 1.02   552.05
+## a[7]     2.13 0.47  1.40  2.87 1.01   536.20
+## g[1]    -0.17 0.23 -0.59  0.08 1.02   306.83
+## g[2]     0.03 0.18 -0.25  0.35 1.02   869.80
+## g[3]     0.04 0.19 -0.22  0.36 1.02  1146.86
+## g[4]     0.00 0.19 -0.30  0.31 1.03  1089.58
+## g[5]    -0.03 0.18 -0.35  0.23 1.01   930.26
+## g[6]     0.10 0.19 -0.14  0.44 1.02   482.86
+## a_bar    0.62 0.72 -0.53  1.84 1.01   926.48
+## sigma_a  2.02 0.64  1.21  3.17 1.01   665.96
+## sigma_g  0.21 0.18  0.02  0.53 1.05    82.00</code></pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="plotting-model-results" class="slide level2 eighty"><h2 class="eighty">Plotting Model Results</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>
+<p>Model 1</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_chimp<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">main =</span> <span class="st">"Model 1"</span>)</span></code></pre></div>
+<p><img src="assets/fig/plot-model-1-results-1.png" alt="" class="mtop-half"></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Model 2</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_chimp<span class="fl">.2</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">main =</span> <span class="st">"Model 2"</span>)</span></code></pre></div>
+<p><img src="assets/fig/plot-model-2-results-1.png" alt="" class="mtop-half"></p>
+</div>
+<ul>
+<li class="fragment">All the <span class="math inline">\(\gamma\)</span> coefficients
+are consistent with 0.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="actors-vs.-blocks" class="slide level2 eighty"><h2 class="eighty">Actors vs. Blocks</h2>
+<div class="columns">
+<div class="column pright-1">
+<ul>
+<li>
+<p>Model:</p>
+<div class="eightyfive">
+<p><span class="math display">\[
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \alpha_{\text{actor}} + \gamma_{\text{block}} +
+  \beta_{\text{treatment}} \\
+\beta_{\text{treatment}} &amp;\sim \text{Normal}(0, 0.5),
+  \text{treatment in } 1 \ldots 4 \\
+\alpha_{\text{actor}} &amp;\sim \text{Normal}(\bar \alpha,
+\sigma_\alpha),
+  \text{actor in } 1 \ldots 7 \\
+\gamma_{\text{block}} &amp;\sim \text{Normal}(0, \sigma_\gamma),
+  \text{block in } 1 \ldots 6
+\end{align}
+\]</span></p>
+</div>
+<ul>
+<li>
+<span class="math inline">\(\sigma_\alpha\)</span>: variation among
+actors</li>
+<li>
+<span class="math inline">\(\sigma_\gamma\)</span>: variation among
+blocks.</li>
+<li>Plot the posterior probability distribution for <span class="math inline">\(\sigma_\alpha\)</span> and <span class="math inline">\(\sigma_\gamma\)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="bare">
+<p><img src="assets/fig/plot-sigma-1.png" alt="" class="mtop-half"></p>
+<ul>
+<li class="fragment"><span class="math inline">\(\sigma_\alpha\)</span> is clearly
+greater than zero</li>
+<li class="fragment"><span class="math inline">\(\sigma_\gamma\)</span> is piled up
+near zero.
+<ul>
+<li class="fragment">All the values of <span class="math inline">\(\gamma\)</span>
+(block-level coefficients) are consistent with zero.</li>
+<li class="fragment">Do blocks even matter?</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="another-model" class="slide level2 eighty"><h2 class="eighty">Another model</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Try a simpler model:
+<ul>
+<li>No block-level effects</li>
+</ul>
+<span class="math display">\[
+\small
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \alpha_{\text{actor}} +  
+  \beta_{\text{treatment}} \\
+\beta_{\text{treatment}} &amp;\sim \text{Normal}(0, 0.5),
+  \text{treatment in } 1 \ldots 4 \\
+\alpha_{\text{actor}} &amp;\sim \text{Normal}(\bar \alpha,
+\sigma_\alpha),
+  \text{actor in } 1 \ldots 7 \\
+\bar \alpha &amp;\sim \text{Normal}(0, 1.5) \\
+\sigma_\alpha &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<p>Model code:</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, p),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> b[treatment],</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="do">## adaptive priors</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sigma_a),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="do">## hyper-priors</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dat_list, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="compare-the-models" class="slide level2 eighty"><h2 class="eighty">Compare the models</h2>
+<ul>
+<li>
+<p>Compare the models:</p>
+<div class="max-listing">
+<div class="sourceCode" id="cb11"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(mdl_chimp<span class="fl">.1</span>, mdl_chimp<span class="fl">.2</span>, mdl_chimp<span class="fl">.3</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##               WAIC    SE dWAIC  dSE pWAIC weight
+## mdl_chimp.3 530.97 19.22  0.00   NA  8.47   0.47
+## mdl_chimp.1 532.05 18.99  1.08 0.44  8.43   0.27
+## mdl_chimp.2 532.20 19.44  1.22 1.60 10.59   0.26</code></pre>
+</div>
+</li>
+<li>
+<p>Model 3 works is slightly better than the original model, and
+model 2 (with the block clusters) is worst.</p>
+<ul>
+<li class="fragment">What is the difference between models 1 and 3?
+<ul>
+<li>Model 3 has an adaptive prior for <span class="math inline">\(\alpha\)</span> (the actor’s preference for right
+or left).</li>
+</ul>
+</li>
+<li class="fragment">What is the difference between models 2 and 3?
+<ul>
+<li>Model 3 has one kind of cluster (actor).</li>
+<li>Model 2 adds a second kind of cluster (block ID)</li>
+<li class="fragment">Model 2 overfits the data, because block ID doesn’t add any
+useful information for predictions. (see the pWAIC penalty).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section></section><section><section id="divergent-transitions" class="title-slide slide level1 center"><h1 class="center">Divergent Transitions</h1>
+
+</section><section id="divergent-transitions-1" class="slide level2 eighty"><h2 class="eighty">Divergent Transitions</h2>
+<ul>
+<li>Sometimes you get warnings about “divergent transitions” when you
+fit a model using Stan.</li>
+<li class="fragment">Hamiltonian Monte Carlo (HMC) works by simulating a particle
+flowing over a surface with hills and valleys.</li>
+<li class="fragment">In a real physical system, energy is conserved
+<ul>
+<li class="fragment">In a computational simulation, steep slopes can cause
+errors</li>
+</ul>
+</li>
+<li class="fragment">When there is a divergent transition, Stan discards it and tries
+again
+<ul>
+<li class="fragment">If there is a region in the posterior where there are a lot of
+divergent transitions, Stan can’t sample it well.</li>
+<li class="fragment">If there is a lot of probability density there, it means you may
+miss an important part of the posterior.</li>
+</ul>
+</li>
+</ul></section><section id="dealing-with-divergences" class="slide level2 eighty"><h2 class="eighty">Dealing with Divergences</h2>
+<ul>
+<li>There are two ways to deal with divergences:
+<ol type="1">
+<li class="fragment">Make <code>adapt_delta</code> closer to 1.
+<ul>
+<li>
+<code>adapt_delta</code> is the target acceptance rate used in the
+tuning (warm-up) phase to adjust the parameters.</li>
+<li>Default is 0.95. 1 is the maximum allowed value.</li>
+<li>Setting <code>adapt_delta</code> closer to 1 leads to more accurate
+sampling, but slows Stan down.</li>
+</ul>
+</li>
+<li class="fragment">Re-write your model to avoid divergences (e.g., re-parameterize
+it)
+<ul>
+<li class="fragment">A common strategy is to change from centered to non-centered
+parameterizations.
+<ul>
+<li>
+<strong>Centered:</strong> Priors for parameters depend directly on
+other hyperparameters.</li>
+<li>
+<strong>Non-centered:</strong> Draw parameters from priors with
+fixed hyperparameters,
+<ul>
+<li>Generate <em>transformed parameters</em> by scaling the raw
+hyperparameters</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment">Rule of thumb:
+<ul>
+<li>Non-centered parameterizations are better when there is little
+data.</li>
+<li>Centered parameterizations are better when there is a lot of
+data.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul></section><section id="the-devils-funnel" class="slide level2 eighty"><h2 class="eighty">The Devil’s Funnel</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Consider this model: <span class="math display">\[
+\begin{align}
+\nu &amp;\sim \text{Normal}(0, 3) \\
+x   &amp;\sim \text{Normal}(0, \exp(\nu))
+\end{align}
+\]</span>
+</li>
+</ul>
+</div>
+<div class="column">
+<div class="max-listing">
+<div class="sourceCode" id="cb13"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        v <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        x <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fu">exp</span>(v))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">1</span>), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_funnel, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##     mean     sd    5.5% 94.5% rhat ess_bulk
+## v   1.93   2.23   -0.85  6.34 1.21    14.51
+## x -70.15 395.41 -252.73 24.22 1.21    98.44</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel<span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre><code>## Warning: 87 of 2000 (4.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.</code></pre>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1] 15 40 26  6</code></pre>
+</div>
+</div>
+</div>
+</section><section id="cause-of-divergences" class="slide level2 eighty textleft"><h2 class="eighty textleft">Cause of Divergences</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Why do divergences happen?</p></li>
+<li>
+<p>Potential-energy surface:</p>
+<p><img data-src="assets/images/centered-funnel.png" height="750" alt="Potential-energy surface for funnel with centered parameterization"></p>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment">Trajectory starts at “X”, and bounces around, …
+<ul>
+<li class="fragment">but when it gets to the steep part near<br>
+(0, -2) a divergent transition makes it jump way out to the “O”.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="non-centered-parameterization" class="slide level2 eighty"><h2 class="eighty">Non-Centered Parameterization</h2>
+<div class="columns">
+<div class="column">
+<div class="bare ninetyfive">
+<ul>
+<li>
+<p>Original (centered) model: <span class="math display">\[
+\begin{align}
+\nu &amp;\sim \text{Normal}(0, 3) \\
+x   &amp;\sim \text{Normal}(0, \exp(\nu))
+\end{align}
+\]</span></p>
+<p>Prior for <span class="math inline">\(x\)</span> depends on <span class="math inline">\(\nu\)</span></p>
+</li>
+<li>
+<p>Non-centered version: <span class="math display">\[
+\begin{align}
+\nu &amp;\sim \text{Normal}(0, 3) \\
+z   &amp;\sim \text{Normal}(0, 1) \\
+x   &amp;= z \exp(\nu)
+\end{align}
+\]</span></p>
+<p>Prior for <span class="math inline">\(z\)</span> is independent of
+<span class="math inline">\(\nu\)</span>, generate <span class="math inline">\(x\)</span> by scaling <span class="math inline">\(z\)</span>.</p>
+</li>
+<li><p>This flattens the steep parts by sampling from two Normal
+distributions and the steep stuff only shows up when we multiply them
+together.</p></li>
+</ul>
+</div>
+</div>
+<div class="column">
+<div class="bare mtop-2">
+<p><img data-src="assets/images/centered-funnel.png" height="450" alt="Centered funnel trajectories"></p>
+<p><img data-src="assets/images/non-centered-funnel.png" height="450" alt="Non-centered funnel trajectories"></p>
+</div>
+</div>
+</div>
+</section><section id="coding-the-model" class="slide level2 eighty"><h2 class="eighty">Coding the model</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<ul>
+<li>
+<p>Original model:</p>
+<div class="bare max-listing mtop-half">
+<div class="sourceCode" id="cb19"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        v <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        x <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fu">exp</span>(v))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">1</span>), <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_funnel, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##     mean     sd    5.5% 94.5% rhat ess_bulk
+## v   1.93   2.23   -0.85  6.34 1.21    14.51
+## x -70.15 395.41 -252.73 24.22 1.21    98.44</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel<span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre><code>## Warning: 87 of 2000 (4.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.</code></pre>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1] 15 40 26  6</code></pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<ul>
+<li>
+<p>Non-centered model:</p>
+<div class="bare max-listing mtop-half">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel_nc <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        v <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        z <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        gq<span class="sc">&gt;</span> real[<span class="dv">1</span>]<span class="sc">:</span>x <span class="ot">&lt;&lt;-</span> z<span class="sc">*</span><span class="fu">exp</span>(v)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span><span class="fu">list</span>(<span class="at">N=</span><span class="dv">1</span>) , <span class="at">chains=</span><span class="dv">4</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_funnel_nc, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##     mean      sd   5.5% 94.5% rhat ess_bulk
+## v   0.03    3.12  -4.90  4.85 1.00  1503.28
+## z   0.00    0.98  -1.58  1.50 1.00  1218.99
+## x -38.58 2237.40 -28.03 24.71 1.01  1393.42</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mdl_funnel_nc<span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1] 0 0 0 0</code></pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section></section><section><section id="non-centered-chimpanzees" class="title-slide slide level1 center"><h1 class="center">Non-Centered Chimpanzees</h1>
+
+</section><section id="divergent-chimpanzee-model" class="slide level2 eighty"><h2 class="eighty">Divergent Chimpanzee Model</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb30"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, p),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> g[block_id] <span class="sc">+</span> b[treatment],</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>      <span class="do">## adaptive priors</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sigma_a),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        g[block_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, sigma_g),</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>      <span class="do">## hyper-priors</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>        sigma_g <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data=</span>dat_list, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp<span class="fl">.2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##         mean   sd  5.5% 94.5% rhat ess_bulk
+## a_bar   0.62 0.72 -0.53  1.84 1.01   926.48
+## sigma_a 2.02 0.64  1.21  3.17 1.01   665.96
+## sigma_g 0.21 0.18  0.02  0.53 1.05    82.00</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.2</span><span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre><code>## Warning: 11 of 2000 (1.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.</code></pre>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1]  0  0 11  0</code></pre>
+</div>
+</div>
+<div class="column">
+<div class="textleft">
+<ul>
+<li>Increase <code>adapt_delta</code> from 0.95 to 0.99:</li>
+</ul>
+</div>
+<div class="bare">
+<div class="sourceCode" id="cb36"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(mdl_chimp<span class="fl">.2</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">control =</span> <span class="fu">list</span>(<span class="at">adapt_delta =</span> <span class="fl">0.99</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp<span class="fl">.4</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##         mean   sd  5.5% 94.5% rhat ess_bulk
+## a_bar   0.56 0.74 -0.59  1.76 1.00   896.99
+## sigma_a 2.03 0.69  1.22  3.26 1.00   851.11
+## sigma_g 0.18 0.18  0.01  0.50 1.03   107.82</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mdl_chimp<span class="fl">.4</span><span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre><code>## Warning: 9 of 2000 (0.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.</code></pre>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1] 0 4 5 0</code></pre>
+</div>
+</div>
+</div>
+</section><section id="noncentered-chimpanzee-model" class="slide level2 eighty"><h2 class="eighty">Noncentered Chimpanzee Model</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<ul>
+<li>Original model: <span class="math display">\[
+\small
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \alpha_{\text{actor}} + \gamma_{\text{block}} +
+  \beta_{\text{treatment}} \\
+\beta_{\text{treatment}} &amp;\sim \text{Normal}(0, 0.5) \\
+\alpha_{\text{actor}} &amp;\sim \text{Normal}(\bar \alpha,
+\sigma_\alpha) \\
+\gamma_{\text{block}} &amp;\sim \text{Normal}(0, \sigma_\gamma) \\
+\bar \alpha &amp;\sim \text{Normal}(0, 1.5) \\
+\sigma_\alpha &amp;\sim \text{Exponential}(1) \\
+\sigma_\gamma &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<ul>
+<li>Non-centered model: <span class="math display">\[
+\small
+\begin{align}
+L &amp;\sim \text{Binomial}(1, p) \\
+\text{logit}(p) &amp;= \bar\alpha + z_{\text{actor}} \sigma_\alpha +
+  x_{\text{block}} \sigma_\gamma +
+  \beta_{\text{treatment}} \\
+\beta_{\text{treatment}} &amp;\sim \text{Normal}(0, 0.5) \\
+z_{\text{actor}} &amp;\sim \text{Normal}(0, 1) \\
+x_{\text{block}} &amp;\sim \text{Normal}(0, 1) \\
+\bar \alpha &amp;\sim \text{Normal}(0, 1.5) \\
+\sigma_\alpha &amp;\sim \text{Exponential}(1) \\
+\sigma_\gamma &amp;\sim \text{Exponential}(1) \\
+\end{align}
+\]</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="coding-the-non-centered-model" class="slide level2 eighty"><h2 class="eighty">Coding the non-centered model</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb42"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>mdl_chimp_nc <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, p) ,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a_bar <span class="sc">+</span> z[actor] <span class="sc">*</span> sigma_a <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                    x[block_id] <span class="sc">*</span> sigma_g <span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>                    b[treatment],</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>        b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>        z[actor] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        x[block_id] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>        a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        sigma_g <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        gq<span class="sc">&gt;</span> vector[actor]<span class="sc">:</span>a <span class="ot">&lt;&lt;-</span> a_bar <span class="sc">+</span> z <span class="sc">*</span> sigma_a,</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        gq<span class="sc">&gt;</span> vector[block_id]<span class="sc">:</span>g <span class="ot">&lt;&lt;-</span> x <span class="sc">*</span> sigma_g</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">data =</span> dat_list, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp_nc, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##         mean   sd  5.5% 94.5% rhat ess_bulk
+## a_bar   0.62 0.74 -0.51  1.79 1.01   509.90
+## sigma_a 2.06 0.67  1.22  3.28 1.00   625.83
+## sigma_g 0.20 0.16  0.02  0.50 1.01   734.24</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mdl_chimp_nc<span class="sc">@</span>cstanfit<span class="sc">$</span><span class="fu">diagnostic_summary</span>(<span class="st">"divergences"</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>## $num_divergent
+## [1] 0 0 0 0</code></pre>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<p><img src="assets/fig/compare-model-ess-1.png" alt="" class="mtop-half"></p>
+</div>
+</div>
+</div>
+</section><section id="comparing-results" class="slide level2 eighty"><h2 class="eighty">Comparing Results</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb47"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp<span class="fl">.4</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##          mean   sd  5.5% 94.5% rhat ess_bulk
+## b[1]    -0.11 0.31 -0.59  0.38 1.02   338.77
+## b[2]     0.43 0.30 -0.07  0.90 1.01   343.49
+## b[3]    -0.45 0.31 -0.94  0.06 1.01   442.27
+## b[4]     0.31 0.31 -0.19  0.81 1.01   447.73
+## a[1]    -0.39 0.36 -0.97  0.18 1.01   518.25
+## a[2]     4.68 1.43  2.98  6.99 1.01   648.44
+## a[3]    -0.70 0.38 -1.30 -0.10 1.01   435.22
+## a[4]    -0.70 0.37 -1.26 -0.13 1.01   460.22
+## a[5]    -0.39 0.37 -0.99  0.20 1.01   439.61
+## a[6]     0.54 0.37 -0.04  1.11 1.01   437.74
+## a[7]     2.08 0.48  1.33  2.87 1.01   542.35
+## g[1]    -0.14 0.22 -0.56  0.07 1.01   405.53
+## g[2]     0.03 0.18 -0.22  0.33 1.02   809.69
+## g[3]     0.05 0.18 -0.19  0.36 1.02   646.92
+## g[4]     0.01 0.17 -0.23  0.28 1.02   831.97
+## g[5]    -0.02 0.18 -0.29  0.24 1.01   886.57
+## g[6]     0.10 0.19 -0.12  0.47 1.01   636.02
+## a_bar    0.56 0.74 -0.59  1.76 1.00   896.99
+## sigma_a  2.03 0.69  1.22  3.26 1.00   851.11
+## sigma_g  0.18 0.18  0.01  0.50 1.03   107.82</code></pre>
+</div>
+</div>
+<div class="column">
+<div class="bare ninety">
+<div class="sourceCode" id="cb49"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_chimp_nc, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre class="seventy max-listing"><code>##          mean   sd  5.5% 94.5% rhat ess_bulk
+## b[1]    -0.14 0.31 -0.63  0.35 1.00  1162.45
+## b[2]     0.40 0.30 -0.08  0.88 1.00  1171.39
+## b[3]    -0.48 0.30 -0.97 -0.01 1.00  1244.50
+## b[4]     0.27 0.30 -0.20  0.76 1.00  1200.03
+## z[1]    -0.51 0.39 -1.14  0.10 1.01   460.24
+## z[2]     2.09 0.63  1.13  3.13 1.00  1010.57
+## z[3]    -0.67 0.41 -1.33 -0.03 1.01   463.71
+## z[4]    -0.67 0.41 -1.34 -0.03 1.01   435.74
+## z[5]    -0.52 0.39 -1.18  0.10 1.01   452.48
+## z[6]    -0.02 0.37 -0.60  0.57 1.01   497.16
+## z[7]     0.81 0.46  0.12  1.59 1.00   622.35
+## x[1]    -0.67 0.89 -2.01  0.83 1.00  2253.53
+## x[2]     0.19 0.87 -1.17  1.55 1.00  2006.40
+## x[3]     0.21 0.83 -1.13  1.51 1.00  2486.69
+## x[4]     0.06 0.83 -1.26  1.40 1.00  1870.83
+## x[5]    -0.11 0.84 -1.41  1.21 1.00  2073.95
+## x[6]     0.46 0.85 -0.86  1.80 1.00  1946.22
+## a_bar    0.62 0.74 -0.51  1.79 1.01   509.90
+## sigma_a  2.06 0.67  1.22  3.28 1.00   625.83
+## sigma_g  0.20 0.16  0.02  0.50 1.01   734.24
+## g[1]    -0.16 0.21 -0.57  0.07 1.00  1516.18
+## g[2]     0.04 0.18 -0.20  0.33 1.00  2112.49
+## g[3]     0.05 0.18 -0.19  0.36 1.00  2278.83
+## g[4]     0.02 0.17 -0.25  0.29 1.01  1993.91
+## g[5]    -0.03 0.17 -0.31  0.23 1.01  2128.82
+## g[6]     0.11 0.19 -0.11  0.45 1.00  1554.64
+## a[1]    -0.35 0.37 -0.94  0.26 1.00  1271.86
+## a[2]     4.73 1.32  3.15  6.99 1.00  1555.23
+## a[3]    -0.65 0.38 -1.25 -0.03 1.00  1275.61
+## a[4]    -0.66 0.37 -1.25 -0.07 1.00  1174.44
+## a[5]    -0.36 0.37 -0.95  0.24 1.00  1150.48
+## a[6]     0.58 0.36 -0.01  1.15 1.00  1215.21
+## a[7]     2.13 0.46  1.42  2.87 1.00  1449.84</code></pre>
+</div>
+</div>
+</div>
+</section><section id="comparing-results-1" class="slide level2 eighty"><h2 class="eighty">Comparing Results</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb51"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_chimp<span class="fl">.4</span>, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="assets/fig/mdl-chimp-4-res-plot-2-1.png" alt="" class="mtop-half"></p>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb52"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(mdl_chimp_nc, <span class="at">depth =</span> <span class="dv">2</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="assets/fig/mdl-chimp-nc-res-plot-1.png" alt="" class="mtop-half"></p>
+</div>
+</div>
+</div>
+</section></section><section><section id="back-to-the-radon-example" class="title-slide slide level1 center"><h1 class="center">Back to the Radon Example</h1>
+
+</section><section id="multilevel-radon-model" class="slide level2 eighty"><h2 class="eighty">Multilevel Radon Model</h2>
+<div class="columns">
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb53"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ml_data <span class="ot">&lt;-</span> <span class="fu">select</span>(mn_radon, county_id, log_radon, floor)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>mdl_ml_1 <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    log_radon <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[county_id] <span class="sc">+</span> b <span class="sc">*</span> floor,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    a[county_id] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sig_a),</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    sig_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> ml_data, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_ml_1, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">depth =</span> <span class="dv">2</span>,</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"a_bar"</span>, <span class="st">"sig_a"</span>, <span class="st">"b"</span>, <span class="st">"sigma"</span>, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">paste0</span>(<span class="st">"a["</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">"]"</span>)))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5% rhat ess_bulk
+## a_bar  1.46 0.05  1.38  1.54 1.00   987.00
+## sig_a  0.33 0.05  0.26  0.41 1.00   768.82
+## b     -0.69 0.07 -0.80 -0.59 1.00  1393.98
+## sigma  0.76 0.02  0.73  0.78 1.00  2419.80
+## a[1]   1.19 0.25  0.79  1.58 1.01  2851.87
+## a[2]   0.93 0.10  0.77  1.09 1.00  2181.96
+## a[3]   1.48 0.27  1.04  1.91 1.00  2730.30
+## a[4]   1.51 0.22  1.15  1.86 1.00  2473.64
+## a[5]   1.45 0.26  1.05  1.86 1.01  2887.43</code></pre>
+<div class="ptop-2">
+<ul>
+<li>Variation in <span class="math inline">\(\alpha\)</span> represents
+effects of soil uranium and home construction.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="column">
+<div class="bare">
+<div class="sourceCode" id="cb56"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ml_data_2 <span class="ot">&lt;-</span> <span class="fu">select</span>(mn_radon, county_id, log_radon, floor, log_uranium)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>mdl_ml_2 <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    log_radon <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[county_id] <span class="sc">+</span> b <span class="sc">*</span> floor <span class="sc">+</span> g <span class="sc">*</span> log_uranium,</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    a[county_id] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sig_a),</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    sig_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    g <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> ml_data_2, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">log_lik =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(mdl_ml_2, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">depth =</span> <span class="dv">2</span>,</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"a_bar"</span>, <span class="st">"sig_a"</span>, <span class="st">"b"</span>, <span class="st">"sigma"</span>, <span class="st">"g"</span>, </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">paste0</span>(<span class="st">"a["</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">"]"</span>)))</span></code></pre></div>
+<pre class="seventy max-listing"><code>##        mean   sd  5.5% 94.5% rhat ess_bulk
+## a_bar  1.47 0.04  1.40  1.53 1.00   512.25
+## sig_a  0.16 0.05  0.08  0.24 1.01   116.30
+## b     -0.67 0.07 -0.78 -0.56 1.00  1370.74
+## sigma  0.76 0.02  0.73  0.79 1.00  1839.65
+## g      0.72 0.09  0.58  0.86 1.00  1638.50
+## a[1]   1.45 0.15  1.20  1.67 1.00  2226.16
+## a[2]   1.48 0.10  1.31  1.63 1.00  1911.11
+## a[3]   1.48 0.16  1.23  1.73 1.01  2607.32
+## a[4]   1.58 0.16  1.34  1.84 1.00   576.29
+## a[5]   1.48 0.15  1.25  1.72 1.00  2312.81</code></pre>
+<ul>
+<li>Variation in <span class="math inline">\(\alpha\)</span> only
+represents effects of home construction.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="compare-models" class="slide level2 eighty"><h2 class="eighty">Compare Models</h2>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>ml_1_draws <span class="ot">&lt;-</span> <span class="fu">gather_draws</span>(mdl_ml_1, a[county_id]) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(mn_counties, county_id, county), <span class="at">by =</span> <span class="st">"county_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Basic"</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>ml_1_sum <span class="ot">&lt;-</span> ml_1_draws <span class="sc">|&gt;</span> <span class="fu">group_by</span>(county, county_id, model) <span class="sc">|&gt;</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(.value), <span class="at">PI =</span> <span class="fu">list</span>(<span class="fu">set_names</span>(<span class="fu">PI</span>(.value), <span class="fu">c</span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>)))) <span class="sc">|&gt;</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(PI)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>ml_2_draws <span class="ot">&lt;-</span> <span class="fu">gather_draws</span>(mdl_ml_2, a[county_id]) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(mn_counties, county_id, county, log_uranium), </span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"county_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Uranium"</span>)</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>ml_2_sum <span class="ot">&lt;-</span> ml_2_draws <span class="sc">|&gt;</span> <span class="fu">group_by</span>(county, county_id, model) <span class="sc">|&gt;</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(.value), <span class="at">PI =</span> <span class="fu">list</span>(<span class="fu">set_names</span>(<span class="fu">PI</span>(.value), <span class="fu">c</span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>)))) <span class="sc">|&gt;</span></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(PI)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r seventy max-listing bare"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ml_2_sum, <span class="fu">aes</span>(<span class="at">x =</span> county, <span class="at">y =</span> mean, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">color =</span> model)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">data =</span> ml_1_sum, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Uranium =</span> <span class="st">"darkblue"</span>, <span class="at">Basic =</span> <span class="st">"goldenrod"</span>)) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"County"</span>, <span class="at">y =</span> <span class="st">"89% confidence interval"</span>, <span class="at">title =</span> ) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+</section><section id="compare-models-1" class="slide level2 eighty"><h2 class="eighty">Compare Models</h2>
+<p><img src="assets/fig/plot-comparison-1.png" alt="" class="mtop-half"></p>
+</section><section id="posterior-prediction-check-uranium-model" class="slide level2 eighty"><h2 class="eighty">Posterior Prediction Check (Uranium Model)</h2>
+<p><img src="assets/fig/posterior-predictive-check-ml-2-1.png" alt="" class="mtop-half"></p>
+</section></section><section><section id="post-stratification" class="title-slide slide level1 center"><h1 class="center">Post-Stratification</h1>
+
+</section><section id="post-stratification-1" class="slide level2 eighty"><h2 class="eighty">Post-Stratification</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Statistical analysis when we know our data come from a
+non-representative sample
+<ul>
+<li>We know <span class="math inline">\(N_i\)</span>, the relative
+populations of different groups <span class="math inline">\(i\)</span>
+<ul>
+<li>But our data is not distributed proportionately to <span class="math inline">\(N_i\)</span>
+</li>
+</ul>
+</li>
+<li>
+<strong>Examples:</strong>
+<ul>
+<li>Public-opinion surveys contact people
+<ul>
+<li>Some demographic groups are more likely than others to answer
+surveys</li>
+</ul>
+</li>
+<li>Crowd-sourcing biodiversity studies:
+<ul>
+<li>Crowd-sourced wildlife censuses produce large data, but over- or
+under-count different species</li>
+<li>Expert censuses accurately measure populations, but only for small
+areas.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li>
+<strong>MRP</strong> (Mr. P): <strong>M</strong>ultilevel
+<strong>R</strong>egression modeling with
+<strong>P</strong>oststratification
+<ul>
+<li>Analyze non-representative sample using multilevel regression:
+<ul>
+<li>Partial pooling helps estimate effects for under-counted groups:
+<ul>
+<li>
+<span class="math inline">\(\mu_i\)</span> is the effect for group
+<span class="math inline">\(i\)</span>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Apply <em>poststratification</em> to the results:
+<ul>
+<li>
+<p>Predict representative population-level effects <span class="math inline">\(\mu_{\text{population}}\)</span> by weighting
+regression results <span class="math inline">\(\mu_i\)</span> for
+different groups by relative abundance of those groups in the whole
+population.</p>
+<p><span class="math display">\[
+\mu_{\text{population}} = \frac{\sum_i N_i \mu_i}{\sum_i N_i}
+\]</span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/math/math.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees5891.jgilligan.org/slides/class_19">' +
+  	'<img src="qrcode.png" alt="https://ees5891.jgilligan.org/slides/class_19"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees5891.jgilligan.org/slides/class_19">https://ees5891.jgilligan.org/slides/class_19</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees5891.jgilligan.org/slides/class_19/ees_5891-01_class_19_slides.pdf" target="_blank">https://ees5891.jgilligan.org/slides/class_19/ees_5891-01_class_19_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  indep: "\\perp \\!\\!\\! \\perp"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+    displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+    processEscapes: true
+  }
+})
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>

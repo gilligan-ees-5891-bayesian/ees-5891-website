@@ -1278,6 +1278,10 @@ font-weight: bold;
 .reveal pre.bare.mtop-half-em,
 .reveal .bare pre.mtop-half-em,
 .reveal .bare pre.bare.mtop-half-em,
+.reveal img.mtop-half-em,
+.reveal img.bare.mtop-half-em,
+.reveal .bare img.mtop-half-em,
+.reveal .bare img.bare.mtop-half-em,
 .reveal section.mtop-half-em,
 .reveal section.bare.mtop-half-em {
   margin-top: 0.5em;
@@ -1294,6 +1298,10 @@ font-weight: bold;
 .reveal pre.bare.mtop-1-em,
 .reveal .bare pre.mtop-1-em,
 .reveal .bare pre.bare.mtop-1-em,
+.reveal img.mtop-1-em,
+.reveal img.bare.mtop-1-em,
+.reveal .bare img.mtop-1-em,
+.reveal .bare img.bare.mtop-1-em,
 .reveal section.mtop-1-em,
 .reveal section.bare.mtop-1-em {
   margin-top: 1em;
@@ -1310,6 +1318,10 @@ font-weight: bold;
 .reveal pre.bare.mtop-2-em,
 .reveal .bare pre.mtop-2-em,
 .reveal .bare pre.bare.mtop-2-em,
+.reveal img.mtop-2-em,
+.reveal img.bare.mtop-2-em,
+.reveal .bare img.mtop-2-em,
+.reveal .bare img.bare.mtop-2-em,
 .reveal section.mtop-2-em,
 .reveal section.bare.mtop-2-em {
   margin-top: 2em;
@@ -1326,6 +1338,10 @@ font-weight: bold;
 .reveal pre.bare.mtop-3-em,
 .reveal .bare pre.mtop-3-em,
 .reveal .bare pre.bare.mtop-3-em,
+.reveal img.mtop-3-em,
+.reveal img.bare.mtop-3-em,
+.reveal .bare img.mtop-3-em,
+.reveal .bare img.bare.mtop-3-em,
 .reveal section.mtop-3-em,
 .reveal section.bare.mtop-3-em {
   margin-top: 3em;
@@ -1342,6 +1358,10 @@ font-weight: bold;
 .reveal pre.bare.mbot-half-em,
 .reveal .bare pre.mbot-half-em,
 .reveal .bare pre.bare.mbot-half-em,
+.reveal img.mbot-half-em,
+.reveal img.bare.mbot-half-em,
+.reveal .bare img.mbot-half-em,
+.reveal .bare img.bare.mbot-half-em,
 .reveal section.mbot-half-em,
 .reveal section.bare.mbot-half-em {
   margin-bottom: 0.5em;
@@ -1356,6 +1376,12 @@ font-weight: bold;
 .reveal div.bare.mbot-1-em,
 .reveal pre.mbot-1-em,
 .reveal pre.bare.mbot-1-em,
+.reveal .bare pre.mbot-1-em,
+.reveal .bare pre.bare.mbot-1-em,
+.reveal img.mbot-1-em,
+.reveal img.bare.mbot-1-em,
+.reveal .bare img.mbot-1-em,
+.reveal .bare img.bare.mbot-1-em,
 .reveal section.mbot-1-em,
 .reveal section.bare.mbot-1-em {
   margin-bottom: 1em;
@@ -1370,6 +1396,12 @@ font-weight: bold;
 .reveal div.bare.mbot-2-em,
 .reveal pre.mbot-2-em,
 .reveal pre.bare.mbot-2-em,
+.reveal .bare pre.mbot-2-em,
+.reveal .bare pre.bare.mbot-2-em,
+.reveal img.mbot-2-em,
+.reveal img.bare.mbot-2-em,
+.reveal .bare img.mbot-2-em,
+.reveal .bare img.bare.mbot-2-em,
 .reveal section.mbot-2-em,
 .reveal section.bare.mbot-2-em {
   margin-bottom: 2em;
@@ -1382,8 +1414,14 @@ font-weight: bold;
 .reveal h5.mbot-3-em,
 .reveal div.mbot-3-em,
 .reveal div.bare.mbot-3-em,
-.reveal pre.mbot-3-em,
-.reveal pre.bare.mbot-3-em,
+.reveal pre.mbot-2-em,
+.reveal pre.bare.mbot-2-em,
+.reveal .bare pre.mbot-2-em,
+.reveal .bare pre.bare.mbot-2-em,
+.reveal img.mbot-2-em,
+.reveal img.bare.mbot-2-em,
+.reveal .bare img.mbot-2-em,
+.reveal .bare img.bare.mbot-2-em,
 .reveal section.mbot-3-em,
 .reveal section.bare.mbot-3-em {
   margin-bottom: 3em;
@@ -1393,6 +1431,12 @@ font-weight: bold;
 .reveal div.bare.ptop-half-em,
 .reveal pre.ptop-half-em,
 .reveal pre.bare.ptop-half-em,
+.reveal .bare pre.ptop-half-em,
+.reveal .bare pre.bare.ptop-half-em,
+.reveal img.ptop-half-em,
+.reveal img.bare.ptop-half-em,
+.reveal .bare img.ptop-half-em,
+.reveal .bare img.bare.ptop-half-em,
 .reveal section.ptop-half-em,
 .reveal section.bare.ptop-half-em {
   padding-top: 0.5em;
@@ -1402,6 +1446,12 @@ font-weight: bold;
 .reveal div.bare.ptop-1-em,
 .reveal pre.ptop-1-em,
 .reveal pre.bare.ptop-1-em,
+.reveal .bare pre.ptop-1-em,
+.reveal .bare pre.bare.ptop-1-em,
+.reveal img.ptop-1-em,
+.reveal img.bare.ptop-1-em,
+.reveal .bare img.ptop-1-em,
+.reveal .bare img.bare.ptop-1-em,
 .reveal section.ptop-1-em,
 .reveal section.bare.ptop-1-em {
   padding-top: 1em;
@@ -1411,6 +1461,12 @@ font-weight: bold;
 .reveal div.bare.ptop-2-em,
 .reveal pre.ptop-2-em,
 .reveal pre.bare.ptop-2-em,
+.reveal .bare pre.ptop-2-em,
+.reveal .bare pre.bare.ptop-2-em,
+.reveal img.ptop-2-em,
+.reveal img.bare.ptop-2-em,
+.reveal .bare img.ptop-2-em,
+.reveal .bare img.bare.ptop-2-em,
 .reveal section.ptop-2-em,
 .reveal section.bare.ptop-2-em {
   padding-top: 2em;
@@ -1420,6 +1476,12 @@ font-weight: bold;
 .reveal div.bare.ptop-3-em,
 .reveal pre.ptop-3-em,
 .reveal pre.bare.ptop-3-em,
+.reveal .bare pre.ptop-3-em,
+.reveal .bare pre.bare.ptop-3-em,
+.reveal img.ptop-3-em,
+.reveal img.bare.ptop-3-em,
+.reveal .bare img.ptop-3-em,
+.reveal .bare img.bare.ptop-3-em,
 .reveal section.ptop-3-em,
 .reveal section.bare.ptop-3-em {
   padding-top: 3em;
@@ -1429,6 +1491,12 @@ font-weight: bold;
 .reveal div.bare.pbot-half-em,
 .reveal pre.pbot-half-em,
 .reveal pre.bare.pbot-half-em,
+.reveal .bare pre.pbot-half-em,
+.reveal .bare pre.bare.pbot-half-em,
+.reveal img.pbot-half-em,
+.reveal img.bare.pbot-half-em,
+.reveal .bare img.pbot-half-em,
+.reveal .bare img.bare.pbot-half-em,
 .reveal section.pbot-half-em,
 .reveal section.bare.pbot-half-em {
   padding-bottom: 0.5em;
@@ -1438,6 +1506,12 @@ font-weight: bold;
 .reveal div.bare.pbot-1-em,
 .reveal pre.pbot-1-em,
 .reveal pre.bare.pbot-1-em,
+.reveal .bare pre.pbot-1-em,
+.reveal .bare pre.bare.pbot-1-em,
+.reveal img.pbot-1-em,
+.reveal img.bare.pbot-1-em,
+.reveal .bare img.pbot-1-em,
+.reveal .bare img.bare.pbot-1-em,
 .reveal section.pbot-1-em,
 .reveal section.bare.pbot-1-em {
   padding-bottom: 1em;
@@ -1447,6 +1521,12 @@ font-weight: bold;
 .reveal div.bare.pbot-2-em,
 .reveal pre.pbot-2-em,
 .reveal pre.bare.pbot-2-em,
+.reveal .bare pre.pbot-2-em,
+.reveal .bare pre.bare.pbot-2-em,
+.reveal img.pbot-2-em,
+.reveal img.bare.pbot-2-em,
+.reveal .bare img.pbot-2-em,
+.reveal .bare img.bare.pbot-2-em,
 .reveal section.pbot-2-em,
 .reveal section.bare.pbot-2-em {
   padding-bottom: 2em;
@@ -1456,6 +1536,12 @@ font-weight: bold;
 .reveal div.bare.pbot-3-em,
 .reveal pre.pbot-3-em,
 .reveal pre.bare.pbot-3-em,
+.reveal .bare pre.pbot-3-em,
+.reveal .bare pre.bare.pbot-3-em,
+.reveal img.pbot-3-em,
+.reveal img.bare.pbot-3-em,
+.reveal .bare img.pbot-3-em,
+.reveal .bare img.bare.pbot-3-em,
 .reveal section.pbot-3-em,
 .reveal section.bare.pbot-3-em {
   padding-bottom: 3em;
@@ -1728,6 +1814,16 @@ font-weight: bold;
 .reveal .medbluetext a:link,
 .reveal .medbluetext a:visited {
   color: $medblue;
+}
+
+.reveal .t100 h1,
+.reveal .hundred h1 {
+  font-size: 1.00 * 2.0em;
+}
+
+.reveal .t100 h2,
+.reveal .hundred h2 {
+  font-size: 1.00 * 1.5em;
 }
 
 .reveal .t95 h1,
