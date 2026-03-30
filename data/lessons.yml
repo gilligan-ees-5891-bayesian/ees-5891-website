@@ -111,6 +111,7 @@ lessons:
 - date: '2026-03-30'
   title: More multilevel models
   reading: /reading/reading_20
+  lecture: /slides/class_20
 - date: '2026-04-01'
   title: Messy data
   reading: /reading/reading_21
