@@ -113,31 +113,30 @@ lessons:
   reading: /reading/reading_20
   lecture: /slides/class_20
 - date: '2026-04-01'
+  title: Class canceled
+- date: '2026-04-06'
   title: Messy data
   reading: /reading/reading_21
   lecture: /slides/class_21
-- date: '2026-04-06'
+- date: '2026-04-08'
   title: Review of Bayesian Regression
   reading: /reading/reading_22
-- date: '2026-04-08'
+- date: '2026-04-13'
   title: Generalized Linear Madness
   reading: /reading/reading_23
-- date: '2026-04-09'
+- date: '2026-04-14'
   title: 'Project: Progress report'
   assignment: /assignment/project_draft
-- date: '2026-04-13'
+- date: '2026-04-15'
   title: Differential Equations
   reading: /reading/reading_24
-- date: '2026-04-15'
+- date: '2026-04-20'
   title: Diagnosing model output
   reading: /reading/reading_25
-- date: '2026-04-20'
-  title: STAN Hamiltonian Monte Carlo sampler
-  reading: /reading/reading_26
-  assignment: /assignment/project_presentation
 - date: '2026-04-22'
   title: Project presentations
   reading: /reading/reading_27
+  assignment: /assignment/project_presentation
 - date: '2026-04-27'
   title: 'Project: Research project report'
   assignment: /assignment/project_report
