@@ -121,6 +121,7 @@ lessons:
 - date: '2026-04-08'
   title: Review of Bayesian Regression
   reading: /reading/reading_22
+  lecture: /slides/class_22
 - date: '2026-04-13'
   title: Generalized Linear Madness
   reading: /reading/reading_23
